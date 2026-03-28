@@ -86,7 +86,7 @@ http://localhost:8000/multi-llm-2k.html
 
 ## Структура проекта
 
-- [multi-llm-2k.html](multi-llm-2k.html) — основной интерфейс приложения
+- [LLM Compare.html](LLM Compare.html) — основной интерфейс приложения
 - [README.md](README.md) — описание проекта
 
 ## Для кого это
