@@ -460,6 +460,11 @@ console.log(data.choices[0].message.content);</pre>
                         <td><a href="https://huggingface.co/settings/tokens" target="_blank">huggingface.co</a></td>
                         <td><code class="inline-code">hf_...</code></td>
                     </tr>
+                    <tr>
+                        <td>OpenRouter</td>
+                        <td><a href="https://openrouter.ai/keys" target="_blank">openrouter.ai</a></td>
+                        <td><code class="inline-code">sk-or-...</code></td>
+                    </tr>
                 </tbody>
             </table>
 
@@ -1060,6 +1065,85 @@ data: [DONE]</pre>
             <div class="info-box warning">
                 <div class="info-box-title">⚠️ Бесплатный тариф HF</div>
                 <p>Бесплатный Inference API имеет ограничения: крупные модели могут быть недоступны или работать медленно. Для стабильного использования рассмотрите <a href="https://huggingface.co/pricing" target="_blank">PRO-тариф</a> или Serverless Inference.</p>
+            </div>
+        </section>
+
+        <!-- OpenRouter -->
+        <section id="openrouter">
+            <h3>🔀 OpenRouter</h3>
+            <p>OpenRouter — агрегатор API, предоставляющий доступ к 300+ моделям от разных провайдеров через единый интерфейс, совместимый с OpenAI API. Один ключ — все модели.</p>
+
+            <div class="card">
+                <h4 style="margin-top:0;">Пример запроса к OpenRouter</h4>
+                <div class="code-block-wrapper">
+                    <button class="code-copy-btn" onclick="copySingleCode(this)">
+                        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Копировать
+                    </button>
+                    <pre class="code-block">curl https://openrouter.ai/api/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk-or-YOUR_TOKEN" \
+  -d '{
+    "model": "anthropic/claude-3.5-sonnet",
+    "messages": [{"role": "user", "content": "Привет!"}]
+  }'</pre>
+                </div>
+            </div>
+
+            <h4>Преимущества OpenRouter</h4>
+            <ul>
+                <li>Один API ключ для доступа к моделям от OpenAI, Anthropic, Google, Meta, Mistral и других</li>
+                <li>Автоматический fallback между провайдерами</li>
+                <li>Единый биллинг и отслеживание расходов</li>
+                <li>Бесплатные модели доступны без привязки карты</li>
+            </ul>
+
+            <h4>Популярные модели на OpenRouter</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Модель</th>
+                        <th>ID</th>
+                        <th>Провайдер</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Claude 3.5 Sonnet</td>
+                        <td><code class="inline-code">anthropic/claude-3.5-sonnet</code></td>
+                        <td>Anthropic</td>
+                    </tr>
+                    <tr>
+                        <td>GPT-4o</td>
+                        <td><code class="inline-code">openai/gpt-4o</code></td>
+                        <td>OpenAI</td>
+                    </tr>
+                    <tr>
+                        <td>Gemini Pro 1.5</td>
+                        <td><code class="inline-code">google/gemini-pro-1.5</code></td>
+                        <td>Google</td>
+                    </tr>
+                    <tr>
+                        <td>Llama 3.1 405B</td>
+                        <td><code class="inline-code">meta-llama/llama-3.1-405b-instruct</code></td>
+                        <td>Meta</td>
+                    </tr>
+                    <tr>
+                        <td>Mistral Large</td>
+                        <td><code class="inline-code">mistralai/mistral-large</code></td>
+                        <td>Mistral</td>
+                    </tr>
+                    <tr>
+                        <td>DeepSeek V3</td>
+                        <td><code class="inline-code">deepseek/deepseek-chat</code></td>
+                        <td>DeepSeek</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box">
+                <div class="info-box-title">💡 Полный список моделей</div>
+                <p>Актуальный список из 300+ моделей доступен на <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. В приложении список загружается автоматически при проверке API ключа.</p>
             </div>
         </section>
 
