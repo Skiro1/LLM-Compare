@@ -1364,7 +1364,7 @@
                     <span id="step1Title">Шаг 1: Ваш сырой запрос</span>
                 </h2>
                 <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Введите ваш исходный вопрос или задачу</p>
-                <textarea id="rawPrompt" class="textarea" placeholder="Например: Как работает квантовая запутанность?"></textarea>
+                <textarea id="rawPrompt" class="textarea" placeholder="Например: Как работает квантовая запутанность?" oninput="autoSave()"></textarea>
                 <div class="step-actions flex justify-between items-center mt-4">
                     <span id="modelsCount" class="text-base text-zinc-500"></span>
                     <button class="btn btn-primary" onclick="setStep(2)">
@@ -1452,7 +1452,7 @@
                     </span>
                 </h2>
                 <p class="text-zinc-500 text-sm mb-4">Вставьте сюда ответ от ИИ (улучшенный промт)</p>
-                <textarea id="improvedPrompt" class="textarea" placeholder="Вставьте улучшенный промт сюда..."></textarea>
+                <textarea id="improvedPrompt" class="textarea" placeholder="Вставьте улучшенный промт сюда..." oninput="autoSave()"></textarea>
                 <div class="step-actions flex justify-between mt-4">
                     <button class="btn btn-outline" onclick="setStep(1)">Назад</button>
                     <button class="btn btn-primary" onclick="setStep(3)">
@@ -1568,7 +1568,7 @@
                     <div id="hf-aggregator-status" class="mt-2 text-xs hidden"></div>
                 </div>
 
-                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Вставьте синтезированный ответ..."></textarea>
+                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Вставьте синтезированный ответ..." oninput="autoSave()"></textarea></textarea>
                 <div class="step-actions flex justify-between mt-4">
                     <button class="btn btn-outline" onclick="setStep(3)">Назад</button>
                     <button class="btn btn-primary" onclick="setStep(5)">
@@ -1866,6 +1866,11 @@
                                     <div class="text-xs font-semibold">Hugging Face</div>
                                     <div class="text-xs text-zinc-400 mt-0.5">Inference API</div>
                                 </label>
+                                <label id="lms-provider-card-openrouter" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('openrouter')">
+                                    <div class="text-lg mb-1">🔀</div>
+                                    <div class="text-xs font-semibold">OpenRouter</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Ручной ввод</div>
+                                </label>
                             </div>
 
                             <input type="hidden" id="lmsProviderInput" value="lmstudio">
@@ -1876,7 +1881,7 @@
                         <div class="card" id="lms-apikey-card" style="margin:0; padding:1.25rem; display:none;">
                             <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API ключ</label>
                             <div class="relative">
-                                <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…">
+                                <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…" oninput="saveCurrentProviderCredentials()">
                                 <button type="button" onclick="toggleApiKeyVisibility()" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Показать/скрыть">
                                     <svg id="eye-icon-closed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
                                     <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
@@ -1928,7 +1933,7 @@
                                     Обновить
                                 </button>
                             </div>
-                            <select id="lmsModelSelect" class="input">
+                            <select id="lmsModelSelect" class="input" onchange="saveCurrentProviderCredentials()">
                                 <option value="">— Выберите провайдера и проверьте подключение —</option>
                             </select>
                             <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Выберите модель из списка.</p>
@@ -1937,7 +1942,7 @@
                         <!-- Model input (manual for providers like Hugging Face) -->
                         <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
                             <label class="block text-sm font-medium mb-2">Модель</label>
-                            <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct">
+                            <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct" oninput="saveCurrentProviderCredentials()">
                             <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Укажите ID модели вручную.</p>
                         </div>
 
@@ -2120,7 +2125,17 @@
 Определи, что просит пользователь:
 - УЛУЧШЕНИЕ ПРОМТА: «улучши этот промт», «сделай лучше», «оптимизируй», «перепиши» — тогда переформулируй и улучши промт пользователя.
 - СОЗДАНИЕ ПРОМТА: «создай промт», «напиши промт», «сделай промт», «нужен промт для» — тогда создай готовый промт для конкретной задачи.
-- ОБЫЧНЫЙ ЗАПРОС: всё остальное — тогда создай промт для ИИ, который выполнит задачу пользователя.
+- ОБЫЧНЫЙ ЗАПРОС: всё остальное — определи по контексту:
+  - Если запрос похож на прямой вопрос («как сделать X», «почему Y», «что такое Z», рецепты, инструкции, факты) — это запрос на получение ответа. Сконструируй промт для ИИ, который даст развёрнутый, полезный ответ на этот вопрос.
+  - Если запрос похож на задачу для ИИ-системы (сложный анализ, генерация контента, написание кода, сравнение концепций) — сконструируй промт-инструкцию для ИИ-исполнителя.
+
+ПРИМЕРЫ РАЗЛИЧЕНИЯ:
+  Вход: «Как сварить борщ?» → Это прямой вопрос. Создай промт для ИИ-кулинара, который даст подробный рецепт с ингредиентами, пропорциями и пошаговыми инструкциями.
+  Вход: «Сделай мне промт для генерации рецептов» → Это мета-запрос. Создай промт-инструкцию для ИИ, который будет генерировать рецепты.
+  Вход: «Объясни квантовую запутанность» → Это прямой вопрос. Создай промт для ИИ-физика, который объяснит тему доступно с аналогиями.
+  Вход: «Напиши Python-скрипт для парсинга сайтов» → Это прямой запрос на действие. Создай промт для ИИ-программиста, который напишет работающий код с комментариями.
+
+Не превращай простые вопросы в мета-инструкции. Если пользователь спрашивает «как» или «что» — он хочет ответ, а не промт для получения ответа.
 
 2. Обработка мета-запросов (создание промтов)
 
@@ -2181,7 +2196,7 @@
 
 - Выводи ТОЛЬКО готовый промт.
 - Без объяснений, комментариев и мета-текста.
-- Пиши от первого лица (как будто пользователь сам формулирует запрос).
+- Пиши от первого лица (как будто пользователь сам формулирует запрос). Не превращай роль в пафосное введение — «Ты — специалист по сетям» достаточно, «Ты — величайший инженер с 30-летним опытом и глубочайшим пониманием...» — избыточно. Роль должна быть конкретной и уместной, а не театральной.
 - Сохраняй язык исходного запроса (для мета-запросов — язык, на котором просили создать промт).
 - Не искажай исходное намерение.
 - Если исходный запрос уже качественный — улучшай минимально, не усложняй.
@@ -2190,12 +2205,28 @@
 - Писать вступления вроде «Вот улучшенный промт», «Я оптимизировал ваш запрос» и т.п.
 - Писать заключения или пояснения о внесённых изменениях.
 - Упоминать процесс своей работы или методологию.
+- Использовать избитые клише и пустые вводные фразы: «In the ever-evolving landscape...», «As a leading expert...», «В современном мире...», «В наше время...», «Необходимо отметить, что...» и аналогичный шлак. Каждое слово должно нести смысл.
+
+ДОПОЛНИТЕЛЬНО (рекомендация):
+Если задача предполагает работу с внешними данными (текст для перевода, код для рефакторинга, список для анализа и т.д.), используй в промте маркер-плейсхолдер [ВСТАВЬТЕ ТЕКСТ ЗДЕСЬ] (или аналогичный по смыслу: [ВСТАВЬТЕ КОД], [УКАЖИТЕ ДАННЫЕ]), чтобы пользователь точно знал, куда подставлять свои данные. Не применяй плейсхолдер, если задача самодостаточна и не требует внешнего ввода.
 
 
 ФИНАЛЬНЫЙ ПРИНЦИП
 
 Ты не переписываешь текст — ты проектируешь инструмент мышления для ИИ.
 Каждое слово в промте должно повышать точность, предсказуемость и качество результата.
+
+
+ПРИМЕРЫ ТРАНСФОРМАЦИИ (для понимания логики, не для дословного копирования)
+
+Вход: «Переведи текст на английский»
+Выход: «Ты — профессиональный переводчик с опытом в технических и художественных текстах. Переведи следующий текст на английский язык. Сохрани стиль, тон и нюансы оригинала. Адаптируй идиомы и культурные отсылки для англоязычной аудитории, не теряя смысла. Если в тексте есть термины, которые лучше оставить без перевода — оставь их в оригинале в скобках.»
+
+Вход: «Напиши код сортировки»
+Выход: «Ты — опытный разработчик. Напиши на Python функцию сортировки массива. Используй алгоритм быстрой сортировки (quicksort). Функция должна: принимать список чисел, возвращать отсортированный список, обрабатывать пустой список и список из одного элемента. Добавь docstring с описанием параметров и возвращаемого значения. Приведи 2–3 примера вызова с ожидаемым результатом.»
+
+Вход: «Как работает DNS?»
+Выход: «Ты — сетевой инженер с 10-летним опытом. Объясни, как работает DNS (Domain Name System), для человека без технического образования. Используй аналогию из повседневной жизни. Покрой: зачем нужен DNS, что происходит когда пользователь вводит адрес в браузере, какие основные компоненты участвуют в процессе, и почему DNS-кэширование ускоряет загрузку. Ограничь ответ 300 словами.»
 
 Жди описание задачи от пользователя.`;
 
@@ -2234,6 +2265,7 @@
   - отсутствие явных ошибок,
   - полноту и аккуратность формулировок.
 - Если надёжно выбрать нельзя — честно укажи на неопределённость.
+- Если модели приводят разные цифры, даты, имена или фактические утверждения — сначала попытайся верифицировать их через свои внутренние знания. Если проверяемый факт тебе известен — используй корректный вариант без оговорок. Если данные непроверяемы или ты в них не уверен — выдели противоречивые данные в отдельную сравнительную таблицу (Факт | Модель 1 | Модель 2 | Пояснение), чтобы пользователь сам оценил расхождение.
 - Если один из ответов содержит явную ошибку — не включай её в финальный ответ.
 - Если ошибка может быть полезна как предостережение — упомяни её кратко как распространённое заблуждение, не повторяя ошибочную формулировку.
 
@@ -2245,6 +2277,8 @@
 4. Синтез финального ответа
 - Объедини лучшие идеи, объяснения и примеры из всех ответов.
 - Переформулируй материал своими словами, не копируя дословно исходные ответы.
+- Сохраняй специфические термины, названия, единицы измерения и формулировки из исходных ответов, если они точны и важны для смысла. Не заменяй их упрощёнными аналогами.
+- Если в ответах даны разные реализации кода — выбери наиболее оптимизированную и безопасную, объединяя лучшие практики из разных вариантов (например, обработку исключений из одного ответа и более эффективный алгоритм из другого). Не оставляй дублирующиеся реализации.
 - Удали повторы, воду, второстепенные детали и несущественные отступления.
 - Сохрани точность, логику и полноту.
 - Не добавляй новых фактов, если они не следуют из исходных ответов или не являются очевидным общеизвестным знанием.
@@ -2263,6 +2297,7 @@
 ТРЕБОВАНИЯ К КАЧЕСТВУ
 
 - Ясный, естественный, человеческий язык.
+- Единый стиль на всём протяжении ответа. Если исходные ответы написаны в разных тонах (один официально, другой с юмором, третий разговорно) — приведи итоговый текст к нейтрально-деловому тону, допуская лёгкую дружелюбность, но без стилистических перепадов.
 - Без канцелярита, шаблонных фраз и механических повторов.
 - Без дословного копирования исходных ответов.
 - Без вымышленных фактов и смысловых искажений.
@@ -2640,6 +2675,9 @@
             useFor:   'both'        // 'prompt'|'synthesis'|'both'
         };
 
+        // Per-provider credentials (apiKey + model saved separately for each provider)
+        let providerCredentials = {};
+
         // ═══════════════════════════════════════════════════════════════
         // APP LOGGING SYSTEM
         // ═══════════════════════════════════════════════════════════════
@@ -2871,6 +2909,20 @@
                 chatApi:     'openai',
                 models:      null,
                 manualModel: true,
+                cloudCheck:  true,
+            },
+            openrouter: {
+                label:       'OpenRouter',
+                isCloud:     true,
+                defaultUrl:  'https://openrouter.ai/api',
+                hint:        'Получите ключ на <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Укажите модель вручную, например: <code>anthropic/claude-3.5-sonnet</code>',
+                apikeyHint:  'Ключ начинается с <code>sk-or-…</code>',
+                apikeyLabel: 'OpenRouter API ключ',
+                modelsApi:   'manual',
+                chatApi:     'openai',
+                models:      null,
+                manualModel: true,
+                cloudCheck:  true,
             },
             google: {
                 label:       'Google (Gemini)',
@@ -2949,11 +3001,11 @@
 
             // Show/hide URL card
             const urlCard = document.getElementById('lms-url-card');
-            if (urlCard) urlCard.style.display = (isCloud && !isManual) ? 'none' : '';
+            if (urlCard) urlCard.style.display = (isCloud && (!isManual || info.cloudCheck)) ? 'none' : '';
 
             // Show/hide cloud check card
             const cloudCard = document.getElementById('lms-cloud-check-card');
-            if (cloudCard) cloudCard.style.display = (isCloud && !isManual) ? '' : 'none';
+            if (cloudCard) cloudCard.style.display = (isCloud && (!isManual || info.cloudCheck)) ? '' : 'none';
 
             // Show/hide model select vs manual input
             const selectCard = document.getElementById('lms-model-select-card');
@@ -2991,6 +3043,23 @@
 
         function selectLmsProvider(provider) {
             const input = document.getElementById('lmsProviderInput');
+            const prevProvider = input?.value || lmStudioSettings.provider;
+
+            // Save current provider credentials before switching
+            if (prevProvider && prevProvider !== provider) {
+                const apiKeyInput = document.getElementById('lmsApiKeyInput');
+                const modelSelect = document.getElementById('lmsModelSelect');
+                const manualInput = document.getElementById('lmsModelManualInput');
+                const urlInput    = document.getElementById('lmsUrlInput');
+                const prevInfo    = getProviderInfo(prevProvider);
+                providerCredentials[prevProvider] = {
+                    apiKey: apiKeyInput?.value || '',
+                    model:  (prevInfo.manualModel ? manualInput?.value : modelSelect?.value) || '',
+                    url:    urlInput?.value || ''
+                };
+                saveLmsSettings();
+            }
+
             if (input) input.value = provider;
 
             // Update card highlights
@@ -3000,19 +3069,20 @@
             });
 
             const info = getProviderInfo(provider);
+            const saved = providerCredentials[provider] || {};
 
             // Update URL field
             const urlInput = document.getElementById('lmsUrlInput');
             if (urlInput) {
                 if (!info.isCloud) {
-                    // Only auto-fill if field is empty or had another provider's default
-                    const allDefaults = Object.values(LMS_PROVIDERS).map(p => p.defaultUrl);
-                    if (!urlInput.value || allDefaults.includes(urlInput.value)) {
-                        urlInput.value = info.defaultUrl;
-                    }
+                    urlInput.value = saved.url || info.defaultUrl;
                     urlInput.placeholder = info.defaultUrl;
                 }
             }
+
+            // Load saved API key
+            const apiKeyInput = document.getElementById('lmsApiKeyInput');
+            if (apiKeyInput) apiKeyInput.value = saved.apiKey || '';
 
             // Update hints
             const serverHint = document.getElementById('lms-server-hint');
@@ -3020,7 +3090,7 @@
 
             const providerHint = document.getElementById('lms-provider-hint');
             if (providerHint) {
-                const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', deepseek:'🔮', anthropic:'🧠', google:'🌟', groq:'⚡', mistral:'🌀', huggingface:'🤗' };
+                const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', deepseek:'🔮', anthropic:'🧠', google:'🌟', groq:'⚡', mistral:'🌀', huggingface:'🤗', openrouter:'🔀' };
                 providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> выбран${info.isCloud ? ` · <span style="color:var(--text-muted)">требуется API ключ</span>` : ''}`;
             }
 
@@ -3038,10 +3108,32 @@
             // For hardcoded-model providers, pre-populate list immediately
             if (info.modelsApi === 'hardcoded' && info.models) {
                 populateLmsModelSelect(info.models);
+                if (saved.model) {
+                    const modelSelect = document.getElementById('lmsModelSelect');
+                    if (modelSelect) modelSelect.value = saved.model;
+                }
+            } else if (saved.model) {
+                // Show saved model even before refresh
+                const modelSelect = document.getElementById('lmsModelSelect');
+                if (modelSelect) {
+                    modelSelect.innerHTML = `<option value="${escapeHtml(saved.model)}" selected>${escapeHtml(saved.model)}</option><option value="">— Обновить список —</option>`;
+                }
             } else {
                 const modelSelect = document.getElementById('lmsModelSelect');
                 if (modelSelect) modelSelect.innerHTML = '<option value="">— Проверьте подключение —</option>';
             }
+
+            // Restore manual model input
+            if (info.manualModel && saved.model) {
+                const manualInput = document.getElementById('lmsModelManualInput');
+                if (manualInput) manualInput.value = saved.model;
+            }
+
+            // Update global settings to match
+            lmStudioSettings.provider = provider;
+            lmStudioSettings.apiKey   = saved.apiKey || '';
+            lmStudioSettings.model    = saved.model || '';
+            lmStudioSettings.url      = saved.url || info.defaultUrl;
         }
 
         function loadLmsSettings() {
@@ -3049,13 +3141,50 @@
                 const raw = localStorage.getItem('multillm_lmstudio');
                 if (raw) lmStudioSettings = { ...lmStudioSettings, ...JSON.parse(raw) };
                 if (!lmStudioSettings.provider) lmStudioSettings.provider = 'lmstudio';
+
+                // Load per-provider credentials
+                const credRaw = localStorage.getItem('multillm_provider_credentials');
+                if (credRaw) providerCredentials = JSON.parse(credRaw);
+
+                // Migrate old single-key format to per-provider on first load
+                if (lmStudioSettings.apiKey && !providerCredentials[lmStudioSettings.provider]) {
+                    providerCredentials[lmStudioSettings.provider] = {
+                        apiKey: lmStudioSettings.apiKey,
+                        model:  lmStudioSettings.model || '',
+                        url:    lmStudioSettings.url || ''
+                    };
+                }
             } catch(e) { appLog('error', 'Ошибка загрузки настроек провайдера', e.message); }
         }
 
         function saveLmsSettings() {
             try {
                 localStorage.setItem('multillm_lmstudio', JSON.stringify(lmStudioSettings));
+                localStorage.setItem('multillm_provider_credentials', JSON.stringify(providerCredentials));
             } catch(e) { appLog('error', 'Ошибка сохранения настроек провайдера', e.message); }
+        }
+
+        function saveCurrentProviderCredentials() {
+            const provider    = document.getElementById('lmsProviderInput')?.value || lmStudioSettings.provider;
+            const info        = getProviderInfo(provider);
+            const apiKeyInput = document.getElementById('lmsApiKeyInput');
+            const modelSelect = document.getElementById('lmsModelSelect');
+            const manualInput = document.getElementById('lmsModelManualInput');
+            const urlInput    = document.getElementById('lmsUrlInput');
+
+            providerCredentials[provider] = {
+                apiKey: apiKeyInput?.value || '',
+                model:  (info.manualModel ? manualInput?.value : modelSelect?.value) || '',
+                url:    urlInput?.value || ''
+            };
+
+            // Also update global settings
+            lmStudioSettings.provider = provider;
+            lmStudioSettings.apiKey   = providerCredentials[provider].apiKey;
+            lmStudioSettings.model    = providerCredentials[provider].model;
+            lmStudioSettings.url      = providerCredentials[provider].url;
+
+            saveLmsSettings();
         }
 
         function onLmsToggleChange() {
@@ -3084,16 +3213,17 @@
                 if (card) card.classList.toggle('selected', p === provider);
             });
 
-            const info = getProviderInfo(provider);
+            const info   = getProviderInfo(provider);
+            const saved  = providerCredentials[provider] || {};
 
             // URL
             if (urlInput) {
-                urlInput.value       = lmStudioSettings.url || info.defaultUrl;
+                urlInput.value       = saved.url || lmStudioSettings.url || info.defaultUrl;
                 urlInput.placeholder = info.defaultUrl;
             }
 
-            // API Key
-            if (apiKeyInput) apiKeyInput.value = lmStudioSettings.apiKey || '';
+            // API Key (from per-provider credentials)
+            if (apiKeyInput) apiKeyInput.value = saved.apiKey || '';
 
             // Hints
             const serverHint = document.getElementById('lms-server-hint');
@@ -3104,7 +3234,7 @@
 
             const providerHint = document.getElementById('lms-provider-hint');
             if (providerHint) {
-                const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', anthropic:'🧠', google:'🌟' };
+                const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', deepseek:'🔮', anthropic:'🧠', google:'🌟', groq:'⚡', mistral:'🌀', huggingface:'🤗', openrouter:'🔀' };
                 providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> выбран${info.isCloud ? ` · <span style="color:var(--text-muted)">требуется API ключ</span>` : ''}`;
             }
 
@@ -3115,16 +3245,22 @@
             const radio = document.querySelector(`input[name="lmsUseFor"][value="${lmStudioSettings.useFor || 'both'}"]`);
             if (radio) radio.checked = true;
 
-            // Populate models
+            // Populate models (from per-provider credentials)
+            const savedModel = saved.model || '';
             if (info.modelsApi === 'hardcoded' && info.models) {
                 populateLmsModelSelect(info.models);
-                if (lmStudioSettings.model && modelSelect) {
-                    const opt = modelSelect.querySelector(`option[value="${lmStudioSettings.model}"]`);
-                    if (opt) modelSelect.value = lmStudioSettings.model;
+                if (savedModel && modelSelect) {
+                    const opt = modelSelect.querySelector(`option[value="${savedModel}"]`);
+                    if (opt) modelSelect.value = savedModel;
                 }
-            } else if (lmStudioSettings.model && modelSelect) {
-                // Add saved model as option so it shows even before refresh
-                modelSelect.innerHTML = `<option value="${escapeHtml(lmStudioSettings.model)}" selected>${escapeHtml(lmStudioSettings.model)}</option><option value="">— Обновить список —</option>`;
+            } else if (savedModel && modelSelect) {
+                modelSelect.innerHTML = `<option value="${escapeHtml(savedModel)}" selected>${escapeHtml(savedModel)}</option><option value="">— Обновить список —</option>`;
+            }
+
+            // Restore manual model input
+            if (info.manualModel && savedModel) {
+                const manualInput = document.getElementById('lmsModelManualInput');
+                if (manualInput) manualInput.value = savedModel;
             }
         }
 
@@ -3245,7 +3381,7 @@
             if (btn) btn.disabled = true;
             appLog('info', `Проверка подключения → ${info.label}${url ? ' (' + url + ')' : ''}`);
 
-            // For manual model providers, just check if API key exists
+            // For manual model providers, check API key
             if (isManual) {
                 if (!apiKey) {
                     setAnyLmsStatus('error', 'Введите API ключ');
@@ -3257,11 +3393,34 @@
                 // Read model from manual input
                 const manualInput = document.getElementById('lmsModelManualInput');
                 const manualModel = manualInput?.value?.trim() || lmStudioSettings.model || '';
+
+                // If cloudCheck is enabled, do a real API test
+                if (info.cloudCheck) {
+                    try {
+                        // OpenRouter has its own auth check endpoint
+                        const testUrl = provider === 'openrouter'
+                            ? `${info.defaultUrl}/v1/auth/key`
+                            : `${info.defaultUrl}/${manualModel || 'meta-llama/Llama-3.3-70B-Instruct'}/v1/models`;
+                        const resp = await fetchWithTimeout(testUrl, {
+                            method: 'GET',
+                            headers: { 'Authorization': `Bearer ${apiKey}` },
+                        }, 8000);
+                        if (resp.status === 401 || resp.status === 403) {
+                            throw new Error('Неверный API ключ');
+                        }
+                        // Any other response means key is valid
+                    } catch(e) {
+                        if (e.message === 'Неверный API ключ') throw e;
+                        // Network errors are ok if URL is wrong — key might still be valid
+                    }
+                }
+
                 if (manualModel) {
                     lmStudioSettings.model = manualModel;
                 }
+                saveCurrentProviderCredentials();
                 setAnyLmsStatus('connected', `Ключ валидный${manualModel ? ' · ' + manualModel : ''}`);
-                appLog('success', `${info.label} — API ключ указан${manualModel ? ', модель: ' + manualModel : ''}`);
+                appLog('success', `${info.label} — API ключ проверен${manualModel ? ', модель: ' + manualModel : ''}`);
                 showSystemNotification(`${info.label} настроен ✓`, 'saved', 2500);
                 if (btn) btn.disabled = false;
                 return manualModel ? [manualModel] : [];
@@ -3270,6 +3429,7 @@
             try {
                 const modelList = await fetchLmsModelList(url, provider, apiKey);
                 const count = modelList.length;
+                saveCurrentProviderCredentials();
                 setAnyLmsStatus('connected', `Подключено · ${count} мод.`);
                 populateLmsModelSelect(modelList);
                 appLog('success', `${info.label} — OK. Моделей: ${count}`, modelList.slice(0,10).join(', '));
