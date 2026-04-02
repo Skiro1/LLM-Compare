@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>API Документация — Multi-LLM</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="lib/tailwindcss.js"></script>
+    <script src="lib/marked.min.js"></script>
     <style>
         :root {
             --bg: #ffffff;
@@ -220,7 +220,7 @@
             </div>
             <div style="display:flex; align-items:center; gap:0.75rem;">
                 <span style="font-size:0.8rem; color:var(--text-muted);">v1.0</span>
-                <button onclick="toggleTheme()" class="theme-btn" id="themeToggle">
+                <button class="theme-btn" id="themeToggle">
                     <svg id="themeIconLight" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg id="themeIconDark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="hidden"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                     <span id="themeText">Тёмная</span>
@@ -230,7 +230,7 @@
     </header>
 
     <!-- Sidebar Toggle (Mobile) -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">
+    <button id="ext-el-1" class="sidebar-toggle" aria-label="Меню">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
 
@@ -238,15 +238,15 @@
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-section">
             <div class="sidebar-title">Начало работы</div>
-            <a href="#overview" class="sidebar-link active" onclick="setActiveLink(this)">
+            <a id="ext-el-2" href="#overview" class="sidebar-link active">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 Обзор
             </a>
-            <a href="#quickstart" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-3" href="#quickstart" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Быстрый старт
             </a>
-            <a href="#authentication" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-4" href="#authentication" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
                 Аутентификация
             </a>
@@ -254,15 +254,15 @@
 
         <div class="sidebar-section">
             <div class="sidebar-title">API Reference</div>
-            <a href="#chat-completions" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-5" href="#chat-completions" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
                 Chat Completions
             </a>
-            <a href="#list-models" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-6" href="#list-models" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 10h16M4 14h16M4 18h16"></path></svg>
                 List Models
             </a>
-            <a href="#retrieve-model" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-7" href="#retrieve-model" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 Retrieve Model
             </a>
@@ -270,19 +270,19 @@
 
         <div class="sidebar-section">
             <div class="sidebar-title">Дополнительно</div>
-            <a href="#streaming" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-8" href="#streaming" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Streaming
             </a>
-            <a href="#errors" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-9" href="#errors" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 Ошибки
             </a>
-            <a href="#rate-limits" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-10" href="#rate-limits" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 Rate Limits
             </a>
-            <a href="#providers" class="sidebar-link" onclick="setActiveLink(this)">
+            <a id="ext-el-11" href="#providers" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
                 Провайдеры
             </a>
@@ -339,13 +339,13 @@
             <p>Вот минимальный пример отправки сообщения модели:</p>
             
             <div class="code-tabs" id="firstRequestTabs">
-                <button class="code-tab active" onclick="switchTab('firstRequest', 'curl', this)">cURL</button>
-                <button class="code-tab" onclick="switchTab('firstRequest', 'python', this)">Python</button>
-                <button class="code-tab" onclick="switchTab('firstRequest', 'javascript', this)">JavaScript</button>
+                <button id="ext-el-12" class="code-tab active">cURL</button>
+                <button id="ext-el-13" class="code-tab">Python</button>
+                <button id="ext-el-14" class="code-tab">JavaScript</button>
             </div>
             <div class="code-block-wrapper with-tabs">
                 <div class="code-lang" id="firstRequestLang">cURL</div>
-                <button class="code-copy-btn" onclick="copyCode('firstRequest')">
+                <button id="ext-el-15" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     Копировать
                 </button>
@@ -484,7 +484,7 @@ console.log(data.choices[0].message.content);</pre>
             <h4>Формат файла для импорта</h4>
             <div class="card">
                 <div class="code-block-wrapper">
-                    <button class="code-copy-btn" onclick="copySingleCode(this)">
+                    <button id="ext-el-16" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         Копировать
                     </button>
@@ -652,11 +652,11 @@ OPENROUTER - sk-or-your-key-here</pre>
 
             <h3>Пример запроса</h3>
             <div class="code-tabs" id="listModelsTabs">
-                <button class="code-tab active" onclick="switchTab('listModels', 'curl', this)">cURL</button>
-                <button class="code-tab" onclick="switchTab('listModels', 'python', this)">Python</button>
+                <button id="ext-el-17" class="code-tab active">cURL</button>
+                <button id="ext-el-18" class="code-tab">Python</button>
             </div>
             <div class="code-block-wrapper with-tabs">
-                <button class="code-copy-btn" onclick="copyCode('listModels')">
+                <button id="ext-el-19" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     Копировать
                 </button>
@@ -718,7 +718,7 @@ for model in models:
 
             <h3>Пример запроса</h3>
             <div class="code-block-wrapper">
-                <button class="code-copy-btn" onclick="copySingleCode(this)">
+                <button id="ext-el-20" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     Копировать
                 </button>
@@ -741,12 +741,12 @@ for model in models:
             <p>Добавьте параметр <code class="inline-code">"stream": true</code> в запрос:</p>
             
             <div class="code-tabs" id="streamingTabs">
-                <button class="code-tab active" onclick="switchTab('streaming', 'curl', this)">cURL</button>
-                <button class="code-tab" onclick="switchTab('streaming', 'python', this)">Python</button>
-                <button class="code-tab" onclick="switchTab('streaming', 'javascript', this)">JavaScript</button>
+                <button id="ext-el-21" class="code-tab active">cURL</button>
+                <button id="ext-el-22" class="code-tab">Python</button>
+                <button id="ext-el-23" class="code-tab">JavaScript</button>
             </div>
             <div class="code-block-wrapper with-tabs">
-                <button class="code-copy-btn" onclick="copyCode('streaming')">
+                <button id="ext-el-24" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     Копировать
                 </button>
@@ -1063,7 +1063,7 @@ data: [DONE]</pre>
             <div class="card">
                 <h4 style="margin-top:0;">Пример запроса к HF</h4>
                 <div class="code-block-wrapper">
-                    <button class="code-copy-btn" onclick="copySingleCode(this)">
+                    <button id="ext-el-25" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         Копировать
                     </button>
@@ -1129,7 +1129,7 @@ data: [DONE]</pre>
             <div class="card">
                 <h4 style="margin-top:0;">Пример запроса к OpenRouter</h4>
                 <div class="code-block-wrapper">
-                    <button class="code-copy-btn" onclick="copySingleCode(this)">
+                    <button id="ext-el-26" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         Копировать
                     </button>
@@ -1210,140 +1210,7 @@ data: [DONE]</pre>
         </div><!-- /main-inner -->
     </main>
 
-    <script>
-        // Theme
-        function initTheme() {
-            const saved = localStorage.getItem('multillm_theme');
-            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            const theme = saved || (prefersDark ? 'dark' : 'light');
-            document.documentElement.setAttribute('data-theme', theme);
-            updateThemeIcon(theme);
-        }
-        function toggleTheme() {
-            const current = document.documentElement.getAttribute('data-theme');
-            const next = current === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('multillm_theme', next);
-            updateThemeIcon(next);
-        }
-        function updateThemeIcon(theme) {
-            const light = document.getElementById('themeIconLight');
-            const dark = document.getElementById('themeIconDark');
-            const text = document.getElementById('themeText');
-            if (theme === 'dark') {
-                light.classList.add('hidden');
-                dark.classList.remove('hidden');
-                text.textContent = 'Светлая';
-            } else {
-                light.classList.remove('hidden');
-                dark.classList.add('hidden');
-                text.textContent = 'Тёмная';
-            }
-        }
-
-        // Sidebar
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('open');
-        }
-
-        function setActiveLink(el) {
-            document.querySelectorAll('.sidebar-link').forEach(link => link.classList.remove('active'));
-            el.classList.add('active');
-            // Close sidebar on mobile
-            if (window.innerWidth <= 1024) {
-                document.getElementById('sidebar').classList.remove('open');
-            }
-        }
-
-        // Active link on scroll
-        function updateActiveLinkOnScroll() {
-            const sections = document.querySelectorAll('section[id]');
-            let current = '';
-            
-            sections.forEach(section => {
-                const sectionTop = section.offsetTop - 100;
-                if (window.scrollY >= sectionTop) {
-                    current = section.getAttribute('id');
-                }
-            });
-
-            document.querySelectorAll('.sidebar-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === '#' + current) {
-                    link.classList.add('active');
-                }
-            });
-        }
-
-        // Code tabs
-        function switchTab(blockId, lang, btn) {
-            // Hide all code blocks for this block
-            const blocks = document.querySelectorAll(`[id^="${blockId}-"]`);
-            blocks.forEach(block => block.classList.add('hidden'));
-            
-            // Show selected block
-            const selected = document.getElementById(`${blockId}-${lang}`);
-            if (selected) selected.classList.remove('hidden');
-            
-            // Update tabs
-            const tabs = btn.parentElement.querySelectorAll('.code-tab');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            btn.classList.add('active');
-            
-            // Update lang label
-            const langLabel = document.getElementById(`${blockId}Lang`);
-            if (langLabel) langLabel.textContent = lang.toUpperCase();
-        }
-
-        // Copy code
-        function copyCode(blockId) {
-            const activeBlock = document.querySelector(`[id^="${blockId}-"]:not(.hidden)`);
-            if (!activeBlock) return;
-            
-            const text = activeBlock.textContent;
-            copyToClipboard(text, blockId);
-        }
-
-        function copySingleCode(btn) {
-            const codeBlock = btn.parentElement.querySelector('.code-block');
-            const text = codeBlock.textContent;
-            
-            navigator.clipboard.writeText(text).then(() => {
-                btn.classList.add('copied');
-                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скопировано!';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Копировать';
-                }, 2000);
-            });
-        }
-
-        function copyToClipboard(text, blockId) {
-            const btn = document.querySelector(`[onclick="copyCode('${blockId}')"]`);
-            
-            navigator.clipboard.writeText(text).then(() => {
-                btn.classList.add('copied');
-                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скопировано!';
-                setTimeout(() => {
-                    btn.classList.remove('copied');
-                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Копировать';
-                }, 2000);
-            });
-        }
-
-        // Sync theme with main app
-        window.addEventListener('storage', (e) => {
-            if (e.key === 'multillm_theme') {
-                document.documentElement.setAttribute('data-theme', e.newValue);
-                updateThemeIcon(e.newValue);
-            }
-        });
-
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            initTheme();
-            window.addEventListener('scroll', updateActiveLinkOnScroll);
-        });
-    </script>
+    
+<script src="docs.js"></script>
 </body>
 </html>

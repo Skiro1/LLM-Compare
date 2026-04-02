@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Compare</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            width: 320px;
+            min-height: 180px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #ffffff;
+            color: #18181b;
+            padding: 1.25rem;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+        .logo {
+            width: 36px;
+            height: 36px;
+            background: #3b82f6;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+        .title-wrap h1 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #18181b;
+            line-height: 1.2;
+        }
+        .title-wrap p {
+            font-size: 0.75rem;
+            color: #71717a;
+            margin-top: 0.15rem;
+        }
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background: #3b82f6;
+            color: white;
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+        }
+        .btn-outline {
+            background: white;
+            color: #18181b;
+            border: 1px solid #e4e4e7;
+            margin-top: 0.5rem;
+        }
+        .btn-outline:hover {
+            background: #f4f4f5;
+        }
+        .btn svg { width: 16px; height: 16px; }
+        .features {
+            margin-top: 0.85rem;
+            padding: 0.7rem;
+            background: #f9fafb;
+            border-radius: 0.5rem;
+            font-size: 0.75rem;
+            color: #52525b;
+            line-height: 1.6;
+        }
+        .features li { margin-left: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">LC</div>
+        <div class="title-wrap">
+            <h1>LLM Compare</h1>
+            <p>Сравнение AI моделей</p>
+        </div>
+    </div>
+
+    <button class="btn btn-primary" id="openApp">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        Открыть приложение
+    </button>
+
+    <button class="btn btn-outline" id="openDocs">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        API Документация
+    </button>
+
+    <ul class="features">
+        <li>OpenAI, Claude, Gemini, DeepSeek, Groq и др.</li>
+        <li>Сравнение и синтез ответов</li>
+        <li>Ручной и API режимы работы</li>
+        <li>Без прокси-сервера!</li>
+    </ul>
+
+    <script src="popup.js"></script>
+</body>
+</html>

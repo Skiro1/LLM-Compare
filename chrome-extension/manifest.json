@@ -1,0 +1,62 @@
+{
+    "manifest_version": 3,
+    "name": "LLM Compare — Сравнение AI моделей",
+    "version": "5.1.0",
+    "description": "Инструмент для сравнения ответов от разных AI-моделей (OpenAI, Claude, Gemini, DeepSeek, Groq и др.) и сборки итогового синтеза.",
+    "author": "LLM Compare",
+    "permissions": [
+        "storage",
+        "activeTab",
+        "tabs"
+    ],
+    "host_permissions": [
+        "https://api.openai.com/*",
+        "https://api.anthropic.com/*",
+        "https://generativelanguage.googleapis.com/*",
+        "https://api.deepseek.com/*",
+        "https://api.groq.com/*",
+        "https://api.mistral.ai/*",
+        "https://api-inference.huggingface.co/*",
+        "https://openrouter.ai/*",
+        "http://localhost:*/*",
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://claude.ai/*",
+        "https://gemini.google.com/*",
+        "https://chat.deepseek.com/*",
+        "https://console.groq.com/*",
+        "https://chat.mistral.ai/*",
+        "https://grok.com/*",
+        "https://www.meta.ai/*",
+        "https://chat.qwen.ai/*",
+        "https://pi.ai/*",
+        "https://kimi.com/*",
+        "https://www.kimi.com/*",
+        "https://ernie.baidu.com/*",
+        "https://alice.yandex.ru/*",
+        "https://giga.chat/*",
+        "https://agent.minimax.io/*",
+        "https://dashboard.cohere.com/*",
+        "https://sarvam.ai/*",
+        "https://chat.sarvam.ai/*",
+        "https://stepfun.com/*",
+        "https://chat.upstage.ai/*",
+        "https://upstage.ai/*"
+    ],
+    "action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+            "16": "icons/icon16.png",
+            "48": "icons/icon48.png",
+            "128": "icons/icon128.png"
+        }
+    },
+    "background": {
+        "service_worker": "background.js"
+    },
+    "icons": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+    }
+}

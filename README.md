@@ -56,6 +56,7 @@ OPENROUTER - sk-or-your-key-here
 ### Интерфейс
 
 - Кнопки `Скопировать и открыть...` для быстрых переходов в веб-чаты
+- Поля для ввода ссылок на чаты прямо на этапе «Модели»
 - Индивидуальные системные промты для отдельных моделей
 - Звёздная оценка ответов (1–5) с учётом в синтезе
 - Вкладка `Сравнение` — side-by-side просмотр всех ответов
@@ -113,6 +114,29 @@ py -m http.server 8000
 ```
 
 Откройте: `http://localhost:8000/LLM_Compare.html`
+
+## Расширения для браузера
+
+Проект включает расширения для **Chrome** и **Firefox** с дополнительными функциями:
+
+- Поля для ввода ссылок на чаты прямо на этапе «Модели»
+- Автоматическое сохранение URL чатов
+- Локальный автосейв данных
+
+### Установка расширения
+
+#### Chrome
+1. Откройте `chrome://extensions/`
+2. Включите «Режим разработчика»
+3. Нажмите «Загрузить распакованное расширение»
+4. Выберите папку `chrome-extension/`
+
+#### Firefox
+1. Откройте `about:debugging#/runtime/this-firefox`
+2. Нажмите «Загрузить временное дополнение»
+3. Выберите файл `firefox-extension/manifest.json`
+
+Подробности — в [chrome-extension/README.md](chrome-extension/README.md) и [firefox-extension/README.md](firefox-extension/README.md).
 
 ## Настройка API провайдеров
 
@@ -207,10 +231,27 @@ ANTHROPIC - sk-ant-your-key
 
 ## Структура проекта
 
-- [LLM_Compare.html](LLM_Compare.html) — основной интерфейс приложения
-- [proxy-server.js](proxy-server.js) — прокси-сервер для обхода CORS (Anthropic) + статика
-- [api-docs.html](api-docs.html) — документация по API провайдерам
-- [README.md](README.md) — описание проекта
+```
+LLM_Compare/
+├── LLM_Compare.html          # Основной интерфейс приложения
+├── proxy-server.js           # Прокси-сервер для обхода CORS (Anthropic) + статика
+├── api-docs.html             # Документация по API провайдерам
+├── README.md                 # Описание проекта
+├── .gitignore                # Исключения для Git
+├── chrome-extension/         # Расширение для Chrome (MV3)
+│   ├── manifest.json
+│   ├── background.js
+│   ├── LLM_Compare.html
+│   ├── app.js
+│   └── README.md
+├── firefox-extension/        # Расширение для Firefox (MV2)
+│   ├── manifest.json
+│   ├── background.js
+│   ├── LLM_Compare.html
+│   ├── app.js
+│   └── README.md
+└── standalone/               # Автономная версия (если есть)
+```
 
 ## Технические детали
 
