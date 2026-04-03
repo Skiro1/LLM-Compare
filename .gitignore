@@ -1,3 +1,7 @@
+# =============================================================================
+# LLM Compare - .gitignore
+# =============================================================================
+
 # Archives
 *.zip
 *.rar
@@ -26,20 +30,39 @@ npm-debug.log
 __pycache__/
 *.pyc
 *.pyo
+*.egg-info/
+dist/
+build/
+
+# LibreTranslate (external dependency)
+LibreTranslate/
 
 # Logs
 *.log
 
-# Project-specific
-AGENTS.md
-
-# Build artifacts
-dist/
-build/
-
 # Temporary files
 *.tmp
 *.temp
+*.bak
+nul
 
-#Commands
+# Project-specific (not part of the codebase)
+AGENTS.md
 Commands.txt
+opencode.json
+
+# Translation helper scripts (one-time use)
+translate.js
+*.translate.*
+bulk_translate.*
+translate_all.*
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Build artifacts (if using bundler in future)
+dist/
+build/
+out/
