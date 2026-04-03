@@ -1,18 +1,18 @@
 # LLM Compare — Chrome Extension
 
-Chrome extension (Manifest V3) for the LLM Compare application.
+Chrome Extension (Manifest V3) for the LLM Compare application.
 
 ## Features
 
-- Fields for entering chat links directly at the "Models" step
+- Enter chat URLs directly at the "Models" stage
 - Automatic saving of chat URLs
 - Local auto-save of data in `localStorage`
 
 ## Installation
 
 1. Open `chrome://extensions/`
-2. Enable **"Developer mode"** (toggle in the top right corner)
-3. Click **"Load unpacked extension"**
+2. Enable **Developer Mode** (toggle in the top right corner)
+3. Click **Load unpacked**
 4. Select the `chrome-extension/` folder from the project
 
 ## Structure
@@ -31,5 +31,5 @@ chrome-extension/
 
 - Manifest V3
 - Service worker in `background.js`
-- Data is stored in browser `localStorage`
+- Data stored in browser `localStorage`
 - No build required

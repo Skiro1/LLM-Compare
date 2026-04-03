@@ -1316,10 +1316,10 @@
                     </svg>
                     <h1 class="text-2xl sm:text-3xl font-bold">Multi-LLM + Synthesis</h1>
                 </div>
-                <p class="text-zinc-500 text-sm hidden sm:block">Manual mode: copy prompts → insert answers → get the result</p>
+                <p class="text-zinc-500 text-sm hidden sm:block">Manual mode: copy prompts → paste answers → get results</p>
             </div>
             <div class="header-btn-group">
-                <button onclick="toggleTheme()" class="btn btn-outline btn-sm" id="themeToggle" title="Toggle theme">
+                <button onclick="toggleTheme()" class="btn btn-outline btn-sm" id="themeToggle" title="Toggle Theme">
                     <svg id="themeIconLight" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg id="themeIconDark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
@@ -1339,7 +1339,7 @@
             <span class="arrow step-nav-arrows">→</span>
             <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(2)">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                <span>Improvement</span>
+                <span>Enhancement</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(3)">
@@ -1368,7 +1368,7 @@
                         <span class="font-medium text-sm text-zinc-700" id="chatHistoryTitle">Chat History</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button onclick="openChatFullscreen()" class="btn btn-outline btn-sm text-xs" title="Open in full window">
+                        <button onclick="openChatFullscreen()" class="btn btn-outline btn-sm text-xs" title="Open in large window">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
                             Expand
                         </button>
@@ -1390,7 +1390,7 @@
                 <div class="step-actions flex justify-between items-center mt-4">
                     <span id="modelsCount" class="text-base text-zinc-500"></span>
                     <button class="btn btn-primary" onclick="setStep(2)">
-                        Next: Improvement
+                        Next: Enhancement
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
@@ -1404,7 +1404,7 @@
                     <div>
                         <h2 class="text-xl font-semibold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            System prompt for improvement
+                            System prompt for enhancement
                         </h2>
                         <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
                     </div>
@@ -1421,7 +1421,7 @@
                         <h2 class="text-xl font-semibold">Prompt to Send</h2>
                         <p class="text-zinc-500 text-base">2. Copy and send along with the system prompt</p>
                     </div>
-                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy prompt for improvement" aria-label="Copy prompt for improvement" onclick="copyText(generateEnhancerUserPrompt(), 'copy-enhancer-user')">
+                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy enhancement prompt" aria-label="Copy enhancement prompt" onclick="copyText(generateEnhancerUserPrompt(), 'copy-enhancer-user')">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1467,14 +1467,14 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                    3. Insert improved prompt
+                    3. Paste the enhanced prompt
                     <span id="lms-enhancer-filled-badge" class="ai-result-badge hidden">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                        AI Filled
+                        Filled by AI
                     </span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4">Insert the AI response here (improved prompt)</p>
-                <textarea id="improvedPrompt" class="textarea" placeholder="Insert improved prompt here..." oninput="autoSave()"></textarea>
+                <p class="text-zinc-500 text-sm mb-4">Paste the AI response here (enhanced prompt)</p>
+                <textarea id="improvedPrompt" class="textarea" placeholder="Paste enhanced prompt here..." oninput="autoSave()"></textarea>
                 <div class="step-actions flex justify-between mt-4">
                     <button class="btn btn-outline" onclick="setStep(1)">Back</button>
                     <button class="btn btn-primary" onclick="setStep(3)">
@@ -1490,10 +1490,10 @@
             <div class="card card-primary">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Improved prompt to send to models</h2>
+                        <h2 class="text-xl font-semibold">Enhanced prompt to send to models</h2>
                         <p class="text-zinc-500 text-base">Send this prompt to each model below</p>
                     </div>
-                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy improved prompt" aria-label="Copy improved prompt" onclick="copyText(document.getElementById('improvedPrompt').value, 'copy-improved')">
+                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy enhanced prompt" aria-label="Copy enhanced prompt" onclick="copyText(document.getElementById('improvedPrompt').value, 'copy-improved')">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1533,10 +1533,10 @@
             <div class="card">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Prompt with model answers</h2>
+                        <h2 class="text-xl font-semibold">Prompt with model responses</h2>
                         <p class="text-zinc-500 text-base">2. Copy and send along with the system prompt</p>
                     </div>
-                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy prompt for aggregation" aria-label="Copy prompt for aggregation" onclick="copyText(generateAggregatorPrompt(), 'copy-aggregator-user')">
+                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy aggregation prompt" aria-label="Copy aggregation prompt" onclick="copyText(generateAggregatorPrompt(), 'copy-aggregator-user')">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1546,13 +1546,13 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    3. Insert synthesized answer
+                    3. Paste the synthesized response
                     <span id="lms-aggregator-filled-badge" class="ai-result-badge hidden">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                        AI Filled
+                        Filled by AI
                     </span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4">Insert the final aggregated answer here</p>
+                <p class="text-zinc-500 text-sm mb-4">Paste the final aggregated answer here</p>
 
                 <!-- LM Studio button for synthesis -->
                 <div id="lms-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
@@ -1590,7 +1590,7 @@
                     <div id="hf-aggregator-status" class="mt-2 text-xs hidden"></div>
                 </div>
 
-                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Insert synthesized answer..." oninput="autoSave()"></textarea></textarea>
+                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Paste synthesized answer..." oninput="autoSave()"></textarea></textarea>
                 <div class="step-actions flex justify-between mt-4">
                     <button class="btn btn-outline" onclick="setStep(3)">Back</button>
                     <button class="btn btn-primary" onclick="setStep(5)">
@@ -1632,7 +1632,7 @@
             <div id="result-comparison" class="result-tab hidden">
                 <div class="card">
                     <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
-                        <h2 class="text-xl font-semibold">Model Answer Comparison</h2>
+                        <h2 class="text-xl font-semibold">Model Response Comparison</h2>
                         <div class="flex items-center gap-2">
                             <span class="text-sm text-zinc-500">Average rating: <strong id="avgRatingDisplay">0</strong>/5</span>
                         </div>
@@ -1698,7 +1698,7 @@
                     <div class="card" style="margin:0; padding:1.25rem;">
                         <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Task Profile</label>
                         <select id="taskProfileSelect" class="input" onchange="handleTaskProfileChange(this.value)"></select>
-                        <p class="text-xs text-zinc-500 mt-2">Profile changes system prompts for improvement and synthesis. If you manually change prompts, the profile automatically becomes 'Custom'.</p>
+                        <p class="text-xs text-zinc-500 mt-2">The profile changes system prompts for enhancement and synthesis. If you manually edit the prompts, the profile will automatically switch to `Custom`.</p>
                         <div class="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3">
                             <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Active Profile</div>
                             <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Universal</div>
@@ -1709,8 +1709,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="notificationsEnabledToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">System Notifications</div>
-                                <p class="text-xs text-zinc-500 mt-1">Show auto-save indicator and non-blocking warnings.</p>
+                                <div class="text-sm font-medium">System notifications</div>
+                                <p class="text-xs text-zinc-500 mt-1">Show autosave indicator and non-blocking warnings.</p>
                             </div>
                         </label>
                     </div>
@@ -1718,8 +1718,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="useRatingsInSynthesisToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">Include ratings in synthesis</div>
-                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregation prompt as a soft preference signal. If no rating is provided, it's considered neutral, not negative.</p>
+                                <div class="text-sm font-medium">Use ratings in synthesis</div>
+                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregation prompt as a soft preference signal. If no rating is given, it's treated as neutral, not negative.</p>
                             </div>
                         </label>
                     </div>
@@ -1749,7 +1749,7 @@
                     <div id="modelsList"></div>
                     
                     <div class="mt-4 pt-4 border-t border-zinc-200">
-                        <h3 class="text-sm font-medium mb-3">Add Model</h3>
+                        <h3 class="text-sm font-medium mb-3">Add model</h3>
                         <div class="space-y-3">
                             <div>
                                 <label class="block text-sm text-zinc-600 mb-1">Name</label>
@@ -1760,16 +1760,16 @@
                                 <input type="text" id="newModelProvider" class="input" placeholder="OpenAI">
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">System Prompt (optional)</label>
-                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Leave empty to use default prompt"></textarea>
+                                <label class="block text-sm text-zinc-600 mb-1">System prompt (optional)</label>
+                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Leave empty to use the default prompt"></textarea>
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">Chat Link (optional)</label>
+                                <label class="block text-sm text-zinc-600 mb-1">Chat link (optional)</label>
                                 <input type="url" id="newModelChatUrl" class="input" placeholder="https://example.com/chat">
                             </div>
                             <button onclick="addModel()" class="btn btn-primary w-full">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                Add Model
+                                Add model
                             </button>
                         </div>
                     </div>
@@ -1781,14 +1781,14 @@
                 <div class="modal-body space-y-6">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Improvement Prompt</label>
+                            <label class="block text-sm font-medium">Prompt for enhancement</label>
                             <button onclick="resetEnhancerPrompt()" class="text-xs text-blue-600 hover:underline">Reset</button>
                         </div>
                         <textarea id="settingsEnhancerPrompt" class="textarea" style="min-height: 150px;" oninput="syncTaskProfileFromPromptEditors()"></textarea>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Aggregation Prompt</label>
+                            <label class="block text-sm font-medium">Prompt for aggregation</label>
                             <button onclick="resetAggregatorPrompt()" class="text-xs text-blue-600 hover:underline">Reset</button>
                         </div>
                         <textarea id="settingsAggregatorPrompt" class="textarea" style="min-height: 150px;" oninput="syncTaskProfileFromPromptEditors()"></textarea>
@@ -1800,12 +1800,12 @@
             <div id="settings-templates" class="tab-pane">
                 <div class="modal-body space-y-6">
                     <div>
-                        <h3 class="text-sm font-medium mb-3">Saved Prompt Templates</h3>
+                        <h3 class="text-sm font-medium mb-3">Saved prompt templates</h3>
                         <p class="text-xs text-zinc-500 mb-4">Templates can be used as starting points for new requests</p>
                         <div id="templatesList"></div>
                         <button onclick="addTemplate()" class="btn btn-outline btn-sm w-full mt-3">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            Add Template
+                            Add template
                         </button>
                     </div>
                 </div>
@@ -1820,8 +1820,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="lmsEnabledToggle" class="mt-1" onchange="onLmsToggleChange()">
                             <div>
-                                <div class="text-sm font-medium">Connect provider for automatic processing</div>
-                                <p class="text-xs text-zinc-500 mt-1">The "Send to AI" button will appear on synthesis and prompt improvement steps. If disabled - everything stays in manual mode.</p>
+                                <div class="text-sm font-medium">Enable provider for automatic processing</div>
+                                <p class="text-xs text-zinc-500 mt-1">The "Send to AI" button will appear on the synthesis and enhancement steps. If disabled, everything stays in manual mode.</p>
                             </div>
                         </label>
                     </div>
@@ -1916,12 +1916,12 @@
                                     Delete all keys
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2">Format .txt: <code>PROVIDER - key</code> (each key on new line, order doesn't matter)</p>
+                            <p class="text-xs text-zinc-500 mt-2">Format .txt: <code>PROVIDER - key</code> (one key per line, order does not matter)</p>
                         </div>
 
                         <!-- API Key (cloud only) -->
                         <div class="card" id="lms-apikey-card" style="margin:0; padding:1.25rem; display:none;">
-                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API key</label>
+                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API Key</label>
                             <div class="relative">
                                 <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…" oninput="saveCurrentProviderCredentials()">
                                 <button type="button" onclick="toggleApiKeyVisibility()" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Show/hide">
@@ -1929,13 +1929,13 @@
                                     <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">Key stored only in browser.</p>
+                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">Key is stored only in the browser.</p>
                         </div>
 
                         <!-- Server URL (local / custom only) -->
                         <div class="card" id="lms-url-card" style="margin:0; padding:1.25rem;">
                             <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
-                                <label class="block text-sm font-medium" id="lms-url-label">Server URL</label>
+                                <label class="block text-sm font-medium" id="lms-url-label">Server address</label>
                                 <span id="lms-connection-status" class="lms-status disconnected">
                                     <span class="lms-status-dot"></span>
                                     <span id="lms-status-text">Not connected</span>
@@ -1945,7 +1945,7 @@
                                 <input type="text" id="lmsUrlInput" class="input flex-1" placeholder="http://localhost:1234">
                                 <button class="btn btn-outline btn-sm" onclick="testLmsConnection()" id="lms-test-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Test
+                                    Check
                                 </button>
                             </div>
                             <p id="lms-server-hint" class="text-xs text-zinc-500 mt-2"></p>
@@ -1960,10 +1960,10 @@
                                 </span>
                                 <button class="btn btn-outline btn-sm" onclick="testLmsConnection()" id="lms-test-cloud-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Test key
+                                    Check key
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter API key and click "Test key" to load the model list.</p>
+                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter an API key and click "Check key" to load the model list.</p>
                         </div>
 
                         <!-- Model selection (dropdown for list providers) -->
@@ -1976,16 +1976,16 @@
                                 </button>
                             </div>
                             <select id="lmsModelSelect" class="input" onchange="saveCurrentProviderCredentials()">
-                                <option value="">Select provider and test connection</option>
+                                <option value="">— Select a provider and verify connection —</option>
                             </select>
-                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Select model from the list.</p>
+                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Select a model from the list.</p>
                         </div>
 
                         <!-- Model input (manual for providers like Hugging Face) -->
                         <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
                             <label class="block text-sm font-medium mb-2">Model</label>
                             <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct" oninput="saveCurrentProviderCredentials()">
-                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Enter model ID manually.</p>
+                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Specify the model ID manually.</p>
                         </div>
 
                         <!-- Usage mode -->
@@ -1994,15 +1994,15 @@
                             <div class="space-y-2.5">
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="both" id="lmsUseBoth" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Both at once</div><div class="text-xs text-zinc-500">Prompt improvement + answer synthesis</div></div>
+                                    <div><div class="text-sm font-medium">Everything at once</div><div class="text-xs text-zinc-500">Prompt enhancement + response synthesis</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="prompt" id="lmsUsePrompt" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Prompt improvement only</div><div class="text-xs text-zinc-500">Step 2: refine your query</div></div>
+                                    <div><div class="text-sm font-medium">Prompt enhancement only</div><div class="text-xs text-zinc-500">Step 2: refining your request</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="synthesis" id="lmsUseSynthesis" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Answer synthesis only</div><div class="text-xs text-zinc-500">Step 4: aggregate all model answers</div></div>
+                                    <div><div class="text-sm font-medium">Response synthesis only</div><div class="text-xs text-zinc-500">Step 4: aggregation of all model responses</div></div>
                                 </label>
                             </div>
                         </div>
@@ -2013,7 +2013,7 @@
                                 <span class="text-lg">📡</span>
                                 <div>
                                     <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">API Documentation</div>
-                                    <p class="text-xs text-zinc-500 mt-1">All providers use OpenAI API-compatible format. See documentation for endpoints, parameters, streaming and rate limits.</p>
+                                    <p class="text-xs text-zinc-500 mt-1">All providers use a format compatible with OpenAI API. Details on endpoints, parameters, streaming, and rate limits — in the documentation.</p>
                                     <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Open API Documentation →</a>
                                 </div>
                             </div>
@@ -2031,14 +2031,14 @@
                             <label class="flex items-center gap-2.5 cursor-pointer">
                                 <input type="checkbox" id="loggingEnabledToggle" onchange="onLoggingToggleChange()">
                                 <div>
-                                    <div class="text-sm font-medium">Keep logs</div>
+                                    <div class="text-sm font-medium">Save logs</div>
                                     <p class="text-xs text-zinc-500 mt-0.5">When disabled, new entries are not saved.</p>
                                 </div>
                             </label>
                             <div class="flex gap-2">
                                 <button class="btn btn-outline btn-sm text-xs" onclick="exportLogs()">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-Export
+                                    Export
                                 </button>
                                 <button class="btn btn-danger btn-sm text-xs" onclick="clearLogs()">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
@@ -2082,7 +2082,7 @@ Export
             <div class="modal-header">
                 <div>
                     <h2 class="text-xl font-semibold">Continue Chat</h2>
-                    <p class="text-sm text-zinc-500 mt-0.5">Paste links to existing chats so AI remembers context. Leave empty — new chats will open.</p>
+                    <p class="text-sm text-zinc-500 mt-0.5">Paste links to existing chats so the AI remembers the context. Can be left empty — new chats will open.</p>
                 </div>
                 <button onclick="closeContinueModal()" class="text-zinc-400 hover:text-zinc-600 ml-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -2144,7 +2144,7 @@ Export
 
     <script>
         // Default prompts
-        const DEFAULT_ENHANCER_SYSTEM = `You are an architect and optimizer of prompts for large language models. Your task is to create one maximally accurate, clear, and effective prompt based on the user's description, which the AI can correctly execute from the first time without additional clarifications.
+        const DEFAULT_ENHANCER_SYSTEM = `You are an architect and optimizer of prompts for large language models. Your task is to create, based on the user's description, one maximally precise, clear, and effective prompt that the AI can correctly execute on the first try without additional clarification.
 
 INPUT DATA
 
@@ -2155,55 +2155,55 @@ GOAL
 
 Create one self-sufficient prompt that:
 - accurately conveys the user's intent,
-- minimizes the probability of errors and misinterpretation,
+- minimizes the chance of errors and misinterpretation,
 - sets clear expectations for the result,
-- gives the AI all necessary guidance for a quality answer.
+- gives the AI all necessary reference points for a quality response.
 
 
 WORK ALGORITHM
 
 1. Determine the request type
 
-Determine what the user is asking:
-- PROMPT IMPROVEMENT: "improve this prompt", "make it better", "optimize", "rewrite" — then reformulate and improve the user's prompt.
-- PROMPT CREATION: "create a prompt", "write a prompt", "make a prompt", "need a prompt for" — then create a ready prompt for a specific task.
-- REGULAR REQUEST: everything else — determine by context:
+Determine what the user is asking for:
+- PROMPT IMPROVEMENT: "improve this prompt", "make it better", "optimize", "rewrite" — then rephrase and improve the user's prompt.
+- PROMPT CREATION: "create a prompt", "write a prompt", "make a prompt", "need a prompt for" — then create a ready-made prompt for a specific task.
+- NORMAL REQUEST: everything else — determine from context:
   - If the request resembles a direct question ("how to do X", "why Y", "what is Z", recipes, instructions, facts) — this is a request for an answer. Construct a prompt for the AI that will give a detailed, useful answer to this question.
-  - If the request resembles a task for an AI system (complex analysis, content generation, code writing, concept comparison) — construct an instruction prompt for the AI executor.
-- UNCLEAR REQUEST: if it's impossible to definitively determine the intent — make the most likely interpretation with a note at the beginning: "[Request interpretation: ...]". Don't ask clarifying questions — give the best possible version.
+  - If the request resembles a task for an AI system (complex analysis, content generation, code writing, concept comparison) — construct a prompt-instruction for the AI executor.
+- UNCLEAR REQUEST: if it's impossible to unambiguously determine the intent — make the most likely interpretation with a note at the beginning: "[Request interpretation: ...]". Don't ask clarifying questions — give the best possible option.
 
-DISTINCTION EXAMPLES:
-  Input: "How to cook borscht?" → This is a direct question. Prompt: "You are an experienced chef. Give a detailed borscht recipe: list of ingredients with proportions, step-by-step instructions, cooking time for each stage, tips for selecting products."
+EXAMPLES OF DIFFERENTIATION:
+  Input: "How to cook borscht?" → This is a direct question. Prompt: "You are an experienced chef. Give a detailed borscht recipe: list of ingredients with proportions, step-by-step instructions, cooking time at each stage, tips for choosing products."
   Input: "Make a prompt for recipe generation" → This is a meta-request. Prompt: "You are a culinary editor. For a given cuisine/ingredients/dish type, create a recipe in the format: name, ingredients, steps, time, servings, tips."
-  Input: "Explain quantum entanglement" → This is a direct question. Prompt: "You are a physics communicator. Explain quantum entanglement to a person without physics education. Use one life analogy, explain in 3 paragraphs, without formulas."
-  Input: "Write a Python script for website parsing" → This is a direct action request. Prompt: "You are a Python developer. Write a script for parsing HTML pages using requests and BeautifulSoup. The script must: accept URL, extract headers and links, handle network errors. Add comments to key sections."
+  Input: "Explain quantum entanglement" → This is a direct question. Prompt: "You are a physics communicator. Explain quantum entanglement to someone without a physics education. Use one real-life analogy, explain in 3 paragraphs, no formulas."
+  Input: "Write a Python script for web scraping" → This is a direct action request. Prompt: "You are a Python developer. Write a script for scraping HTML pages using requests and BeautifulSoup. The script should: accept a URL, extract headings and links, handle network errors. Add comments to key sections."
 
 Don't turn simple questions into meta-instructions. If the user asks "how" or "what" — they want an answer, not a prompt to get an answer.
 
-2. Handling meta-requests (prompt creation)
+2. Processing meta-requests (creating prompts)
 
 If the user asks to create/write a prompt:
-- Determine FOR WHAT TASK the prompt is needed (not for which model, but what the receiving AI should do).
-- Determine the LANGUAGE of the prompt:
+- Determine WHAT TASK the prompt is for (not which model, but what the receiving AI should do).
+- Determine the PROMPT LANGUAGE:
   - If the user specified a language — create the prompt in that language.
   - If not specified — use the language of the original request.
-- Include only elements that are actually needed in the prompt:
-  - Role (who performs the task — without fanfare, specifically)
-  - Context (what's important to know)
+- Include only the elements that are really needed:
+  - Role (who performs the task — without pretension, specifically)
+  - Context (what is important to know)
   - Specific requirements (what should be in the result)
-  - Response format (structure, language, volume)
+  - Response format (structure, language, length)
   - Constraints (what to exclude)
   - All details from the user's request
 
-3. Deep task analysis
-- Determine the real goal (what counts as successful result).
-- Identify context, audience, and use case.
-- Determine task type (analysis, generation, explanation, code, comparison, etc.).
+3. Deep Task Analysis
+- Determine the real goal (what counts as a successful result).
+- Identify context, audience, and usage scenario.
+- Determine the task type (analysis, generation, explanation, code, comparison, etc.).
 - Find implicit requirements the user may not have formulated.
-- Account for typical AI errors in similar tasks.
+- Consider typical AI errors in similar tasks.
 
-4. Prompt design and optimization
-Choose only necessary elements (role, context, goal, algorithm, format, style, constraints). Don't add elements for completeness — only if they really improve the result.
+4. Prompt Design and Optimization
+Choose only necessary elements (role, context, goal, algorithm, format, style, constraints). Don't add elements for completeness — only if they genuinely improve the result.
 - Eliminate ambiguities, replace abstract with concrete.
 - Ensure the prompt doesn't allow double interpretation.
 - Make result requirements verifiable.
@@ -2212,142 +2212,142 @@ Choose only necessary elements (role, context, goal, algorithm, format, style, c
 
 OUTPUT RULES
 
-- Output ONLY the ready prompt.
-- Without explanations, comments, or meta-text.
-- The ready prompt addresses the AI executor in "You" form (e.g., "You are a translator. Translate the text..."). This is not "first person" — this is an instruction for the prompt recipient.
-- The role should be concrete and appropriate: "You are a network specialist" is enough, "You are the greatest engineer with 30 years of experience and deepest understanding..." — is excessive. Indicate experience only if relevant to the task.
+- Output ONLY the ready-made prompt.
+- No explanations, comments, or meta-text.
+- The finished prompt addresses the AI executor as "You" (e.g., "You are a translator. Translate the text..."). This is not "first person" — it is an instruction for the prompt recipient.
+- The role should be specific and appropriate: "You are a network specialist" is enough, "You are the greatest engineer with 30 years of experience and deepest understanding..." is excessive. Specify experience only if relevant to the task.
 - Preserve the language of the original request (for meta-requests — the language in which the prompt was requested).
 - Don't distort the original intent.
-- If the original request is already high quality — improve minimally, don't complicate.
+- If the original request is already high quality — improve minimally, don't overcomplicate.
 
-FORBIDDEN:
-- Write introductions like "Here is the improved prompt", "I've optimized your request", etc.
-- Write conclusions or explanations about made changes.
+PROHIBITED:
+- Write introductions like "Here's the improved prompt", "I optimized your request", etc.
+- Write conclusions or explanations about changes made.
 - Mention your work process or methodology.
-- Describe intermediate algorithm steps, show analysis progress.
-- Use clichéd phrases and empty introductions: "In the ever-evolving landscape...", "As a leading expert...", "In today's world...", "It should be noted that..." and similar sludge. Every word must carry meaning.
+- Describe intermediate algorithm steps, show the analysis process.
+- Use worn-out cliches and empty introductory phrases: "In the ever-evolving landscape...", "As a leading expert...", "In today's world...", "In our time...", "It should be noted that..." and similar junk. Every word must carry meaning.
 
-ADDITIONALLY (recommendation):
-If the task involves working with external data (text to translate, code to refactor, list to analyze, etc.), use the marker placeholder [INSERT TEXT HERE] (or similar: [INSERT CODE], [SPECIFY DATA]) in the prompt so the user knows exactly where to substitute their data. Don't use placeholder if the task is self-sufficient and doesn't require external input.
+ADDITIONAL (recommendation):
+If the task involves working with external data (text for translation, code for refactoring, list for analysis, etc.), use a placeholder marker in the prompt [INSERT TEXT HERE] (or similar in meaning: [INSERT CODE], [SPECIFY DATA]) so the user knows exactly where to insert their data. Don't use a placeholder if the task is self-sufficient and doesn't require external input.
 
 
 FINAL PRINCIPLE
 
-You don't rewrite text — you design a thinking tool for the AI.
-Every word in the prompt should increase accuracy, predictability, and quality of the result.
+You are not rewriting text — you are designing a thinking tool for AI.
+Every word in the prompt should increase the precision, predictability, and quality of the result.
 
 
-TRANSFORMATION EXAMPLES (for understanding logic, not for verbatim copying)
+TRANSFORMATION EXAMPLES (for understanding the logic, not for verbatim copying)
 
 Input: "Translate text to English"
-Output: "You are a translator. Translate the following text to English. Preserve the style and tone of the original. Adapt idioms for English-speaking audience. Terms best left untranslated — leave in original in brackets."
+Output: "You are a translator. Translate the following text into English. Preserve the style and tone of the original. Adapt idioms for an English-speaking audience. Terms that are better left untranslated — keep in the original in brackets."
 
 Input: "Write sorting code"
-Output: "You are a developer. Write a Python sorting function for an array. The function must take a list of numbers and return a sorted list. Handle edge cases (empty list, one element). Add docstring with description of parameters and return value. Provide 2-3 examples of calls with expected result."
+Output: "You are a developer. Write a Python array sorting function. The function should accept a list of numbers and return a sorted list. Handle edge cases (empty list, single element). Add a docstring describing parameters and return value. Provide 2-3 call examples with expected results."
 
 Input: "How does DNS work?"
-Output: "You are a network engineer. Explain how DNS (Domain Name System) works, for a person without technical education. Use an analogy from everyday life. Cover: why DNS is needed, what happens when user enters address in browser, and why DNS caching speeds up loading. Limit response to 300 words."
+Output: "You are a network engineer. Explain how DNS (Domain Name System) works for someone without a technical education. Use an everyday life analogy. Cover: why DNS is needed, what happens when a user types an address in a browser, and why DNS caching speeds up loading. Limit the response to 300 words."
 
 Wait for the task description from the user.`;
 
-const DEFAULT_AGGREGATOR_SYSTEM = `You are a synthesizer of answers from several AI models. Your task is to create a single, accurate, coherent, and useful final answer based on the original question and set of answers from different models.
+        const DEFAULT_AGGREGATOR_SYSTEM = `You are a synthesizer of responses from multiple AI models. Your task is to create a unified, precise, coherent, and useful final answer based on the original question and a set of responses from different models.
 
 INPUT DATA
 
 1. The user's original question.
-2. Answers from several models (each answer is labeled with the model name).
+2. Responses from multiple models (each response is labeled with the model name).
 
 
 GOAL
 
-Collect the best possible answer by combining the strengths of different variants, removing repetitions, contradictions, errors, and unnecessary verbosity, while preserving the original meaning of the question and not adding fictional information.
+Assemble the best possible answer by combining the strengths of different options, removing repetitions, contradictions, errors, and unnecessary fluff, while preserving the original meaning of the question and not adding fabricated information.
 
 
 WORK ALGORITHM
 
-1. Analysis of the original question
-- Determine its meaning, goal, context, and expected type of answer.
-- Identify what exactly needs to be given: explanation, comparison, instruction, advice, conclusion, list, example, etc.
-- Note constraints: language of answer, desired volume, complexity level, tone, format.
+1. Analyzing the original question
+- Determine its meaning, purpose, context, and expected type of answer.
+- Identify what exactly needs to be provided: explanation, comparison, instruction, advice, conclusion, list, example, etc.
+- Note constraints: response language, desired length, complexity level, tone, format.
 
-2. Analysis of model answers (for each answer)
+2. Analysis of model responses (for each response)
 - Highlight key ideas, facts, arguments, and useful formulations.
 - Note strengths: accuracy, clarity, completeness, good examples, good structure.
 - Note weaknesses: errors, inaccuracies, logical gaps, repetitions, unnecessary details, vagueness.
-- Record discrepancies between answers.
+- Record discrepancies between responses.
 
-3. Evaluation of discrepancies
-If answers contradict each other:
-- Briefly define the essence of the discrepancy.
-- Evaluate which position is more reliable, based on:
+3. Assessing discrepancies
+If responses contradict each other:
+- Briefly identify the essence of the discrepancy.
+- Assess which position is more reliable, based on:
   - internal logical consistency,
-  - conformity with common knowledge,
+  - alignment with common knowledge,
   - absence of obvious errors,
-  - completeness and neatness of formulations.
-- If reliable selection is impossible — honestly note the uncertainty.
-- If models provide different numbers, dates, names, or factual claims — check if this is common knowledge (capitals, years of historical events, basic scientific constants). If yes — use the correct variant with a brief caveat. If the fact is specialized, controversial, or you're unsure about it — highlight the conflicting data in a comparison table (Fact | Model 1 | Model 2 | Explanation) and don't mask uncertainty.
-- If one of the answers contains a clear error — don't include it in the final answer.
+  - completeness and accuracy of formulations.
+- If you can't reliably choose — honestly indicate the uncertainty.
+- If models provide different numbers, dates, names, or factual claims — check if this is common knowledge (capitals, years of historical events, basic scientific constants). If yes — use the correct variant with a short caveat. If the fact is specialized, controversial, or you're not sure — highlight conflicting data in a comparison table (Fact | Model 1 | Model 2 | Explanation) and don't mask the uncertainty.
+- If one of the responses contains an obvious error — don't include it in the final answer.
 - If the error could be useful as a warning — mention it briefly as a common misconception, without repeating the erroneous formulation.
 
-If there are user ratings in the input data:
-- Consider them as a soft preference signal from the user, not proof of factual correctness.
-- Use high rating as an argument in favor of usefulness, clarity, or good presentation, but don't place it above logic and accuracy.
-- If rating is absent, interpret this as absence of signal, not as low quality of answer.
+If the input data contains user ratings of responses:
+- Treat them as a soft signal of user preference, not as proof of factual correctness.
+- Use a high rating as an argument for usefulness, clarity, or good presentation, but don't place it above logic and accuracy.
+- If no rating is given, treat it as absence of signal, not as low quality.
 
-4. Synthesis of final answer
-- Combine the best ideas, explanations, and examples from all answers.
-- Reformulate in your own words, don't copy verbatim from original answers. However, preserve specific terms, names, units of measurement, and exact formulations from original answers if they are important for meaning. Rule: if replacing a term with "own words" reduces accuracy — keep the original.
-- If different code implementations are given — choose the most optimized and secure one, combining best practices from different variants (e.g., exception handling from one answer and more efficient algorithm from another). Don't leave duplicate implementations.
-- Remove repetitions, verbosity, secondary details, and irrelevant digressions.
+4. Synthesizing the final answer
+- Combine the best ideas, explanations, and examples from all responses.
+- Reformulate the material in your own words, without verbatim copying of original responses. However, preserve specific terms, names, units of measurement, and exact formulations from the original responses if they are important for meaning. Rule: if replacing a term with "your own words" reduces accuracy — keep the original.
+- If the responses contain different code implementations — choose the most optimized and secure one, combining best practices from different options (e.g., exception handling from one answer and a more efficient algorithm from another). Don't leave duplicate implementations.
+- Remove repetitions, fluff, secondary details, and insignificant digressions.
 - Preserve accuracy, logic, and completeness.
-- Don't add new facts if they don't follow from original answers or aren't common knowledge at the level of school curriculum (geography, basic history, fundamental scientific facts).
-- If none of the answers contain sufficiently quality material — note this explicitly: "Model answers don't contain sufficiently complete information on the request" — and give the best possible answer based on what's available, noting the limitations.
-- If the answer is insufficient for a confident conclusion, say so directly.
+- Don't add new facts unless they follow from the original responses or are common knowledge at the school level (geography, basic history, fundamental scientific facts).
+- If none of the responses contain sufficiently quality material — state this explicitly: "Model responses don't contain sufficiently complete information on this request" — and give the best possible answer based on what's available, indicating limitations.
+- If the answer is not sufficient for a confident conclusion, say so directly.
 
 
 FINAL ANSWER STRUCTURE
 
 Use a two-part structure if the answer is complex enough for it (explanation, analysis, instruction):
 1. Brief answer — 1-5 sentences conveying the essence.
-2. Main part — detailed explanation with headers/lists if they improve perception.
+2. Main part — detailed explanation with headings/lists if they improve comprehension.
 
-For simple questions (unambiguous fact, short reference) — give direct answer without dividing into parts.
+For simple questions (unambiguous fact, short reference) — give a direct answer without division into parts.
 
 
 QUALITY REQUIREMENTS
 
 - Clear, natural, human language.
-- Unified style throughout the answer. If original answers are written in different tones (one formal, one humorous, one casual) — bring the final text to a neutral-business tone, allowing slight friendliness, but without stylistic fluctuations.
-- No bureaucratic language, template phrases, or mechanical repetitions.
-- No verbatim copying from original answers.
-- No fictional facts and no semantic distortions.
+- Consistent style throughout the answer. If the original responses are written in different tones (one formal, another humorous, third conversational) — bring the final text to a neutral-business tone, allowing slight friendliness but without stylistic drops.
+- Without bureaucratic language, template phrases, and mechanical repetitions.
+- Without verbatim copying of original responses.
+- Without fabricated facts and semantic distortions.
 - Balance between brevity and completeness.
 - Priority — usefulness, accuracy, and coherence.
 
 
 LANGUAGE
 
-Answer in the same language as the original question.
+Respond in the same language as the original question.
 
 
 IF INFORMATION IS INSUFFICIENT
 
-- Don't fabricate.
+- Don't make things up.
 - Separate confident conclusions from assumptions.
-- If necessary, briefly note uncertainty.
+- When necessary, briefly indicate uncertainty.
 
 
 FINAL PRINCIPLE
 
-Don't average answers — do intellectual synthesis: keep the best, discard the weak, fix errors, and produce a single quality result.
+Don't average the responses, but intellectually synthesize them: keep the best, discard the weak, fix errors, and produce a unified quality result.
 
-FORBIDDEN:
-- Write introductions like "Here is the synthesized answer", "Combining variants", "Based on model answers", etc.
-- Write conclusions like "I used the best formulations", "I removed repetitions", "I kept the structure", etc.
-- Mention the synthesis process, your role, or working methodology.
-- Comment on the quality of original answers ("Variant 1 was better", "Variant 2 contained an error", etc.).
+PROHIBITED:
+- Write introductions like "Here's the synthesized answer", "Combining options", "Based on model responses", etc.
+- Write conclusions like "I used the best formulations", "I removed repetitions", "I preserved the structure", etc.
+- Mention the synthesis process, your role, or work methodology.
+- Comment on the quality of original responses ("Option 1 was better", "Option 2 contained an error", etc.).
 
-Your answer is ready text for the user. Don't write about how you created it. Just give the answer.
+Your answer is a ready-made text for the user. Don't write about how you created it. Just give the answer.
 
 Wait for the task description from the user.`;
 
@@ -2363,34 +2363,34 @@ Wait for the task description from the user.`;
                 id: 'research',
                 name: 'Research',
                 description: 'For deep topic analysis, uncertainty analysis, arguments, limitations, and alternatives.',
-                enhancerNote: `Construct the prompt as a research task. Ask the model to separate facts from hypotheses, note limitations, indicate controversial points, consider alternative explanations, and explicitly state where data is insufficient.`,
-                aggregatorNote: `During synthesis, focus on accuracy, nuances, and honesty. Separate confirmed from probable, show limitations and open questions, don't smooth over real contradictions between variants.`
+                enhancerNote: `Construct the prompt as a research task. Ask the model to separate facts from hypotheses, note limitations, point out controversial areas, consider alternative explanations, and clearly indicate where data is insufficient.`,
+                aggregatorNote: `In synthesis, emphasize accuracy, nuances, and honesty. Separate confirmed from probable, show limitations and open questions, don't smooth out real contradictions between options.`
             },
             {
                 id: 'coding',
-                name: 'Code & Debug',
-                description: 'For programming tasks, debugging, architecture, bug fixing, and technical solutions.',
-                enhancerNote: `Construct the prompt for a strong engineering response. Ask the model to find the root cause of the problem, give a minimal working fix, explain the solution in simple words, consider regression risks, and add steps to verify the result.`,
-                aggregatorNote: `During synthesis, prioritize correctness of technical solution. Keep details, implementation steps, risks, limitations, and verification methods. If variants argue, explicitly explain which approach is more reliable and why.`
+                name: 'Code & Debugging',
+                description: 'For programming, debugging, architecture, bug fixing, and technical solutions.',
+                enhancerNote: `Construct the prompt for a strong engineering response. Ask the model to find the root cause of the problem, provide a minimal working fix, explain the solution in simple terms, consider regression risks, and add result verification steps.`,
+                aggregatorNote: `In synthesis, prioritize the correctness of the technical solution. Preserve specifics, implementation steps, risks, limitations, and verification methods. If options disagree, explicitly explain which approach is more reliable and why.`
             },
             {
                 id: 'concise',
-                name: 'Concise',
-                description: 'For dense, short, and fast answers without water and unnecessary distractions.',
-                enhancerNote: `Construct the prompt so the answer is as concise as possible but not superficial. Ask to remove water, repetitions, and secondary details, keep only the essence, key points, and specific conclusions.`,
-                aggregatorNote: `During synthesis, focus on brevity and density. Remove repetitions and secondary details, keep only the most useful part. The result should read quickly without losing meaning.`
+                name: 'Concise Answer',
+                description: 'For dense, short, and fast answers without fluff and unnecessary digressions.',
+                enhancerNote: `Construct the prompt so the answer is as concise as possible but not superficial. Ask to remove fluff, repetitions, and secondary details, keeping only the essence, key points, and specific conclusions.`,
+                aggregatorNote: `In synthesis, emphasize brevity and density. Remove repetitions and secondary details, keeping only the most useful part. The result should be readable quickly and without loss of meaning.`
             },
             {
                 id: 'comparison',
                 name: 'Compare Options',
-                description: 'For choosing between several approaches, tools, solutions, or strategies.',
-                enhancerNote: `Construct the prompt as a comparison task. Ask the model to compare solutions by criteria, highlight pros, cons, risks, limitations, cost or complexity, and end with a recommendation for choice.`,
-                aggregatorNote: `During synthesis, present differences between variants especially clearly. Keep comparison criteria, tradeoffs, and recommendations. If the best variant depends on conditions, explicitly state which variant is preferable for which inputs.`
+                description: 'For choosing between multiple approaches, tools, solutions, or strategies.',
+                enhancerNote: `Construct the prompt as a task of comparing options. Ask the model to compare solutions by criteria, highlight pros, cons, risks, limitations, cost or complexity, and conclude with a recommendation.`,
+                aggregatorNote: `In synthesis, make the differences between options especially clear. Preserve comparison criteria, trade-offs, and recommendations. If the best option depends on conditions, explicitly state under which inputs which option is preferable.`
             },
             {
                 id: 'custom',
                 name: 'Custom',
-                description: 'Manual mode: your current system prompts are used without auto-replacement.',
+                description: 'Manual mode: uses your current system prompts without auto-replacement.',
                 enhancerNote: '',
                 aggregatorNote: '',
                 isCustom: true
@@ -2402,7 +2402,7 @@ Wait for the task description from the user.`;
                 id: 1,
                 name: "Claude",
                 provider: "Anthropic",
-                systemPrompt: `You are Claude (Anthropic). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Claude (Anthropic). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://claude.ai",
                 truncateLimit: 0
@@ -2411,7 +2411,7 @@ Wait for the task description from the user.`;
                 id: 2,
                 name: "ChatGPT",
                 provider: "OpenAI",
-                systemPrompt: `You are ChatGPT (OpenAI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are ChatGPT (OpenAI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#00ff88",
                 chatUrl: "https://chatgpt.com",
                 truncateLimit: 0
@@ -2420,7 +2420,7 @@ Wait for the task description from the user.`;
                 id: 3,
                 name: "Gemini",
                 provider: "Google",
-                systemPrompt: `You are Gemini (Google). Answer accurately, logically, and to the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
+                systemPrompt: `You are Gemini (Google). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#0088ff",
                 chatUrl: "https://gemini.google.com",
                 truncateLimit: 0
@@ -2429,7 +2429,7 @@ Wait for the task description from the user.`;
                 id: 4,
                 name: "DeepSeek",
                 provider: "DeepSeek-AI",
-                systemPrompt: `You are DeepSeek (DeepSeek-AI). Answer accurately, logically, and to the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
+                systemPrompt: `You are DeepSeek (DeepSeek-AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#00ccff",
                 chatUrl: "https://chat.deepseek.com",
                 truncateLimit: 0
@@ -2438,7 +2438,7 @@ Wait for the task description from the user.`;
                 id: 5,
                 name: "GLM",
                 provider: "Zhipu AI",
-                systemPrompt: `You are GLM (Zhipu AI). Answer accurately, logically, and to the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
+                systemPrompt: `You are GLM (Zhipu AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ffaa33",
                 chatUrl: "https://chat.z.ai",
                 truncateLimit: 0
@@ -2447,7 +2447,7 @@ Wait for the task description from the user.`;
                 id: 6,
                 name: "Grok",
                 provider: "xAI",
-                systemPrompt: `You are Grok (xAI). Answer accurately, logically, and to the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
+                systemPrompt: `You are Grok (xAI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ff44aa",
                 chatUrl: "https://grok.com",
                 truncateLimit: 0
@@ -2456,7 +2456,7 @@ Wait for the task description from the user.`;
                 id: 7,
                 name: "Mistral",
                 provider: "Mistral AI",
-                systemPrompt: `You are Mistral (Mistral AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Mistral (Mistral AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#aaff00",
                 chatUrl: "https://chat.mistral.ai",
                 truncateLimit: 0
@@ -2465,7 +2465,7 @@ Wait for the task description from the user.`;
                 id: 8,
                 name: "Llama",
                 provider: "Meta",
-                systemPrompt: `You are Llama (Meta). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Llama (Meta). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ff8800",
                 chatUrl: "https://www.meta.ai",
                 truncateLimit: 0
@@ -2474,7 +2474,7 @@ Wait for the task description from the user.`;
                 id: 9,
                 name: "Qwen",
                 provider: "Alibaba Cloud",
-                systemPrompt: `You are Qwen (Alibaba Cloud). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Qwen (Alibaba Cloud). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ff6644",
                 chatUrl: "https://chat.qwen.ai",
                 truncateLimit: 0
@@ -2483,7 +2483,7 @@ Wait for the task description from the user.`;
                 id: 10,
                 name: "Pi",
                 provider: "Inflection AI",
-                systemPrompt: `You are Pi (Inflection AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Pi (Inflection AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#33eebb",
                 chatUrl: "https://pi.ai",
                 truncateLimit: 0
@@ -2492,7 +2492,7 @@ Wait for the task description from the user.`;
                 id: 11,
                 name: "Kimi",
                 provider: "Moonshot AI",
-                systemPrompt: `You are Kimi (Moonshot AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Kimi (Moonshot AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#00bbff",
                 chatUrl: "https://kimi.moonshot.cn",
                 truncateLimit: 0
@@ -2501,7 +2501,7 @@ Wait for the task description from the user.`;
                 id: 12,
                 name: "ERNIE",
                 provider: "Baidu",
-                systemPrompt: `You are ERNIE (Baidu). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are ERNIE (Baidu). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://ernie.baidu.com",
                 truncateLimit: 0
@@ -2510,7 +2510,7 @@ Wait for the task description from the user.`;
                 id: 13,
                 name: "Yandex",
                 provider: "Yandex",
-                systemPrompt: `You are Yandex. Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Yandex (Yandex). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ffcc00",
                 chatUrl: "https://alice.yandex.ru",
                 truncateLimit: 0
@@ -2519,7 +2519,7 @@ Wait for the task description from the user.`;
                 id: 14,
                 name: "GigaChat",
                 provider: "Sber",
-                systemPrompt: `You are GigaChat (Sber). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are GigaChat (Sber). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#44ffcc",
                 chatUrl: "https://giga.chat",
                 truncateLimit: 0
@@ -2528,7 +2528,7 @@ Wait for the task description from the user.`;
                 id: 15,
                 name: "MiniMax",
                 provider: "MiniMax AI",
-                systemPrompt: `You are MiniMax (MiniMax AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are MiniMax (MiniMax AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://agent.minimax.io",
                 truncateLimit: 0
@@ -2537,7 +2537,7 @@ Wait for the task description from the user.`;
                 id: 16,
                 name: "Cohere",
                 provider: "Cohere",
-                systemPrompt: `You are Cohere (Cohere). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Cohere (Cohere). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#44bbff",
                 chatUrl: "https://dashboard.cohere.com/playground/chat",
                 truncateLimit: 0
@@ -2546,7 +2546,7 @@ Wait for the task description from the user.`;
                 id: 17,
                 name: "Sarvam",
                 provider: "Sarvam AI",
-                systemPrompt: `You are Sarvam (Sarvam AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Sarvam (Sarvam AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#f43f5e",
                 chatUrl: "https://dashboard.sarvam.ai/chat",
                 truncateLimit: 0
@@ -2555,7 +2555,7 @@ Wait for the task description from the user.`;
                 id: 18,
                 name: "Upstage",
                 provider: "Upstage AI",
-                systemPrompt: `You are Upstage (Upstage AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Upstage (Upstage AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#14b8a6",
                 chatUrl: "https://console.upstage.ai/playground/chat",
                 truncateLimit: 0
@@ -2564,7 +2564,7 @@ Wait for the task description from the user.`;
                 id: 19,
                 name: "StepFun",
                 provider: "StepFun AI",
-                systemPrompt: `You are StepFun (StepFun AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are StepFun (StepFun AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#8b5cf6",
                 chatUrl: "https://stepfun.ai/chats/new",
                 truncateLimit: 0
@@ -2573,7 +2573,7 @@ Wait for the task description from the user.`;
                 id: 20,
                 name: "Trinity",
                 provider: "Arcee AI",
-                systemPrompt: `You are Trinity (Arcee AI). Answer accurately, logically, and to the point. Clearly separate facts from assumptions, adapt style to question complexity. Be concise where appropriate, and detailed where necessary.`,
+                systemPrompt: `You are Trinity (Arcee AI). Answer accurately, logically, and to the point. Clearly separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and detailed where necessary.`,
                 color: "#ec4899",
                 chatUrl: "https://chat.arcee.ai/chat",
                 truncateLimit: 0
@@ -2586,10 +2586,10 @@ Wait for the task description from the user.`;
                 content: `Analyze the topic deeply and structurally.
 
 First give a short answer in 2-4 sentences.
-Then explain the main idea in simple words.
-Next reveal important details, limitations, and common misconceptions.
+Then explain the main idea in simple terms.
+Then cover important details, limitations, and common misunderstandings.
 If appropriate, add 1-2 clear examples.
-Write clearly, without water and without unnecessary theory for theory's sake.`
+Write clearly, without fluff and without unnecessary theory for theory's sake.`
             },
             {
                 name: 'Step-by-Step Plan',
@@ -2601,56 +2601,56 @@ Required format:
 3. What risks and pitfalls to consider
 4. How to verify everything is done correctly
 
-If there are several strategies, briefly compare them and recommend the best one.`
+If there are multiple strategies, briefly compare them and recommend the best one.`
             },
             {
                 name: 'Compare Options',
-                content: `Compare several solution options.
+                content: `Compare multiple solution options.
 
-Make comparison by criteria:
+Make a comparison by criteria:
 - pros
 - cons
 - cost or complexity
 - risks
-- when which option is better to choose
+- when to choose which option
 
-At the end give a clear recommendation with explanation of why it's the best.`
+At the end, give a clear recommendation with an explanation of why it is the best.`
             },
             {
-                name: 'Code & Debug',
+                name: 'Code & Debugging',
                 content: `Help as a strong engineer.
 
-Need:
+Required:
 - find the likely cause of the problem
-- explain it in simple words
+- explain it in simple terms
 - suggest a minimal working fix
 - show how to verify the result
-- if there are several causes, sort them by probability
+- if there are multiple causes, sort them by likelihood
 
-Don't limit yourself to general advice, give specifics.`
+Don't limit yourself to general advice, be specific.`
             },
             {
-                name: 'Brief Summary',
-                content: `Make a dense summary without water.
+                name: 'Concise Summary',
+                content: `Make a dense summary without fluff.
 
 Format:
-- essence in 1-2 sentences
+- the essence in 1-2 sentences
 - 3-7 key points
 - what is important to remember
 
-Remove repetitions, general phrases, and everything secondary.`
+Remove repetitions, generic phrases, and everything secondary.`
             },
             {
                 name: 'Fact vs Opinion',
-                content: `Answer carefully and intellectually honest.
+                content: `Answer carefully and intellectually honestly.
 
 Clearly separate:
 - confirmed facts
-- probable conclusions
+- likely conclusions
 - assumptions
 - controversial points
 
-If data is insufficient, say so directly and don't fabricate extra.`
+If data is insufficient, say so directly and don't make things up.`
             }
         ];
 
@@ -2840,7 +2840,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:      'Ollama',
                 isCloud:    false,
                 defaultUrl: 'http://localhost:11434',
-                hint:       'Run Ollama: <code>ollama serve</code>. Load model: <code>ollama pull &lt;model&gt;</code>.',
+                hint:       'Run Ollama: <code>ollama serve</code>. Pull a model: <code>ollama pull &lt;model&gt;</code>.',
                 modelsApi:  'ollama',
                 chatApi:    'openai',
                 models:     null,
@@ -2859,9 +2859,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'OpenAI',
                 isCloud:     true,
                 defaultUrl:  'https://api.openai.com',
-                hint:        'Get your key at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
+                hint:        'Get a key at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
                 apikeyHint:  'Key starts with <code>sk-…</code>',
-                apikeyLabel: 'OpenAI API key',
+                apikeyLabel: 'OpenAI API Key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -2888,9 +2888,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'DeepSeek',
                 isCloud:     true,
                 defaultUrl:  'https://api.deepseek.com',
-                hint:        'Get your key at <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
-                apikeyHint:  'DeepSeek API key',
-                apikeyLabel: 'DeepSeek API key',
+                hint:        'Get a key at <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
+                apikeyHint:  'API Key DeepSeek',
+                apikeyLabel: 'DeepSeek API Key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
                 models:      null,
@@ -2899,9 +2899,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'Anthropic',
                 isCloud:     true,
                 defaultUrl:  'http://localhost:3000',
-                hint:        'Get your key at <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">⚠️ Proxy required: <code>node proxy-server.js</code></span>',
+                hint:        'Get a key at <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">⚠️ Requires running proxy: <code>node proxy-server.js</code></span>',
                 apikeyHint:  'Key starts with <code>sk-ant-…</code>',
-                apikeyLabel: 'Anthropic API key',
+                apikeyLabel: 'Anthropic API Key',
                 modelsApi:   'hardcoded',
                 chatApi:     'anthropic',
                 models:      [
@@ -2920,9 +2920,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'Mistral AI',
                 isCloud:     true,
                 defaultUrl:  'https://api.mistral.ai',
-                hint:        'Get your key at <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
-                apikeyHint:  'Mistral API key',
-                apikeyLabel: 'Mistral API key',
+                hint:        'Get a key at <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
+                apikeyHint:  'API Key Mistral',
+                apikeyLabel: 'Mistral API Key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
                 models:      null,
@@ -2931,9 +2931,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'Hugging Face',
                 isCloud:     true,
                 defaultUrl:  'https://router.huggingface.co/hf-inference/models',
-                hint:        'Get your key at <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Enter model manually, e.g.: meta-llama/Llama-3.3-70B-Instruct',
+                hint:        'Get a key at <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Specify model manually, e.g.: meta-llama/Llama-3.3-70B-Instruct',
                 apikeyHint:  'HF key (hf_…)',
-                apikeyLabel: 'Hugging Face API key',
+                apikeyLabel: 'Hugging Face API Key',
                 modelsApi:   'manual',
                 chatApi:     'openai',
                 models:      null,
@@ -2944,9 +2944,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'OpenRouter',
                 isCloud:     true,
                 defaultUrl:  'https://openrouter.ai/api',
-                hint:        'Get your key at <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Enter model manually, e.g.: <code>anthropic/claude-3.5-sonnet</code>',
+                hint:        'Get a key at <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Specify model manually, e.g.: <code>anthropic/claude-3.5-sonnet</code>',
                 apikeyHint:  'Key starts with <code>sk-or-…</code>',
-                apikeyLabel: 'OpenRouter API key',
+                apikeyLabel: 'OpenRouter API Key',
                 modelsApi:   'manual',
                 chatApi:     'openai',
                 models:      null,
@@ -2957,9 +2957,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'Google (Gemini)',
                 isCloud:     true,
                 defaultUrl:  'https://generativelanguage.googleapis.com/v1beta/openai',
-                hint:        'Get your key at <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
-                apikeyHint:  'Google AI Studio API key',
-                apikeyLabel: 'Google API key',
+                hint:        'Get a key at <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
+                apikeyHint:  'Google AI Studio API Key',
+                apikeyLabel: 'Google API Key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -2974,9 +2974,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 label:       'Groq Cloud',
                 isCloud:     true,
                 defaultUrl:  'https://api.groq.com/openai',
-                hint:        'Get your key at <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
+                hint:        'Get a key at <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
                 apikeyHint:  'Key starts with <code>gsk_…</code>',
-                apikeyLabel: 'Groq API key',
+                apikeyLabel: 'Groq API Key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -3061,8 +3061,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
                     const apiKeyInput = document.getElementById('lmsApiKeyInput');
                     if (apiKeyInput) apiKeyInput.value = providerCredentials[currentProvider].apiKey;
                 }
-                showSystemNotification(`Keys imported: ${imported}`, 'saved', 3000);
-                appLog('success', `Import: ${imported} of ${lines.length} lines`);
+                showSystemNotification(`Imported keys: ${imported}`, 'saved', 3000);
+                appLog('success', `Key import: ${imported} from ${lines.length} lines`);
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -3094,23 +3094,23 @@ If data is insufficient, say so directly and don't fabricate extra.`
             a.download = 'api-keys.txt';
             a.click();
             URL.revokeObjectURL(url);
-            showSystemNotification(`Keys exported: ${lines.length}`, 'saved', 2500);
+            showSystemNotification(`Exported keys: ${lines.length}`, 'saved', 2500);
         }
 
         // ── Clear all API keys ──
         function clearAllApiKeys() {
             const count = Object.keys(providerCredentials).filter(p => providerCredentials[p]?.apiKey).length;
             if (count === 0) {
-                showSystemNotification('No keys stored', 'warning', 2000);
+                showSystemNotification('No keys', 'warning', 2000);
                 return;
             }
-            if (!confirm(`Delete all saved API keys (${count} pcs)? This action cannot be undone.`)) return;
+            if (!confirm(`Delete all saved API keys (${count} )? This action cannot be undone.`)) return;
             providerCredentials = {};
             lmStudioSettings.apiKey = '';
             saveLmsSettings();
             const apiKeyInput = document.getElementById('lmsApiKeyInput');
             if (apiKeyInput) apiKeyInput.value = '';
-            showSystemNotification(`Keys deleted: ${count}`, 'saved', 2500);
+            showSystemNotification(`Deleted keys: ${count}`, 'saved', 2500);
             appLog('success', `All API keys deleted (${count})`);
         }
 
@@ -3140,7 +3140,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
             // Update manual model hints
             if (isManual) {
                 const manualHint = document.getElementById('lms-model-manual-hint');
-                if (manualHint) manualHint.innerHTML = info.hint || 'Enter model ID manually.';
+                if (manualHint) manualHint.innerHTML = info.hint || 'Specify the model ID manually.';
                 // Restore saved manual model
                 const manualInput = document.getElementById('lmsModelManualInput');
                 if (manualInput && lmStudioSettings.model) manualInput.value = lmStudioSettings.model;
@@ -3150,17 +3150,17 @@ If data is insufficient, say so directly and don't fabricate extra.`
             if (isCloud) {
                 const lbl = document.getElementById('lms-apikey-label');
                 const hint = document.getElementById('lms-apikey-hint');
-                if (lbl) lbl.textContent = info.apikeyLabel || 'API key';
-                if (hint) hint.innerHTML = (info.apikeyHint || '') + ' · Key stored only in your browser.';
+                if (lbl) lbl.textContent = info.apikeyLabel || 'API Key';
+                if (hint) hint.innerHTML = (info.apikeyHint || '') + ' · Key is stored only in your browser.';
             }
 
             // Update model hint
             const modelHint = document.getElementById('lms-model-hint');
             if (modelHint && !isManual) {
                 if (info.modelsApi === 'hardcoded') {
-                    modelHint.textContent = `List of ${info.label} models (current at the time of application update).`;
+                    modelHint.textContent = `Model list ${info.label} (current at the time of application update).`;
                 } else {
-                    modelHint.textContent = 'List loads when connection is tested.';
+                    modelHint.textContent = 'List loads when checking connection.';
                 }
             }
         }
@@ -3244,7 +3244,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 }
             } else {
                 const modelSelect = document.getElementById('lmsModelSelect');
-                if (modelSelect) modelSelect.innerHTML = '<option value="">— Check connection first —</option>';
+                if (modelSelect) modelSelect.innerHTML = '<option value="">— Check connection —</option>';
             }
 
             // Restore manual model input
@@ -3278,14 +3278,14 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         url:    lmStudioSettings.url || ''
                     };
                 }
-            } catch(e) { appLog('error', 'Provider settings load error', e.message); }
+            } catch(e) { appLog('error', 'Error loading provider settings', e.message); }
         }
 
         function saveLmsSettings() {
             try {
                 localStorage.setItem('multillm_lmstudio', JSON.stringify(lmStudioSettings));
                 localStorage.setItem('multillm_provider_credentials', JSON.stringify(providerCredentials));
-            } catch(e) { appLog('error', 'Provider settings save error', e.message); }
+            } catch(e) { appLog('error', 'Error saving provider settings', e.message); }
         }
 
         function saveCurrentProviderCredentials() {
@@ -3419,7 +3419,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
             // Hardcoded lists (Anthropic, Google)
             if (info.modelsApi === 'hardcoded') {
-                if (!apiKey) throw new Error('Enter API key');
+                if (!apiKey) throw new Error('Enter API Key');
                 // Quick auth test via a minimal chat request
                 await testCloudAuth(url, provider, apiKey);
                 return info.models || [];
@@ -3474,7 +3474,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         messages:   [{ role: 'user', content: 'Hi' }],
                     })
                 }, 10000);
-                if (resp.status === 401) throw new Error('Invalid API key');
+                if (resp.status === 401) throw new Error('Invalid API Key');
                 if (resp.status === 403) throw new Error('Access denied');
                 // 400/529 etc. are acceptable — key is valid
                 return;
@@ -3484,7 +3484,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${apiKey}` },
             }, 8000);
-            if (resp.status === 401) throw new Error('Invalid API key');
+            if (resp.status === 401) throw new Error('Invalid API Key');
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         }
 
@@ -3501,15 +3501,15 @@ If data is insufficient, say so directly and don't fabricate extra.`
             const btnId = info.isCloud ? 'lms-test-cloud-btn' : 'lms-test-btn';
             const btn   = document.getElementById(btnId);
 
-            setAnyLmsStatus('checking', 'Checking...');
+            setAnyLmsStatus('checking', 'Checking…');
             if (btn) btn.disabled = true;
-            appLog('info', `Testing connection → ${info.label}${url ? ' (' + url + ')' : ''}`);
+            appLog('info', `Connection check → ${info.label}${url ? ' (' + url + ')' : ''}`);
 
             // For manual model providers, check API key
             if (isManual) {
                 if (!apiKey) {
-                    setAnyLmsStatus('error', 'Enter API key');
-                    appLog('warn', `Testing ${info.label}: API key not specified`);
+                    setAnyLmsStatus('error', 'Enter API Key');
+                    appLog('warn', `Check ${info.label}: API key not specified`);
                     showSystemNotification(`Enter API key for ${info.label}`, 'warning', 3000);
                     if (btn) btn.disabled = false;
                     return [];
@@ -3540,11 +3540,11 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         }
                         const resp = await fetchWithTimeout(testUrl, testOpts, 10000);
                         if (resp.status === 401 || resp.status === 403) {
-                            throw new Error('Invalid API key');
+                            throw new Error('Invalid API Key');
                         }
                         // Any other response means key is valid
                     } catch(e) {
-                        if (e.message === 'Invalid API key') throw e;
+                        if (e.message === 'Invalid API Key') throw e;
                         // Network errors are ok — key might still be valid
                     }
                 }
@@ -3686,19 +3686,19 @@ If data is insufficient, say so directly and don't fabricate extra.`
             const statusEl = document.getElementById(statusElId);
 
             if (!model) {
-                showSystemNotification('Select model in Settings → Providers', 'warning', 3200);
-                appLog('warn', 'Send cancelled: no model selected');
+                showSystemNotification('Select a model in Settings → Providers', 'warning', 3200);
+                appLog('warn', 'Sending canceled: no model selected');
                 return;
             }
             if (info.isCloud && !apiKey) {
                 showSystemNotification(`Enter API key for ${info.label}`, 'warning', 3200);
-                appLog('warn', `Send cancelled: no API key for ${info.label}`);
+                appLog('warn', `Sending canceled: no API key for ${info.label}`);
                 return;
             }
 
             if (btn) {
                 btn.disabled = true; btn.classList.add('loading');
-                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response...`;
+                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response…`;
             }
             if (statusEl) {
                 statusEl.textContent = `⏳ ${info.label} · ${model}…`;
@@ -3723,7 +3723,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 showSystemNotification(`Response from ${model} received ✓`, 'saved', 2500);
 
             } catch(e) {
-                appLog('error', `${info.label} · ${model} error`, e.message);
+                appLog('error', `Error ${info.label} · ${model}`, e.message);
                 if (statusEl) { statusEl.textContent = `✗ ${e.message.slice(0, 120)}`; statusEl.style.color = '#ef4444'; }
                 showSystemNotification(`${info.label}: ${e.message.slice(0, 70)}`, 'error', 4500);
             } finally {
@@ -3736,8 +3736,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
         async function sendEnhancerToLmStudio() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Enter request at step 1', 'warning', 2500);
-                appLog('warn', 'Send cancelled: prompt enhancement: empty request');
+                showSystemNotification('Enter a request in step 1', 'warning', 2500);
+                appLog('warn', 'Prompt enhancement send: empty request');
                 return;
             }
             await callLmsApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -3745,8 +3745,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
         async function sendAggregatorToLmStudio() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Add model answers at step 3', 'warning', 2500);
-                appLog('warn', 'Send cancelled: synthesis: no model answers');
+                showSystemNotification('Add model responses in step 3', 'warning', 2500);
+                appLog('warn', 'Synthesis send: no model responses');
                 return;
             }
             await callLmsApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -3802,13 +3802,13 @@ If data is insufficient, say so directly and don't fabricate extra.`
             try {
                 const raw = localStorage.getItem('multillm_huggingface');
                 if (raw) hfSettings = { ...hfSettings, ...JSON.parse(raw) };
-            } catch(e) { appLog('error', 'HF settings load error', e.message); }
+            } catch(e) { appLog('error', 'Error loading HF settings', e.message); }
         }
 
         function saveHfSettings() {
             try {
                 localStorage.setItem('multillm_huggingface', JSON.stringify(hfSettings));
-            } catch(e) { appLog('error', 'HF settings save error', e.message); }
+            } catch(e) { appLog('error', 'Error saving HF settings', e.message); }
         }
 
         function onHfToggleChange() {
@@ -3852,24 +3852,24 @@ If data is insufficient, say so directly and don't fabricate extra.`
             const model = modelInput?.value?.trim() || '';
 
             if (!apiKey) {
-                setHfConnectionStatus('error', 'Enter API key');
-                appLog('warn', 'Testing HF: API key not specified');
-                showSystemNotification('Enter API key for Hugging Face', 'warning', 3000);
+                setHfConnectionStatus('error', 'Enter API Key');
+                appLog('warn', 'Check HF: API key not specified');
+                showSystemNotification('Enter API Key Hugging Face', 'warning', 3000);
                 return;
             }
 
             if (!model) {
-                setHfConnectionStatus('error', 'Specify model');
-                appLog('warn', 'Testing HF: model not specified');
+                setHfConnectionStatus('error', 'Specify a model');
+                appLog('warn', 'HF check: model not specified');
                 showSystemNotification('Specify Hugging Face model ID', 'warning', 3000);
                 return;
             }
 
-            setHfConnectionStatus('checking', 'Checking...');
+            setHfConnectionStatus('checking', 'Checking…');
             const btn = document.getElementById('hf-test-btn');
             if (btn) btn.disabled = true;
 
-            appLog('info', `Testing HF → ${model}`);
+            appLog('info', `Check HF → ${model}`);
 
             try {
                 // Test with a minimal request
@@ -3891,7 +3891,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 );
 
                 if (resp.status === 401) {
-                    throw new Error('Invalid API key');
+                    throw new Error('Invalid API Key');
                 }
                 if (resp.status === 404) {
                     throw new Error('Model not found');
@@ -3899,10 +3899,10 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
                 setHfConnectionStatus('connected', 'Connected ✓');
                 appLog('success', `HF connected → ${model}`);
-                showSystemNotification('Hugging Face connected ✓', 'saved', 2500);
+                showSystemNotification(`Hugging Face connected ✓`, 'saved', 2500);
             } catch(e) {
                 setHfConnectionStatus('error', 'Error');
-                appLog('error', `HF error: ${model}`, e.message);
+                appLog('error', `Error HF: ${model}`, e.message);
                 showSystemNotification(`HF: ${e.message.slice(0, 60)}`, 'error', 4000);
             } finally {
                 if (btn) btn.disabled = false;
@@ -3958,18 +3958,18 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
             if (!model) {
                 showSystemNotification('Specify HF model in Settings → HF', 'warning', 3200);
-                appLog('warn', 'Send HF: model not specified');
+                appLog('warn', 'HF send: model not specified');
                 return;
             }
             if (!apiKey) {
-                showSystemNotification('Enter HF API key', 'warning', 3200);
-                appLog('warn', 'Send HF: no API key');
+                showSystemNotification('Enter API Key HF', 'warning', 3200);
+                appLog('warn', 'HF send: no API key');
                 return;
             }
 
             if (btn) {
                 btn.disabled = true; btn.classList.add('loading');
-                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response...`;
+                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response…`;
             }
             if (statusEl) {
                 statusEl.textContent = `⏳ HF · ${model}…`;
@@ -4002,7 +4002,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 showSystemNotification(`Response from HF ${model} received ✓`, 'saved', 2500);
 
             } catch(e) {
-                appLog('error', `HF error · ${model}`, e.message);
+                appLog('error', `Error HF · ${model}`, e.message);
                 if (statusEl) { statusEl.textContent = `✗ ${e.message.slice(0, 120)}`; statusEl.style.color = '#ef4444'; }
                 showSystemNotification(`HF: ${e.message.slice(0, 70)}`, 'error', 4500);
             } finally {
@@ -4015,8 +4015,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
         async function sendEnhancerToHf() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Enter request at step 1', 'warning', 2500);
-                appLog('warn', 'Send cancelled: HF prompt enhancement: empty request');
+                showSystemNotification('Enter a request in step 1', 'warning', 2500);
+                appLog('warn', 'HF enhancement send: empty request');
                 return;
             }
             await callHfApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -4024,8 +4024,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
         async function sendAggregatorToHf() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Add model answers at step 3', 'warning', 2500);
-                appLog('warn', 'Send cancelled: HF synthesis: no model answers');
+                showSystemNotification('Add model responses in step 3', 'warning', 2500);
+                appLog('warn', 'HF synthesis send: no model responses');
                 return;
             }
             await callHfApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -4385,7 +4385,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 html += `<button class="star-btn ${filled}" onclick="setRating('${modelId}', ${i})" onmouseenter="hoverStar(event, ${i})" onmouseleave="unhoverStar(event)">★</button>`;
             }
             if (rating > 0) {
-                const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
+                const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
                 html += `<span class="rating-label">${labels[rating]}</span>`;
             }
             html += '</div>';
@@ -4427,7 +4427,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
         function updateRatingDisplay(modelId) {
             const rating = modelRatings[modelId] || 0;
-            const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
+            const labels = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
             const containers = document.querySelectorAll(`.star-rating[data-model-id="${modelId}"]`);
             if (!containers.length) return;
 
@@ -4489,7 +4489,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 .filter((m) => m.answer);
 
             if (answersWithContent.length === 0) {
-                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No answers to compare</p><p class="text-xs mt-1">Add model answers at step 3</p></div>';
+                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No responses to compare</p><p class="text-xs mt-1">Add responses from models in step 3</p></div>';
                 comparisonDirty = false;
                 return;
             }
@@ -4513,7 +4513,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                     </div>
                     <div class="comparison-card-footer">
                         ${renderStarRating(m.id)}
-                        <button class="btn btn-copy btn-sm btn-icon" data-icon-size="w-3.5 h-3.5" title="Copy model answer" aria-label="Copy model answer" onclick="copyModelAnswer('${m.id}', 'comp-copy-${m.id}')" id="comp-copy-${m.id}">
+                        <button class="btn btn-copy btn-sm btn-icon" data-icon-size="w-3.5 h-3.5" title="Copy model response" aria-label="Copy model response" onclick="copyModelAnswer('${m.id}', 'comp-copy-${m.id}')" id="comp-copy-${m.id}">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         </button>
                     </div>
@@ -4547,7 +4547,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
 
             updateLmsUiVisibility();
             updateLogBadge();
-            appLog('info', 'App started');
+            appLog('info', 'Application started');
         });
 
         // Keyboard shortcuts
@@ -4962,9 +4962,9 @@ If data is insufficient, say so directly and don't fabricate extra.`
             if (newName === null) return;
             const newProvider = prompt('Provider:', model.provider);
             if (newProvider === null) return;
-            const newSystemPrompt = prompt('System prompt (empty = default):', model.systemPrompt || '');
+            const newSystemPrompt = prompt('System prompt (empty = use default):', model.systemPrompt || '');
             if (newSystemPrompt === null) return;
-            const newChatUrl = prompt('Chat URL:', model.chatUrl || '');
+            const newChatUrl = prompt('Chat link:', model.chatUrl || '');
             
             models[index].name = newName.trim() || model.name;
             models[index].provider = newProvider.trim() || model.provider;
@@ -5009,7 +5009,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         <div class="text-xs text-zinc-500 truncate mt-1">${escapeHtml(t.content.slice(0, 80))}${t.content.length > 80 ? '...' : ''}</div>
                     </div>
                     <div class="flex gap-2 ml-3">
-                        <button onclick="applyTemplate(${i})" class="btn btn-outline btn-sm" title="Apply">
+                        <button onclick="applyTemplate(${i})" class="btn btn-outline btn-sm" title="Use">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </button>
                         <button onclick="deleteTemplate(${i})" class="btn btn-outline btn-sm text-red-500" title="Delete">
@@ -5078,7 +5078,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         <div class="answer-section-header-left">
                             <span class="badge badge-dark">${escapeHtml(m.name)}</span>
                             <span class="badge badge-light">${escapeHtml(m.provider)}</span>
-                            ${hasSystemPrompt ? '<span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;">⚙ Custom</span>' : ''}
+                            ${hasSystemPrompt ? '<span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;">⚙ Custom prompt</span>' : ''}
                             ${isCont ? '<span class="continuation-badge">🔗 Chat continuation</span>' : ''}
                         </div>
                         <svg id="section-toggle-model-${m.id}" class="answer-section-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -5092,7 +5092,7 @@ If data is insufficient, say so directly and don't fabricate extra.`
                             </button>
                         </div>
                         <div class="mb-3">
-                            <label class="text-xs text-zinc-500 mb-1 block">Chat URL:</label>
+                            <label class="text-xs text-zinc-500 mb-1 block">Chat link:</label>
                             <input type="url" class="model-chat-url-input" id="chat-url-${m.id}"
                                 placeholder="${escapeHtml(getSafeHttpUrl(m.chatUrl) || 'https://...')}"
                                 value="${escapeHtml(contUrl || '')}"
@@ -5101,8 +5101,8 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         <div class="mb-3">
                             ${renderStarRating(m.id)}
                         </div>
-                        <p class="text-zinc-500 text-sm mb-2">Insert answer from ${escapeHtml(m.name)}:</p>
-                        <textarea id="answer-${m.id}" class="textarea" placeholder="Insert answer from ${escapeHtml(m.name)}..." oninput="handleAnswerInput('${m.id}', this.value)">${escapeHtml(answerValue)}</textarea>
+                        <p class="text-zinc-500 text-sm mb-2">Paste response from ${escapeHtml(m.name)}:</p>
+                        <textarea id="answer-${m.id}" class="textarea" placeholder="Paste response from ${escapeHtml(m.name)}..." oninput="handleAnswerInput('${m.id}', this.value)">${escapeHtml(answerValue)}</textarea>
                     </div>
                 </div>
             `}).join('');
@@ -5191,18 +5191,18 @@ If data is insufficient, say so directly and don't fabricate extra.`
                 return;
             }
             if (step === 3 && !document.getElementById('improvedPrompt').value.trim()) {
-                alert('Insert improved prompt');
+                alert('Paste enhanced prompt');
                 return;
             }
             if (step === 4) {
                 const hasAnswers = models.some((m) => getTrimmedAnswerValue(m.id));
                 if (!hasAnswers) {
-                    alert('Add at least one model answer');
+                    alert('Add at least one model response');
                     return;
                 }
             }
             if (step === 5 && !document.getElementById('finalAnswer').value.trim()) {
-                alert('Insert synthesized answer');
+                alert('Paste synthesized response');
                 return;
             }
 
@@ -5287,27 +5287,27 @@ If data is insufficient, say so directly and don't fabricate extra.`
                         const rating = modelRatings[m.id];
                         ratingText = rating
                             ? `User rating: ${rating}/5. This is a soft preference signal, not a guarantee of factual accuracy.\n`
-                            : 'User rating: not specified. This is neutral; do not treat missing rating as a negative.\n';
+                            : 'User rating: not specified. This is a neutral case; don\'t treat absence of rating as negative.\n';
                     }
 
-                    answersText += `Answer ${index} (${m.name}, ${m.provider}):\n${ratingText}«${answer}»\n\n`;
+                    answersText += `Response ${index} (${m.name}, ${m.provider}):\n${ratingText}«${answer}»\n\n`;
                     index++;
                 }
             });
 
             const ratingsGuidance = useRatings
-                ? `User rating interpretation:
-- If an answer has a rating, consider it as an additional signal of usefulness and user preference.
-- Do not substitute user rating for factual accuracy, logical consistency, and completeness.
-- If rating is absent, treat it as absence of signal, not a negative rating.
+                ? `Interpretation of user ratings:
+- If a response has a rating, treat it as an additional signal of usefulness and user preference.
+- Don't replace factual accuracy, logical consistency, and completeness with user ratings.
+- If no rating is given, treat it as absence of signal, not as a negative rating.
 
 `
                 : '';
 
-            return `Original question (improved prompt):
+            return `Original question (enhanced prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Answers from different models:
+${ratingsGuidance}Responses from different models:
 
 ${answersText}`;
         }
@@ -5327,29 +5327,29 @@ ${answersText}`;
                 if (useRatings) {
                     const rating = modelRatings[m.id];
                     ratingText = rating
-                        ? `User rating for this variant: ${rating}/5. This is a soft preference signal, not a guarantee of factual accuracy.\n`
-                        : 'User rating for this variant: not specified. This is neutral; do not treat missing rating as a negative.\n';
+                        ? `User rating for this option: ${rating}/5. This is a soft preference signal, not a guarantee of factual accuracy.\n`
+                        : 'User rating for this option: not specified. This is a neutral case; don\'t treat absence of rating as negative.\n';
                 }
 
-                answersText += `Variant ${index}:\n${ratingText}«${answer}»\n\n`;
+                answersText += `Option ${index}:\n${ratingText}«${answer}»\n\n`;
                 index++;
             });
 
             const ratingsGuidance = useRatings
-                ? `User rating interpretation:
-- If a variant has a rating, consider it as an additional signal of usefulness and user preference.
-- Do not substitute user rating for factual accuracy, logical consistency, and completeness.
-- If rating is absent, treat it as absence of signal, not a negative rating.
+                ? `Interpretation of user ratings:
+- If an option has a rating, treat it as an additional signal of usefulness and user preference.
+- Don't replace factual accuracy, logical consistency, and completeness with user ratings.
+- If no rating is given, treat it as absence of signal, not as a negative rating.
 
 `
                 : '';
 
-            return `Original question (improved prompt):
+            return `Original question (enhanced prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Below are several anonymized answer variants. Model and provider names are intentionally hidden; evaluate only content, logic, usefulness, and clarity.
+${ratingsGuidance}Below are several anonymized response options. Model and provider names are intentionally hidden; evaluate only content, logic, usefulness, and clarity.
 
-Anonymized variants:
+Anonymized options:
 
 ${answersText}`;
         }
@@ -5756,22 +5756,22 @@ ${answersText}`;
             if (!currentThread || currentThread.turns.length === 0) {
                 wrap.classList.add('hidden');
                 body.innerHTML = '';
-                if (step1Title) step1Title.textContent = 'Step 1: Your raw request';
+                if (step1Title) step1Title.textContent = 'Step 1: Your Raw Request';
                 if (step1Hint) step1Hint.textContent = 'Enter your original question or task';
                 return;
             }
 
             wrap.classList.remove('hidden');
-            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'question' : 'questions'}`;
-            if (step1Title) step1Title.textContent = 'Continue chat';
-            if (step1Hint) step1Hint.textContent = 'Ask next question - it will be sent to the same chats';
+            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'turn' : 'turns'}`;
+            if (step1Title) step1Title.textContent = 'Continue Chat';
+            if (step1Hint) step1Hint.textContent = 'Ask the next question — it will be sent to the same chats';
 
             body.innerHTML = currentThread.turns.map((turn, i) => {
                 const aiId = 'ai-bubble-' + i;
                 const aiHTML = parseMarkdown(turn.finalAnswer);
                 return `
                 <div class="chat-turn">
-                    <span class="chat-turn-num">Question ${i + 1}</span>
+                    <span class="chat-turn-num">Turn ${i + 1}</span>
                     <div class="chat-bubble-user">${escapeHtml(turn.rawPrompt)}</div>
                     <div class="chat-bubble-ai">
                         <div id="${aiId}" class="md-content chat-bubble-ai-collapsed">${aiHTML}</div>
@@ -5835,7 +5835,7 @@ ${answersText}`;
                     try {
                         const data = JSON.parse(e.target.result);
                         if (data.threads && Array.isArray(data.threads)) {
-                            if (confirm(`Import ${data.threads.length} chats? Existing history will be merged.`)) {
+                            if (confirm(`Import ${data.threads.length} chats? Existing history will be supplemented.`)) {
                                 // Merge threads
                                 const existingIds = new Set(allThreads.map(t => t.id));
                                 data.threads.forEach(thread => {
@@ -5898,7 +5898,7 @@ ${answersText}`;
                             <div class="thread-title">${escapeHtml(thread.title)}${isActive ? ' <span style="color:#3b82f6;font-size:0.7rem;font-weight:600;">● active</span>' : ''}</div>
                             <div class="thread-meta">
                                 <span>🕐 ${dateStr}</span>
-                                <span>💬 ${thread.turns.length} ${thread.turns.length === 1 ? 'question' : thread.turns.length < 5 ? 'questions' : 'questions'}</span>
+                                <span>💬 ${thread.turns.length} ${thread.turns.length === 1 ? 'turn' : 'turns'}</span>
                             </div>
                         </div>
                         <svg id="thread-arrow-${idx}" style="width:16px;height:16px;flex-shrink:0;transition:transform 0.2s;color:#a1a1aa;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -5961,7 +5961,7 @@ ${answersText}`;
 
         function deleteThread(idx) {
             const thread = allThreads[idx];
-            if (!confirm(`Delete chat "${thread.title.slice(0,40)}"?`)) return;
+            if (!confirm(`Delete chat «${thread.title.slice(0,40)}»?`)) return;
             if (currentThread && currentThread.id === thread.id) {
                 currentThread = null;
                 isContinuation = false;
@@ -5998,7 +5998,7 @@ ${answersText}`;
 
         function closeContinueModal() {
             document.getElementById('continueModal').classList.add('hidden');
-            // Don't reset currentThread to preserve chat context
+            // Don't reset currentThread to avoid losing chat context
         }
 
         function submitContinue() {
@@ -6018,7 +6018,7 @@ ${answersText}`;
             isContinuation = true;
             closeContinueModal();
             if (invalidUrls > 0) {
-                showSystemNotification('Some URLs skipped: only http/https supported', 'warning', 3200);
+                showSystemNotification('Some links skipped: only http/https supported', 'warning', 3200);
             }
             // Clear input fields for new question, keep thread alive
             document.getElementById('rawPrompt').value = '';
@@ -6042,13 +6042,13 @@ ${answersText}`;
             const body    = document.getElementById('chatFullscreenBody');
             const titleEl = document.getElementById('chatFullscreenTitle');
 
-            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'question' : 'questions'}`;
+            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'turn' : 'turns'}`;
 
             body.innerHTML = currentThread.turns.map((turn, i) => {
                 const aiHTML = parseMarkdown(turn.finalAnswer);
                 return `
                 <div class="chat-turn">
-                    <span class="chat-turn-num">Question ${i + 1}</span>
+                    <span class="chat-turn-num">Turn ${i + 1}</span>
                     <div class="chat-bubble-user">${escapeHtml(turn.rawPrompt)}</div>
                     <div class="chat-bubble-ai">
                         <div class="md-content">${aiHTML}</div>

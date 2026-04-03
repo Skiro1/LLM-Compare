@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "LLM Compare — AI Model Comparison",
+    "name": "LLM Compare - AI Model Comparison",
     "version": "5.1.0",
-    "description": "A simple tool for comparing responses from different AI chats and manually assembling the final synthesis without APIs and local models.",
+    "description": "A simple tool for comparing responses from different AI chats and manually assembling the final synthesis without APIs or local models.",
     "author": "LLM Compare",
     "permissions": [
         "storage",

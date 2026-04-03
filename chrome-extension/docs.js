@@ -108,7 +108,8 @@
 
         function copyToClipboard(text, blockId) {
             const btn = document.querySelector(`[data-action="copyCode"][data-block-id="${blockId}"]`);
-            
+            if (!btn) return;
+
             navigator.clipboard.writeText(text).then(() => {
                 btn.classList.add('copied');
                 btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';

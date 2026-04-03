@@ -1334,12 +1334,12 @@
         <div class="step-nav-wrap flex items-center justify-center gap-2 mb-6">
             <button id="ext-el-3" class="step-btn active px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                <span>Request</span>
+                <span>Prompt</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-4" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                <span>Enhancement</span>
+                <span>Improvement</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-5" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
@@ -1383,14 +1383,14 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    <span id="step1Title">Step 1: Your Raw Request</span>
+                    <span id="step1Title">Step 1: Your Raw Prompt</span>
                 </h2>
                 <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Enter your original question or task</p>
-                <textarea id="rawPrompt" class="textarea" placeholder="For example: How does quantum entanglement work?"></textarea>
+                <textarea id="rawPrompt" class="textarea" placeholder="Example: How does quantum entanglement work?"></textarea>
                 <div class="step-actions flex justify-between items-center mt-4">
                     <span id="modelsCount" class="text-base text-zinc-500"></span>
                     <button id="ext-el-10" class="btn btn-primary">
-                        Next: Enhancement
+                        Next: Improvement
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
@@ -1404,7 +1404,7 @@
                     <div>
                         <h2 class="text-xl font-semibold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            System Prompt for Enhancement
+                            System Prompt for Improvement
                         </h2>
                         <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
                     </div>
@@ -1421,7 +1421,7 @@
                         <h2 class="text-xl font-semibold">Prompt to Send</h2>
                         <p class="text-zinc-500 text-base">2. Copy and send together with the system prompt</p>
                     </div>
-                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy enhancement prompt" aria-label="Copy enhancement prompt">
+                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy improvement prompt" aria-label="Copy improvement prompt">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1490,7 +1490,7 @@
             <div class="card card-primary">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Improved Prompt for Sending to Models</h2>
+                        <h2 class="text-xl font-semibold">Improved Prompt to Send to Models</h2>
                         <p class="text-zinc-500 text-base">Send this prompt to each model below</p>
                     </div>
                     <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy improved prompt" aria-label="Copy improved prompt">
@@ -1523,7 +1523,7 @@
                         </h2>
                         <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
                     </div>
-                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy system prompt for aggregation" aria-label="Copy system prompt for aggregation">
+                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy aggregation system prompt" aria-label="Copy aggregation system prompt">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1552,7 +1552,7 @@
                         Filled by AI
                     </span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4">Paste the final aggregated response here</p>
+                <p class="text-zinc-500 text-sm mb-4">Paste the final aggregated answer here</p>
 
                 <!-- LM Studio button for synthesis -->
                 <div id="lms-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
@@ -1632,9 +1632,9 @@
             <div id="result-comparison" class="result-tab hidden">
                 <div class="card">
                     <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
-                        <h2 class="text-xl font-semibold">Comparison of Model Responses</h2>
+                        <h2 class="text-xl font-semibold">Model Response Comparison</h2>
                         <div class="flex items-center gap-2">
-                            <span class="text-sm text-zinc-500">Average Rating: <strong id="avgRatingDisplay">0</strong>/5</span>
+                            <span class="text-sm text-zinc-500">Average rating: <strong id="avgRatingDisplay">0</strong>/5</span>
                         </div>
                     </div>
                     <div class="comparison-grid" id="comparisonGrid"></div>
@@ -1665,7 +1665,7 @@
                     </button>
                     <button id="ext-el-22" class="btn btn-primary">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        New Request
+                        New Prompt
                     </button>
                 </div>
             </div>
@@ -1698,10 +1698,10 @@
                     <div class="card" style="margin:0; padding:1.25rem;">
                         <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Task Profile</label>
                         <select id="taskProfileSelect" class="input"></select>
-                        <p class="text-xs text-zinc-500 mt-2">Profile changes system prompts for enhancement and synthesis. If you manually change the prompts, the profile will automatically become "Custom".</p>
+                        <p class="text-xs text-zinc-500 mt-2">The profile changes system prompts for improvement and synthesis. If you manually change prompts, the profile will automatically become 'Custom'.</p>
                         <div class="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3">
                             <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Active Profile</div>
-                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Universal</div>
+                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Balanced</div>
                             <p id="taskProfileDescription" class="text-xs text-zinc-500 mt-1">Balanced mode for most tasks.</p>
                         </div>
                     </div>
@@ -1718,8 +1718,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="useRatingsInSynthesisToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">Consider Ratings in Synthesis</div>
-                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregating prompt as a soft preference signal. If no rating is specified, it is considered a neutral case, not a negative.</p>
+                                <div class="text-sm font-medium">Use ratings in synthesis</div>
+                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregation prompt as a soft preference signal. If no rating is given, it is considered neutral, not a negative.</p>
                             </div>
                         </label>
                     </div>
@@ -1764,7 +1764,7 @@
                                 <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Leave empty to use the common prompt"></textarea>
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">Chat Link (optional)</label>
+                                <label class="block text-sm text-zinc-600 mb-1">Chat URL (optional)</label>
                                 <input type="url" id="newModelChatUrl" class="input" placeholder="https://example.com/chat">
                             </div>
                             <button id="ext-el-31" class="btn btn-primary w-full">
@@ -1781,14 +1781,14 @@
                 <div class="modal-body space-y-6">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Prompt for Enhancement</label>
+                            <label class="block text-sm font-medium">Improvement Prompt</label>
                             <button id="ext-el-32" class="text-xs text-blue-600 hover:underline">Reset</button>
                         </div>
                         <textarea id="settingsEnhancerPrompt" class="textarea" style="min-height: 150px;"></textarea>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Prompt for Aggregation</label>
+                            <label class="block text-sm font-medium">Aggregation Prompt</label>
                             <button id="ext-el-33" class="text-xs text-blue-600 hover:underline">Reset</button>
                         </div>
                         <textarea id="settingsAggregatorPrompt" class="textarea" style="min-height: 150px;"></textarea>
@@ -1801,7 +1801,7 @@
                 <div class="modal-body space-y-6">
                     <div>
                         <h3 class="text-sm font-medium mb-3">Saved Prompt Templates</h3>
-                        <p class="text-xs text-zinc-500 mb-4">Templates can be used as starting points for new queries</p>
+                        <p class="text-xs text-zinc-500 mb-4">Templates can be used as starting points for new prompts</p>
                         <div id="templatesList"></div>
                         <button id="ext-el-34" class="btn btn-outline btn-sm w-full mt-3">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
@@ -1820,8 +1820,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="lmsEnabledToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">Connect Provider for Automatic Processing</div>
-                                <p class="text-xs text-zinc-500 mt-1">The "Send to AI" button will appear on synthesis and prompt enhancement steps. If disabled, everything remains in manual mode.</p>
+                                <div class="text-sm font-medium">Connect a provider for automated processing</div>
+                                <p class="text-xs text-zinc-500 mt-1">The 'Send to AI' button will appear on synthesis and prompt improvement steps. If disabled — everything remains in manual mode.</p>
                             </div>
                         </label>
                     </div>
@@ -1891,7 +1891,7 @@
                                 <label id="lms-provider-card-openrouter" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🔀</div>
                                     <div class="text-xs font-semibold">OpenRouter</div>
-                                    <div class="text-xs text-zinc-400 mt-0.5">Manual Input</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Manual input</div>
                                 </label>
                             </div>
 
@@ -1916,7 +1916,7 @@
                                     Delete All Keys
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2">.txt format: <code>PROVIDER - key</code> (each key on a new line, order doesn't matter)</p>
+                            <p class="text-xs text-zinc-500 mt-2">Format: <code>PROVIDER - key</code> (each key on a new line, order does not matter)</p>
                         </div>
 
                         <!-- API Key (cloud only) -->
@@ -1924,28 +1924,28 @@
                             <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API Key</label>
                             <div class="relative">
                                 <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…">
-                                <button id="ext-el-38" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Show/Hide">
+                                <button id="ext-el-38" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Show/hide">
                                     <svg id="eye-icon-closed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
                                     <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">The key is stored only in the browser.</p>
+                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">The key is stored only in your browser.</p>
                         </div>
 
                         <!-- Server URL (local / custom only) -->
                         <div class="card" id="lms-url-card" style="margin:0; padding:1.25rem;">
                             <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
-                                <label class="block text-sm font-medium" id="lms-url-label">Server Address</label>
+                                <label class="block text-sm font-medium" id="lms-url-label">Server URL</label>
                                 <span id="lms-connection-status" class="lms-status disconnected">
                                     <span class="lms-status-dot"></span>
-                                    <span id="lms-status-text">Not Connected</span>
+                                    <span id="lms-status-text">Not connected</span>
                                 </span>
                             </div>
                             <div class="flex gap-2">
                                 <input type="text" id="lmsUrlInput" class="input flex-1" placeholder="http://localhost:1234">
                                 <button class="btn btn-outline btn-sm" id="lms-test-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Check
+                                    Test
                                 </button>
                             </div>
                             <p id="lms-server-hint" class="text-xs text-zinc-500 mt-2"></p>
@@ -1956,14 +1956,14 @@
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <span id="lms-connection-status-cloud" class="lms-status disconnected">
                                     <span class="lms-status-dot"></span>
-                                    <span id="lms-status-text-cloud">Not Checked</span>
+                                    <span id="lms-status-text-cloud">Not checked</span>
                                 </span>
                                 <button class="btn btn-outline btn-sm" id="lms-test-cloud-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Check Key
+                                    Test Key
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter the API key and click "Check Key" to load the list of models.</p>
+                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter API key and click 'Test Key' to load the model list.</p>
                         </div>
 
                         <!-- Model selection (dropdown for list providers) -->
@@ -1976,7 +1976,7 @@
                                 </button>
                             </div>
                             <select id="lmsModelSelect" class="input">
-                                <option value="">— Select a provider and check the connection —</option>
+                                <option value="">— Select a provider and test connection —</option>
                             </select>
                             <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Select a model from the list.</p>
                         </div>
@@ -1985,24 +1985,24 @@
                         <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
                             <label class="block text-sm font-medium mb-2">Model</label>
                             <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct">
-                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Specify the model ID manually.</p>
+                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Enter model ID manually.</p>
                         </div>
 
                         <!-- Usage mode -->
                         <div class="card" style="margin:0; padding:1.25rem;">
-                            <label class="block text-sm font-medium mb-3">Use For</label>
+                            <label class="block text-sm font-medium mb-3">Use for</label>
                             <div class="space-y-2.5">
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="both" id="lmsUseBoth" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Everything at Once</div><div class="text-xs text-zinc-500">Prompt Enhancement + Response Synthesis</div></div>
+                                    <div><div class="text-sm font-medium">Both modes</div><div class="text-xs text-zinc-500">Prompt improvement + response synthesis</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="prompt" id="lmsUsePrompt" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Prompt Enhancement Only</div><div class="text-xs text-zinc-500">Step 2: Clarifying Your Query</div></div>
+                                    <div><div class="text-sm font-medium">Prompt improvement only</div><div class="text-xs text-zinc-500">Step 2: refining your request</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="synthesis" id="lmsUseSynthesis" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Response Synthesis Only</div><div class="text-xs text-zinc-500">Step 4: Aggregating All Model Responses</div></div>
+                                    <div><div class="text-sm font-medium">Response synthesis only</div><div class="text-xs text-zinc-500">Step 4: aggregating all model responses</div></div>
                                 </label>
                             </div>
                         </div>
@@ -2013,7 +2013,7 @@
                                 <span class="text-lg">📡</span>
                                 <div>
                                     <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">API Documentation</div>
-                                    <p class="text-xs text-zinc-500 mt-1">All providers use a format compatible with the OpenAI API. Details on endpoints, parameters, streaming, and rate limits are in the documentation.</p>
+                                    <p class="text-xs text-zinc-500 mt-1">All providers use a format compatible with the OpenAI API. Details on endpoints, parameters, streaming and rate limits — in the documentation.</p>
                                     <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Open API Documentation →</a>
                                 </div>
                             </div>
@@ -2031,7 +2031,7 @@
                             <label class="flex items-center gap-2.5 cursor-pointer">
                                 <input type="checkbox" id="loggingEnabledToggle">
                                 <div>
-                                    <div class="text-sm font-medium">Save Logs</div>
+                                    <div class="text-sm font-medium">Save logs</div>
                                     <p class="text-xs text-zinc-500 mt-0.5">When disabled, new entries are not saved.</p>
                                 </div>
                             </label>
@@ -2042,7 +2042,7 @@
                                 </button>
                                 <button id="ext-el-40" class="btn btn-danger btn-sm text-xs">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    Clear Logs
+                                    Clear logs
                                 </button>
                             </div>
                         </div>
@@ -2062,7 +2062,7 @@
                     <div class="logs-container" id="logsContainer">
                         <div class="logs-empty" id="logsEmpty">
                             <svg class="w-8 h-8 mx-auto mb-2 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                            <p>Logs are empty</p>
+                            <p>No logs</p>
                         </div>
                         <div id="logsList"></div>
                     </div>
@@ -2082,7 +2082,7 @@
             <div class="modal-header">
                 <div>
                     <h2 class="text-xl font-semibold">Continue Chat</h2>
-                    <p class="text-sm text-zinc-500 mt-0.5">Insert links to existing chats so the AI remembers the context. You can leave them empty — new chats will open.</p>
+                    <p class="text-sm text-zinc-500 mt-0.5">Paste links to existing chats so the AI remembers context. Can be left empty — new chats will open.</p>
                 </div>
                 <button id="ext-el-48" class="text-zinc-400 hover:text-zinc-600 ml-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -2112,13 +2112,13 @@
                     <h2 class="text-lg font-semibold">Request History</h2>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button id="ext-el-51" class="btn btn-outline btn-sm" title="Export History">
+                    <button id="ext-el-51" class="btn btn-outline btn-sm" title="Export history">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     </button>
-                    <button id="ext-el-52" class="btn btn-outline btn-sm" title="Import History">
+                    <button id="ext-el-52" class="btn btn-outline btn-sm" title="Import history">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                     </button>
-                    <button id="ext-el-53" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Clear History">
+                    <button id="ext-el-53" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Clear history">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                     <button id="ext-el-54" class="text-zinc-400 hover:text-zinc-600">

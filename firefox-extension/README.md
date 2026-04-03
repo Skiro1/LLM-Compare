@@ -1,12 +1,12 @@
 # LLM Compare — Firefox Extension
 
-Firefox extension (Manifest V2) for the LLM Compare application.
+Firefox Extension (Manifest V2) for the LLM Compare application.
 
 ## Features
 
-- Fields for entering chat links directly at the "Models" step
-- Automatic saving of chat URLs
-- Local auto-save of data in `localStorage`
+- Chat link input fields right at the "Models" stage
+- Automatic chat URL saving
+- Local auto-save of data to `localStorage`
 
 ## Installation
 
@@ -14,7 +14,7 @@ Firefox extension (Manifest V2) for the LLM Compare application.
 2. Click **"Load Temporary Add-on…"**
 3. Select the `manifest.json` file from the `firefox-extension/` folder
 
-> Temporary add-ons are removed when the browser is closed. For permanent installation, package the extension as `.xpi` or publish on AMO.
+> Temporary add-ons are removed when the browser is closed. For permanent installation, package the extension as `.xpi` or publish it on AMO.
 
 ## Structure
 
@@ -32,5 +32,5 @@ firefox-extension/
 
 - Manifest V2
 - Background script in `background.js`
-- Data is stored in browser `localStorage`
+- Data stored in browser `localStorage`
 - No build required

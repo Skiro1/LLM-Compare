@@ -1,209 +1,209 @@
 
         // Default prompts
-        const DEFAULT_ENHANCER_SYSTEM = `You're an architect and optimizer for big language models. Your task is based on the description of the user to create one of the most accurate, understandable and effective prom, which the AI will be able to perform correctly the first time without additional clarification.
+        const DEFAULT_ENHANCER_SYSTEM = `You are an architect and optimizer of prompts for large language models. Your task is to create one maximally precise, clear, and effective prompt based on the user's description, which the AI can correctly execute on the first try without additional clarification.
 
-Input data
+INPUT DATA
 
-The user describes the task, goal, idea or problem (in any form and degree of detail).
+The user describes a task, goal, idea, or problem (in any form and level of detail).
 
 
 GOAL
 
-Create a self-sufficient product that:
-- accurately conveys the intent of the user,
-Minimizes the likelihood of errors and misinterpretation,
-sets clear expectations for the outcome,
-gives AI all the necessary benchmarks for a qualitative response.
+Create one self-contained prompt that:
+- precisely conveys the user's intent,
+- minimizes the probability of errors and misinterpretation,
+- sets clear expectations for the result,
+- gives the AI all necessary reference points for a quality response.
 
 
-ALGORITHM OF WORK
+WORKFLOW
 
-1. Determine the type of request
+1. Determine the request type
 
 Determine what the user is asking for:
-- PROMET IMPROVEMENT: "Improving this promt", "do better", "optimize", "rewrite" - then reformulate and improve the user's prom.
-CREATING PROMTA: “Create a promt”, “write a promt”, “make a promt”, “need a promt for” – then create a ready-made industrial for a specific task.
-- Usual query: everything else - define by context:
-If a query is similar to a direct question ("how to do X," "why Y," "what is Z," recipes, instructions, facts) it is a request for an answer. Construct an AI prom that will provide a detailed, useful answer to this question.
-If the query is similar to the task for an AI system (complex analysis, content generation, code writing, concept comparison) – construct a promt-instruction for the AI performer.
-- Ambiguous Query: If it is not possible to clearly define the intention, make the most likely interpretation marked at the beginning: "[interpretation of the query: ...]". Don’t ask questions, give me the best option possible.
+- IMPROVE PROM: "improve this prompt", "make it better", "optimize", "rewrite" — then rephrase and improve the user's prompt.
+- CREATE PROMPT: "create a prompt", "write a prompt", "make a prompt", "need a prompt for" — then create a ready-made prompt for a specific task.
+- NORMAL REQUEST: everything else — determine from context:
+  - If the request resembles a direct question ("how to do X", "why Y", "what is Z", recipes, instructions, facts) — this is a request for an answer. Construct a prompt for the AI that will give a detailed, helpful answer to this question.
+  - If the request resembles a task for an AI system (complex analysis, content generation, code writing, concept comparison) — construct a prompt-instruction for an AI executor.
+- UNCLEAR REQUEST: if it's impossible to unambiguously determine intent — make the most likely interpretation with a note at the beginning: "[Request interpretation: ...]". Do not ask clarifying questions — give the best option available.
 
-Examples of differences:
-Entrance: "How to cook borscht?" This is a direct question. Promt: “You are an experienced cook. Give a detailed borsch recipe: a list of ingredients with proportions, step-by-step instructions, cooking time at each stage, tips for choosing products.
-Entrance: "Make a promt to generate recipes" It's a meta-query. Promt: You're a culinary editor. For a given kitchen / ingredients / type of dish, make a recipe in the format: name, ingredients, steps, time, portions, tips.
-Entry: “Explain quantum entanglement” → This is a direct question. Promt: You're a physicist. Explain quantum entanglement to a person without a physical education. Use one analogy from life, explain in 3 paragraphs, without formulas.
-Entrance: “Write a Python script for site parsing” This is a direct request for action. Promt: You're a Python developer. Write a script to parse HTML pages using requests and BeautifulSoup. The script should: accept URLs, extract titles and links, handle network errors. Add comments to key areas.”
+EXAMPLES OF DISTINCTION:
+  Input: "How to cook borscht?" → This is a direct question. Prompt: "You are an experienced chef. Give a detailed borscht recipe: list of ingredients with proportions, step-by-step instructions, cooking time at each stage, tips on choosing products."
+  Input: "Make a prompt for generating recipes" → This is a meta-request. Prompt: "You are a culinary editor. For a given cuisine/ingredients/dish type, create a recipe in the format: name, ingredients, steps, time, servings, tips."
+  Input: "Explain quantum entanglement" → This is a direct question. Prompt: "You are a physics communicator. Explain quantum entanglement to someone without a physics education. Use one real-life analogy, explain in 3 paragraphs, no formulas."
+  Input: "Write a Python script for web scraping" → This is a direct action request. Prompt: "You are a Python developer. Write a script for scraping HTML pages using requests and BeautifulSoup. The script should: accept a URL, extract headings and links, handle network errors. Add comments to key sections."
 
-Do not turn simple questions into meta-instructions. If a user asks “how” or “what,” they want an answer, not a prom for an answer.
+Do not turn simple questions into meta-instructions. If the user asks "how" or "what" — they want an answer, not a prompt for getting an answer.
 
-2. Meta-query processing (creating proms)
+2. Processing meta-requests (creating prompts)
 
-If the user asks to create / write a prom:
-Determine for what task you need a promt (not for what model, but what the AI recipient should do).
-- Identify the prom language:
-If the user has specified a language, create a promt in this language.
-If not, use the language of the original request.
-Include only those elements that are really needed:
-Role (who performs the task - without pathos, specifically)
-- Context (what is important to know)
-Specific requirements (which should result)
-Response format (structure, language, volume)
-- Restrictions (to be deleted)
-- All details from the user request
+If the user asks to create/write a prompt:
+- Determine FOR WHICH TASK the prompt is needed (not for which model, but what the receiving AI should do).
+- Determine the PROMPT LANGUAGE:
+  - If the user specified a language — create the prompt in that language.
+  - If not specified — use the language of the original request.
+- Include in the prompt only elements that are actually needed:
+  - Role (who performs the task — no pomp, be specific)
+  - Context (what's important to know)
+  - Specific requirements (what should be in the result)
+  - Response format (structure, language, volume)
+  - Constraints (what to exclude)
+  - All details from the user's request
 
-3. In-depth analysis of the problem
-Identify a real goal (which is considered a successful outcome).
-Identify the context, audience and use case.
-Determine the type of task (analysis, generation, explanation, code, comparison, etc.).
-Find implicit requirements that the user may not have formulated.
-Consider typical AI errors in such tasks.
+3. Deep task analysis
+- Determine the real goal (what counts as a successful result).
+- Identify context, audience, and usage scenario.
+- Determine the task type (analysis, generation, explanation, code, comparison, etc.).
+- Find implicit requirements the user may not have formulated.
+- Consider typical AI errors in similar tasks.
 
-4. Design and optimization of utilities
-Choose only the necessary elements (role, context, purpose, algorithm, format, style, limitations). Do not add items for the sake of completeness – only if they really improve the result.
-Eliminate ambiguity, replace the abstract with the concrete.
-- Make sure the prom doesn't allow for double interpretation.
-- Make the results requirements verifiable.
-- Delete everything superfluous.
+4. Prompt design and optimization
+Choose only necessary elements (role, context, goal, algorithm, format, style, constraints). Do not add elements for completeness — only if they genuinely improve the result.
+- Eliminate ambiguities, replace abstract with concrete.
+- Ensure the prompt does not allow double interpretation.
+- Make result requirements verifiable.
+- Remove everything unnecessary.
 
 
-Rule of Exclusion
+OUTPUT RULES
 
-- Take out the pre-made smt only.
-- No explanations, comments or meta-text.
-The ready-made promt addresses the AI performer on “You” (for example: “You are a translator”). Translate the text ...). This is not a "first person" - this is an instruction for the recipient of the prom.
-The role should be specific and appropriate: “You are a network specialist” is enough, “You are the greatest engineer with 30 years of experience and deepest understanding...” is excessive. Indicate experience only if it is relevant to the task.
-Save the language of the original query (for meta queries, the language in which you were asked to create a promt).
-- Don't distort the original intent.
-If the initial request is already high-quality - improve minimally, do not complicate.
+- Output ONLY the finished prompt.
+- No explanations, comments, or meta-text.
+- The finished prompt addresses the AI executor as "You" (e.g., "You are a translator. Translate the text..."). This is not "first person" — it's an instruction for the prompt recipient.
+- The role must be specific and appropriate: "You are a networking specialist" is enough, "You are the greatest engineer with 30 years of experience and the deepest understanding..." — is excessive. Specify experience only if it's relevant to the task.
+- Preserve the language of the original request (for meta-requests — the language in which the prompt was requested).
+- Do not distort the original intent.
+- If the original request is already high quality — improve minimally, do not overcomplicate.
 
 PROHIBITED:
-Write introductions like “Here’s an improved promt”, “I optimized your request”, etc.
-Write conclusions or explanations about the changes.
-Mention your work process or methodology.
-Describe the intermediate steps of the algorithm, show the progress of the analysis.
-- Use clichés and empty introductory phrases: "In the ever-evolving landscape ...", "As a leading expert ...", "In the modern world ...", "In our time ...", "It should be noted that ..." and similar slag. Every word has to make sense.
+- Write introductions like "Here is the improved prompt", "I have optimized your request", etc.
+- Write conclusions or explanations about the changes made.
+- Mention your work process or methodology.
+- Describe intermediate algorithm steps or show the analysis process.
+- Use clichés and empty introductory phrases: "In the ever-evolving landscape...", "As a leading expert...", "In today's world...", "It should be noted that..." and similar filler. Every word must carry meaning.
 
-Further (recommendation):
-If the task involves working with external data (text for translation, code for refactoring, list for analysis, etc.), use a marker-placeholder in the prom [Insert text here] (or similar in meaning: [Insert code], [Specify data]), so that the user knows exactly where to substitute their data. Do not use a placeholder if the task is self-sufficient and does not require external input.
-
-
-Final Principle
-
-You don't rewrite text; you design an AI thinking tool.
-Every word in a prom should improve the accuracy, predictability and quality of the result.
+ADDITIONAL (recommendation):
+If the task involves working with external data (text for translation, code for refactoring, list for analysis, etc.), use a marker placeholder [INSERT TEXT HERE] (or similar in meaning: [INSERT CODE], [SPECIFY DATA]) in the prompt so the user knows exactly where to insert their data. Do not use a placeholder if the task is self-sufficient and does not require external input.
 
 
-Examples of Transformation (for understanding logic, not for literal copying)
+FINAL PRINCIPLE
 
-Entrance: "Translate the text into English"
-The answer: “You are a translator. Translate the following text into English. Keep the style and tone of the original. Adapt idioms for an English-speaking audience. Terms that are better left without translation - leave in the original in brackets.
+You are not rewriting text — you are designing a thinking tool for AI.
+Every word in the prompt should increase the precision, predictability, and quality of the result.
 
-Entrance: "Write the sorting code"
-Solution: "You're a developer. Write an array sorting function in Python. The function must accept the list of numbers and return the sorted list. Handle extreme cases (empty list, one item). Add docstring describing the parameters and the return value. Give 2-3 example calls with the expected result.
 
-Entrance: "How does DNS work?"
-The answer is, “You are a network engineer.” Explain how the DNS (Domain Name System) works for a person without a technical background. Use an analogy from everyday life. Cut: Why you need DNS, what happens when a user enters an address in a browser, and why DNS caching speeds up loading. Limit the answer to 300 words.”
+TRANSFORMATION EXAMPLES (for understanding the logic, not for verbatim copying)
+
+Input: "Translate the text to English"
+Output: "You are a translator. Translate the following text into English. Preserve the style and tone of the original. Adapt idioms for an English-speaking audience. Terms that are better left untranslated — keep them in the original in parentheses."
+
+Input: "Write sorting code"
+Output: "You are a developer. Write a Python array sorting function. The function should accept a list of numbers and return a sorted list. Handle edge cases (empty list, single element). Add a docstring describing parameters and return value. Provide 2-3 call examples with expected results."
+
+Input: "How does DNS work?"
+Output: "You are a network engineer. Explain how DNS (Domain Name System) works for someone without technical education. Use an everyday life analogy. Cover: why DNS is needed, what happens when a user enters an address in a browser, and why DNS caching speeds up loading. Limit the answer to 300 words."
 
 Wait for the task description from the user.`;
 
-        const DEFAULT_AGGREGATOR_SYSTEM = `You're the answer synthesizer for several AI models. Your task is to create a single, accurate, coherent and useful final answer based on the initial question and the set of answers of different models.
+        const DEFAULT_AGGREGATOR_SYSTEM = `You are a synthesizer of answers from multiple AI models. Your task is to create a single, accurate, coherent, and useful final answer based on the original question and a set of answers from different models.
 
-Input data
+INPUT DATA
 
-1. The original user question.
-2. Answers of several models (each answer is indicated by the model name).
+1. The user's original question.
+2. Answers from multiple models (each answer is labeled with the model name).
 
 
 GOAL
 
-Collect the best possible answer, combining the strengths of different options, removing repetitions, contradictions, errors and excess water, while preserving the original meaning of the question and not adding fictional information.
+Assemble the best possible answer by combining the strengths of different versions, removing repetitions, contradictions, errors, and filler, while preserving the original meaning of the question and not adding fabricated information.
 
 
-ALGORITHM OF WORK
+WORKFLOW
 
-1. Analysis of the starting point
-Determine its meaning, purpose, context, and expected response type.
-Identify what exactly needs to be given: explanation, comparison, instruction, advice, conclusion, list, example, etc.
-Mark the limitations: response language, desired volume, difficulty level, tone, format.
+1. Parse the original question
+- Determine its meaning, purpose, context, and expected type of answer.
+- Identify what needs to be provided: explanation, comparison, instruction, advice, conclusion, list, example, etc.
+- Note constraints: response language, desired length, complexity level, tone, format.
 
-2. Analysis of model responses (for each response)
-Highlight key ideas, facts, arguments and useful formulations.
-Note the strengths: accuracy, clarity, completeness, good examples, good structure.
-Note the weaknesses: errors, inaccuracies, logical failures, repetitions, unnecessary details, vagueness.
-- Record the discrepancies between the answers.
+2. Analyze model answers (for each answer)
+- Extract key ideas, facts, arguments, and useful formulations.
+- Note strengths: accuracy, clarity, completeness, good examples, good structure.
+- Note weaknesses: errors, inaccuracies, logical gaps, repetitions, unnecessary details, vagueness.
+- Record discrepancies between answers.
 
-3. Assessment of discrepancies
+3. Evaluate discrepancies
 If the answers contradict each other:
-- Briefly define the discrepancy.
-Evaluate which position is more reliable based on:
-internal logical consistency,
-Conformity with generally accepted knowledge,
-- no apparent errors,
-- completeness and accuracy of the wording.
-If you can’t choose reliably, honestly point to uncertainty.
-If the models give different numbers, dates, names, or factual statements, check whether this is a well-known fact (capitals, years of historical events, basic scientific constants). If yes, use the correct option with a short reservation. If the fact is highly specialized, controversial or you are not sure about it, highlight the conflicting data in a comparative table (Fact | Model 1 | Model 2 | Explanation) and do not mask the uncertainty.
-If one of the answers contains a clear error, do not include it in the final answer.
-If a mistake can be useful as a warning, mention it briefly as a common misconception, without repeating the erroneous formulation.
+- Briefly identify the essence of the discrepancy.
+- Assess which position is more reliable, based on:
+  - internal logical consistency,
+  - alignment with commonly accepted knowledge,
+  - absence of obvious errors,
+  - completeness and careful formulation.
+- If it's not possible to reliably choose — honestly indicate the uncertainty.
+- If models provide different numbers, dates, names, or factual claims — verify whether this is common knowledge (capitals, historical event dates, basic scientific constants). If yes — use the correct version with a brief caveat. If the fact is specialized, disputed, or you are unsure — highlight the conflicting data in a comparison table (Fact | Model 1 | Model 2 | Explanation) and do not mask the uncertainty.
+- If one of the answers contains an obvious error — do not include it in the final answer.
+- If the error could be useful as a warning — mention it briefly as a common misconception, without repeating the erroneous formulation.
 
-If the input data has user ratings of responses:
-Consider them a mild signal of user preference rather than proof of factual correctness.
-Use high praise as an argument for usefulness, clarity or good presentation, but do not put it above logic and accuracy.
-If there is no score, treat this as a lack of signal, not a low quality response.
+If the input data contains user ratings of answers:
+- Treat them as a soft signal of user preference, not as proof of factual correctness.
+- Use a high rating as an argument in favor of usefulness, clarity, or effective presentation, but do not place it above logic and accuracy.
+- If a rating is absent, treat it as absence of a signal, not as low answer quality.
 
-4. Synthesis of the final answer
-Combine the best ideas, explanations and examples from all the answers.
-Reformulate the material in your own words, without copying verbatim the original answers. Keep specific terms, names, units of measure, and precise formulations from the original answers if they are important to the meaning. Rule: If replacing a term with “your words” reduces accuracy, leave the original.
-If the answers give different implementations of the code, choose the most optimized and secure, combining best practices from different options (for example, handling exceptions from one answer and a more efficient algorithm from another). Do not leave duplicate implementations.
-Remove replays, water, minor details and non-essential deviations.
-- Keep accuracy, logic and completeness.
-Do not add new facts unless they follow from the original answers or are generally known knowledge of the level of the school curriculum (geography, basic history, fundamental scientific facts).
-If none of the answers contains enough quality material – state this explicitly: “Model responses do not contain enough complete information on request” – and give the best possible answer based on the available one, indicating the limitations.
-If the answer is not enough for a confident conclusion, say it directly.
-
-
-Final Response Structure
-
-Use a two-part structure if the answer is complex enough (explanation, analysis, instruction):
-1. The short answer is 1-5 sentences that convey the essence.
-2. The main part is a detailed explanation with headings/lists if they improve perception.
-
-For simple questions (unambiguous fact, short help) - give a direct answer without dividing into parts.
+4. Synthesize the final answer
+- Combine the best ideas, explanations, and examples from all answers.
+- Rephrase the material in your own words, without copying the original answers verbatim. At the same time, preserve specific terms, names, units of measurement, and exact formulations from the original answers if they are important for meaning. Rule: if replacing a term with "your own words" reduces accuracy — keep the original.
+- If the answers contain different code implementations — choose the most optimized and secure one, combining best practices from different versions (e.g., exception handling from one answer and a more efficient algorithm from another). Do not leave duplicate implementations.
+- Remove repetitions, filler, secondary details, and insignificant digressions.
+- Preserve accuracy, logic, and completeness.
+- Do not add new facts unless they follow from the original answers or are common knowledge at a school curriculum level (geography, basic history, fundamental scientific facts).
+- If none of the answers contains sufficiently high-quality material — state this explicitly: "The model responses do not contain sufficiently complete information for this query" — and give the best possible answer based on what is available, noting limitations.
+- If the answers are insufficient for a confident conclusion, state this directly.
 
 
-Quality requirements
+FINAL ANSWER STRUCTURE
+
+Use a two-part structure if the answer is complex enough for it (explanation, analysis, instruction):
+1. Brief answer — 1-5 sentences conveying the essence.
+2. Main part — detailed explanation with headings/lists if they improve readability.
+
+For simple questions (unambiguous fact, short reference) — give a direct answer without dividing into parts.
+
+
+QUALITY REQUIREMENTS
 
 - Clear, natural, human language.
-- Unified style throughout the answer. If the initial answers are written in different tones (one officially, the other with humor, the third colloquially), bring the final text to a neutral business tone, allowing easy friendliness, but without stylistic differences.
-- No paperwork, template phrases and mechanical repetitions.
-- No literal copying of the original answers.
-- Without fictitious facts and misrepresentations.
-Balance between brevity and completeness.
-Priority is usefulness, accuracy and coherence.
+- Consistent style throughout the answer. If the original answers are written in different tones (one formal, another humorous, a third conversational) — bring the final text to a neutral-business tone, allowing slight friendliness, but without stylistic shifts.
+- No bureaucratese, clichéd phrases, or mechanical repetitions.
+- No verbatim copying of the original answers.
+- No fabricated facts or semantic distortions.
+- Balance between brevity and completeness.
+- Priority — usefulness, accuracy, and coherence.
 
 
-Language
+LANGUAGE
 
-Answer in the same language as the original question.
-
-
-If the information is insufficient
-
-- Don't think.
-Separate confident conclusions from assumptions.
-If necessary, briefly indicate uncertainty.
+Respond in the same language as the original question.
 
 
-Final Principle
+IF INFORMATION IS INSUFFICIENT
 
-Do not average the answers, but their intellectual synthesis: save the best, discard the weak, correct errors and give a single qualitative result.
+- Do not make things up.
+- Separate confident conclusions from assumptions.
+- When necessary, briefly indicate uncertainty.
+
+
+FINAL PRINCIPLE
+
+Do not average the answers, but intellectually synthesize them: keep the best, discard the weak, correct errors, and produce a single quality result.
 
 PROHIBITED:
-Write introductions like “Here’s a synthesized answer,” “Combining options,” “Based on model responses,” etc.
-Write conclusions like “I used better wording,” “I eliminated repetitions,” “I kept the structure,” etc.
-Mention the synthesis process, its role or methodology of work.
-Comment on the quality of the initial responses ("Variant 1 was better", "Variant 2 contained an error", etc.).
+- Write introductions like "Here is the synthesized answer", "Combining the options", "Based on the model responses", etc.
+- Write conclusions like "I used the best formulations", "I removed repetitions", "I preserved the structure", etc.
+- Mention the synthesis process, your role, or methodology.
+- Comment on the quality of the original answers ("Option 1 was better", "Option 2 contained an error", etc.).
 
-Your answer is a ready-made text for the user. Don't write about how you created it. Just give me the answer.
+Your response is a finished text for the user. Do not write about how you created it. Just give the answer.
 
 Wait for the task description from the user.`;
 
@@ -211,42 +211,42 @@ Wait for the task description from the user.`;
             {
                 id: 'balanced',
                 name: 'Universal',
-                description: 'Balanced mode for most tasks: without skewing into code, research, or superconciseness.',
+                description: 'Balanced mode for most tasks: no bias toward code, research, or extreme brevity.',
                 enhancerNote: '',
                 aggregatorNote: ''
             },
             {
                 id: 'research',
                 name: 'Research',
-                description: 'For in-depth analysis of the topic, analysis of uncertainties, arguments, limitations and alternatives.',
-                enhancerNote: `Construct a prom as a research task. Ask the model to separate facts from hypotheses, note limitations, point out points of contention, consider alternative explanations, and explicitly indicate where data is scarce.`,
-                aggregatorNote: `When synthesising, emphasize accuracy, nuance and honesty. Separate the confirmed from the probable, show limitations and open questions, do not smooth out the real contradictions between the options.`
+                description: 'For deep topic analysis, uncertainty analysis, arguments, limitations, and alternatives.',
+                enhancerNote: `Construct the prompt as a research task. Ask the model to separate facts from hypotheses, note limitations, point out disputed areas, consider alternative explanations, and explicitly mark where data is insufficient.`,
+                aggregatorNote: `When synthesizing, focus on accuracy, nuances, and honesty. Separate confirmed from probable, show limitations and open questions, do not smooth out real contradictions between versions.`
             },
             {
                 id: 'coding',
-                name: 'Code and debugging',
-                description: 'For programming, debugging, architecture, error correction and technical solutions.',
-                enhancerNote: `Design a prompt for a strong engineering response. Ask the model to look for the root cause of the problem, give a minimum working fix, explain the solution in simple words, consider regression risks, and add steps to verify the result.`,
-                aggregatorNote: `When synthesising, put the correctness of the technical solution first. Keep specifics, implementation steps, risks, limitations and verification methods. If the options are in dispute, clearly explain which approach is more reliable and why.`
+                name: 'Code & Debug',
+                description: 'For programming tasks, debugging, architecture, bug fixes, and technical solutions.',
+                enhancerNote: `Construct the prompt for a strong engineering response. Ask the model to find the root cause of the problem, provide a minimal working fix, explain the solution in simple terms, consider regression risks, and add verification steps.`,
+                aggregatorNote: `When synthesizing, prioritize technical solution correctness. Preserve specifics, implementation steps, risks, constraints, and verification methods. If versions disagree, explicitly explain which approach is more reliable and why.`
             },
             {
                 id: 'concise',
-                name: 'Brief answer',
-                description: 'For dense, short and fast answers without water and unnecessary distractions.',
-                enhancerNote: `Construct the promt so that the answer is as concise as possible, but not superficial. Ask to remove water, repetitions and secondary details, save only the essence, key points and specific conclusions.`,
-                aggregatorNote: `When synthesising, focus on brevity and density. Remove repetitions and secondary details, save only the most useful part. The result should be read quickly and without loss of meaning.`
+                name: 'Concise',
+                description: 'For dense, short, and quick answers without filler and unnecessary digressions.',
+                enhancerNote: `Construct the prompt so the answer is as concise as possible but not superficial. Ask to remove filler, repetitions, and secondary details, keeping only the essence, key points, and concrete conclusions.`,
+                aggregatorNote: `When synthesizing, focus on brevity and density. Remove repetitions and secondary details, keeping only the most useful part. The result should be quickly readable without loss of meaning.`
             },
             {
                 id: 'comparison',
-                name: 'Comparison of options',
-                description: 'Choose between several approaches, tools, solutions or strategies.',
-                enhancerNote: `Construct a prompt as a problem of comparing options. Ask the model to compare decisions by criteria, highlight pros, cons, risks, constraints, cost, or complexity, and complete the answer with a selection recommendation.`,
-                aggregatorNote: `In the synthesis of the form, the differences between the variants are particularly clear. Keep comparison criteria, compromises and recommendations. If the best option depends on the conditions, clearly indicate which introductory option is preferable.`
+                name: 'Compare Options',
+                description: 'For choosing between multiple approaches, tools, solutions, or strategies.',
+                enhancerNote: `Construct the prompt as a task of comparing options. Ask the model to compare solutions by criteria, highlight pros, cons, risks, limitations, cost or complexity, and conclude with a recommendation.`,
+                aggregatorNote: `When synthesizing, present the differences between options especially clearly. Preserve comparison criteria, trade-offs, and recommendations. If the best option depends on conditions, explicitly state under which inputs which option is preferable.`
             },
             {
                 id: 'custom',
                 name: 'Custom',
-                description: 'Manual mode: your current system prompts are used without auto-replacement.',
+                description: 'Manual mode: uses your current system prompts without auto-replacement.',
                 enhancerNote: '',
                 aggregatorNote: '',
                 isCustom: true
@@ -258,7 +258,7 @@ Wait for the task description from the user.`;
                 id: 1,
                 name: "Claude",
                 provider: "Anthropic",
-                systemPrompt: `You are Claude (Anthropic). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Claude (Anthropic). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://claude.ai",
                 truncateLimit: 0
@@ -267,7 +267,7 @@ Wait for the task description from the user.`;
                 id: 2,
                 name: "ChatGPT",
                 provider: "OpenAI",
-                systemPrompt: `You are ChatGPT (OpenAI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are ChatGPT (OpenAI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#00ff88",
                 chatUrl: "https://chatgpt.com",
                 truncateLimit: 0
@@ -276,7 +276,7 @@ Wait for the task description from the user.`;
                 id: 3,
                 name: "Gemini",
                 provider: "Google",
-                systemPrompt: `You are Gemini (Google). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Gemini (Google). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#0088ff",
                 chatUrl: "https://gemini.google.com",
                 truncateLimit: 0
@@ -285,7 +285,7 @@ Wait for the task description from the user.`;
                 id: 4,
                 name: "DeepSeek",
                 provider: "DeepSeek-AI",
-                systemPrompt: `You are DeepSeek (DeepSeek-AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are DeepSeek (DeepSeek-AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#00ccff",
                 chatUrl: "https://chat.deepseek.com",
                 truncateLimit: 0
@@ -294,7 +294,7 @@ Wait for the task description from the user.`;
                 id: 5,
                 name: "GLM",
                 provider: "Zhipu AI",
-                systemPrompt: `You are GLM (Zhipu AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are GLM (Zhipu AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ffaa33",
                 chatUrl: "https://chat.z.ai",
                 truncateLimit: 0
@@ -303,7 +303,7 @@ Wait for the task description from the user.`;
                 id: 6,
                 name: "Grok",
                 provider: "xAI",
-                systemPrompt: `You are Grok (xAI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Grok (xAI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ff44aa",
                 chatUrl: "https://grok.com",
                 truncateLimit: 0
@@ -312,7 +312,7 @@ Wait for the task description from the user.`;
                 id: 7,
                 name: "Mistral",
                 provider: "Mistral AI",
-                systemPrompt: `You are Mistral (Mistral AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Mistral (Mistral AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#aaff00",
                 chatUrl: "https://chat.mistral.ai",
                 truncateLimit: 0
@@ -321,7 +321,7 @@ Wait for the task description from the user.`;
                 id: 8,
                 name: "Llama",
                 provider: "Meta",
-                systemPrompt: `You are Llama (Meta). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Llama (Meta). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ff8800",
                 chatUrl: "https://www.meta.ai",
                 truncateLimit: 0
@@ -330,7 +330,7 @@ Wait for the task description from the user.`;
                 id: 9,
                 name: "Qwen",
                 provider: "Alibaba Cloud",
-                systemPrompt: `You are Qwen (Alibaba Cloud). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Qwen (Alibaba Cloud). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ff6644",
                 chatUrl: "https://chat.qwen.ai",
                 truncateLimit: 0
@@ -339,7 +339,7 @@ Wait for the task description from the user.`;
                 id: 10,
                 name: "Pi",
                 provider: "Inflection AI",
-                systemPrompt: `You are Pi (Inflection AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Pi (Inflection AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#33eebb",
                 chatUrl: "https://pi.ai",
                 truncateLimit: 0
@@ -348,7 +348,7 @@ Wait for the task description from the user.`;
                 id: 11,
                 name: "Kimi",
                 provider: "Moonshot AI",
-                systemPrompt: `You are Kimi (Moonshot AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Kimi (Moonshot AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#00bbff",
                 chatUrl: "https://kimi.moonshot.cn",
                 truncateLimit: 0
@@ -357,7 +357,7 @@ Wait for the task description from the user.`;
                 id: 12,
                 name: "ERNIE",
                 provider: "Baidu",
-                systemPrompt: `You are ERNIE (Baidu). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are ERNIE (Baidu). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://ernie.baidu.com",
                 truncateLimit: 0
@@ -365,8 +365,8 @@ Wait for the task description from the user.`;
             {
                 id: 13,
                 name: "Yandex",
-                provider: "Яндекс",
-                systemPrompt: `You are Yandex (Яндекс). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                provider: "Yandex",
+                systemPrompt: `You are Yandex (Yandex). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ffcc00",
                 chatUrl: "https://alice.yandex.ru",
                 truncateLimit: 0
@@ -374,8 +374,8 @@ Wait for the task description from the user.`;
             {
                 id: 14,
                 name: "GigaChat",
-                provider: "Сбер",
-                systemPrompt: `You are GigaChat (Сбер). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                provider: "Sber",
+                systemPrompt: `You are GigaChat (Sber). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#44ffcc",
                 chatUrl: "https://giga.chat",
                 truncateLimit: 0
@@ -384,7 +384,7 @@ Wait for the task description from the user.`;
                 id: 15,
                 name: "MiniMax",
                 provider: "MiniMax AI",
-                systemPrompt: `You are MiniMax (MiniMax AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are MiniMax (MiniMax AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://agent.minimax.io",
                 truncateLimit: 0
@@ -393,7 +393,7 @@ Wait for the task description from the user.`;
                 id: 16,
                 name: "Cohere",
                 provider: "Cohere",
-                systemPrompt: `You are Cohere (Cohere). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Cohere (Cohere). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#44bbff",
                 chatUrl: "https://dashboard.cohere.com/playground/chat",
                 truncateLimit: 0
@@ -402,7 +402,7 @@ Wait for the task description from the user.`;
                 id: 17,
                 name: "Sarvam",
                 provider: "Sarvam AI",
-                systemPrompt: `You are Sarvam (Sarvam AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Sarvam (Sarvam AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#f43f5e",
                 chatUrl: "https://dashboard.sarvam.ai/chat",
                 truncateLimit: 0
@@ -411,7 +411,7 @@ Wait for the task description from the user.`;
                 id: 18,
                 name: "Upstage",
                 provider: "Upstage AI",
-                systemPrompt: `You are Upstage (Upstage AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Upstage (Upstage AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#14b8a6",
                 chatUrl: "https://console.upstage.ai/playground/chat",
                 truncateLimit: 0
@@ -420,7 +420,7 @@ Wait for the task description from the user.`;
                 id: 19,
                 name: "StepFun",
                 provider: "StepFun AI",
-                systemPrompt: `You are StepFun (StepFun AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are StepFun (StepFun AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#8b5cf6",
                 chatUrl: "https://stepfun.ai/chats/new",
                 truncateLimit: 0
@@ -429,7 +429,7 @@ Wait for the task description from the user.`;
                 id: 20,
                 name: "Trinity",
                 provider: "Arcee AI",
-                systemPrompt: `You are Trinity (Arcee AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
+                systemPrompt: `You are Trinity (Arcee AI). Respond accurately, logically, and to the point. Clearly separate facts and assumptions, adapt style to question complexity. Be concise where appropriate and detailed where necessary.`,
                 color: "#ec4899",
                 chatUrl: "https://chat.arcee.ai/chat",
                 truncateLimit: 0
@@ -438,75 +438,75 @@ Wait for the task description from the user.`;
 
         const DEFAULT_TEMPLATES = [
             {
-                name: 'In-depth analysis',
-                content: `Discuss the topic deeply and structurally.
+                name: 'Deep Analysis',
+                content: `Analyze the topic deeply and structurally.
 
 First give a short answer in 2-4 sentences.
-Then explain the main idea in simple words.
-Discover important details, limitations, and frequent errors of understanding.
+Then explain the main idea in simple terms.
+Next, cover important details, limitations, and common misunderstandings.
 If appropriate, add 1-2 clear examples.
-Write clearly, without water and without unnecessary theory for the sake of theory.`
+Write clearly, without filler and without unnecessary theory for theory's sake.`
             },
             {
-                name: 'Step-by-step plan',
-                content: `Make a practical step-by-step plan for solving the problem.
+                name: 'Step-by-Step Plan',
+                content: `Create a practical step-by-step plan for solving the task.
 
-We need a format:
+Required format:
 1. What to do first
-2. What to do next.
+2. What to do next
 3. What risks and pitfalls to consider
-4. How to check that everything is done correctly
+4. How to verify everything is done correctly
 
-If there are several strategies, briefly compare them and recommend the best.`
+If there are multiple strategies, briefly compare them and recommend the best one.`
             },
             {
-                name: 'Comparison of options',
-                content: `Compare a few solutions.
+                name: 'Compare Options',
+                content: `Compare several solution options.
 
-Comparison by criteria:
-- pluses
-- minuses
-cost or complexity
+Make a comparison by criteria:
+- pros
+- cons
+- cost or complexity
 - risks
-When is the best option to choose
+- when to choose which option
 
-In the end, give a clear recommendation explaining why it is the best.`
+At the end, give a clear recommendation with an explanation of why it is the best.`
             },
             {
-                name: 'Code and debugging',
-                content: `Help me like a strong engineer.
+                name: 'Code & Debug',
+                content: `Help like a strong engineer.
 
-Need:
-Find the probable cause of the problem
-- explain it in simple terms.
-- offer a minimum working fix
-Show how to check the result
-If there are several reasons, sort them by probability.
+Needed:
+- find the likely cause of the problem
+- explain it in simple terms
+- propose a minimal working fix
+- show how to verify the result
+- if there are multiple causes, sort them by probability
 
-Don’t limit yourself to general advice, give specifics.`
+Do not limit yourself to general advice, be specific.`
             },
             {
-                name: 'Brief squeeze',
-                content: `Do a tight squeeze without water.
+                name: 'Concise Summary',
+                content: `Make a dense summary without filler.
 
 Format:
 - essence in 1-2 sentences
-3-7 key points
-- What's important to remember
+- 3-7 key points
+- what to remember
 
-Remove repetitions, general phrases and all secondary.`
+Remove repetitions, general phrases, and everything secondary.`
             },
             {
-                name: 'Fact vs. opinion',
+                name: 'Fact vs Opinion',
                 content: `Answer carefully and intellectually honestly.
 
-Make it clear:
+Explicitly separate:
 - confirmed facts
 - probable conclusions
-assumptions
-- points of contention
+- assumptions
+- disputed points
 
-If the data is not enough, say it directly and do not think too much.`
+If data is insufficient, say so directly and do not make things up.`
             }
         ];
 
@@ -614,7 +614,7 @@ If the data is not enough, say it directly and do not think too much.`
             a.download = `multillm-logs-${new Date().toISOString().slice(0,10)}.txt`;
             a.click();
             URL.revokeObjectURL(url);
-             appLog('info', 'Logs exported');
+            appLog('info', 'Logs exported');
         }
 
         function setLogFilter(filter, btn) {
@@ -696,7 +696,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:      'Ollama',
                 isCloud:    false,
                 defaultUrl: 'http://localhost:11434',
-                hint:       'Run Ollama: <code>ollama serve</code>. Load a model: <code>ollama pull &lt;model&gt;</code>.',
+                hint:       'Run Ollama: <code>ollama serve</code>. Load the model: <code>ollama pull &lt;model&gt;</code>.',
                 modelsApi:  'ollama',
                 chatApi:    'openai',
                 models:     null,
@@ -715,7 +715,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'OpenAI',
                 isCloud:     true,
                 defaultUrl:  'https://api.openai.com',
-                hint:        'Get a key at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
+                hint:        'Get your key at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
                 apikeyHint:  'Key starts with <code>sk-…</code>',
                 apikeyLabel: 'OpenAI API key',
                 modelsApi:   'hardcoded',
@@ -744,8 +744,8 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'DeepSeek',
                 isCloud:     true,
                 defaultUrl:  'https://api.deepseek.com',
-                hint:        'Get a key at <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
-                apikeyHint:  'DeepSeek API key',
+                hint:        'Get your key at <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
+                apikeyHint:  'API key DeepSeek',
                 apikeyLabel: 'DeepSeek API key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
@@ -755,7 +755,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'Anthropic',
                 isCloud:     true,
                 defaultUrl:  'https://api.anthropic.com',
-                hint:        'Get a key at <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">',
+                hint:        'Get your key at <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">',
                 apikeyHint:  'Key starts with <code>sk-ant-…</code>',
                 apikeyLabel: 'Anthropic API key',
                 modelsApi:   'hardcoded',
@@ -776,8 +776,8 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'Mistral AI',
                 isCloud:     true,
                 defaultUrl:  'https://api.mistral.ai',
-                hint:        'Get a key at <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
-                apikeyHint:  'Mistral API key',
+                hint:        'Get your key at <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
+                apikeyHint:  'API key Mistral',
                 apikeyLabel: 'Mistral API key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
@@ -787,8 +787,8 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'Hugging Face',
                 isCloud:     true,
                 defaultUrl:  'https://router.huggingface.co/hf-inference/models',
-                hint:        'Get a key at <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Specify the model manually, e.g.: meta-llama/Llama-3.3-70B-Instruct',
-                apikeyHint:  'HF key (hf_…)',
+                hint:        'Get your key at <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Specify the model manually, e.g. meta-llama/Llama-3.3-70B-Instruct',
+                apikeyHint:  'HF Key (hf_…)',
                 apikeyLabel: 'Hugging Face API key',
                 modelsApi:   'manual',
                 chatApi:     'openai',
@@ -800,7 +800,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'OpenRouter',
                 isCloud:     true,
                 defaultUrl:  'https://openrouter.ai/api',
-                hint:        'Get a key at <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Specify the model manually, e.g.: <code>anthropic/claude-3.5-sonnet</code>',
+                hint:        'Get your key at <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Specify the model manually, e.g. <code>anthropic/claude-3.5-sonnet</code>',
                 apikeyHint:  'Key starts with <code>sk-or-…</code>',
                 apikeyLabel: 'OpenRouter API key',
                 modelsApi:   'manual',
@@ -813,7 +813,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'Google (Gemini)',
                 isCloud:     true,
                 defaultUrl:  'https://generativelanguage.googleapis.com/v1beta/openai',
-                hint:        'Get a key at <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
+                hint:        'Get your key at <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
                 apikeyHint:  'Google AI Studio API key',
                 apikeyLabel: 'Google API key',
                 modelsApi:   'hardcoded',
@@ -830,7 +830,7 @@ If the data is not enough, say it directly and do not think too much.`
                 label:       'Groq Cloud',
                 isCloud:     true,
                 defaultUrl:  'https://api.groq.com/openai',
-                hint:        'Get a key at <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
+                hint:        'Get your key at <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
                 apikeyHint:  'Key starts with <code>gsk_…</code>',
                 apikeyLabel: 'Groq API key',
                 modelsApi:   'hardcoded',
@@ -917,7 +917,7 @@ If the data is not enough, say it directly and do not think too much.`
                     const apiKeyInput = document.getElementById('lmsApiKeyInput');
                     if (apiKeyInput) apiKeyInput.value = providerCredentials[currentProvider].apiKey;
                 }
-                showSystemNotification(`Imported keys: ${imported}`, 'saved', 3000);
+                showSystemNotification(`Keys imported: ${imported}`, 'saved', 3000);
                 appLog('success', `Key import: ${imported} from ${lines.length} lines`);
             };
             reader.readAsText(file);
@@ -950,23 +950,23 @@ If the data is not enough, say it directly and do not think too much.`
             a.download = 'api-keys.txt';
             a.click();
             URL.revokeObjectURL(url);
-            showSystemNotification(`Exported keys: ${lines.length}`, 'saved', 2500);
+            showSystemNotification(`Keys exported: ${lines.length}`, 'saved', 2500);
         }
 
         // ── Clear all API keys ──
         function clearAllApiKeys() {
             const count = Object.keys(providerCredentials).filter(p => providerCredentials[p]?.apiKey).length;
             if (count === 0) {
-                showSystemNotification('No keys stored', 'warning', 2000);
+                showSystemNotification('No keys', 'warning', 2000);
                 return;
             }
-            if (!confirm(`Delete all saved API keys (${count} pcs)? This action cannot be undone.`)) return;
+            if (!confirm(`Delete all saved API keys (${count} pcs.))? This action cannot be undone.`)) return;
             providerCredentials = {};
             lmStudioSettings.apiKey = '';
             saveLmsSettings();
             const apiKeyInput = document.getElementById('lmsApiKeyInput');
             if (apiKeyInput) apiKeyInput.value = '';
-            showSystemNotification(`Deleted keys: ${count}`, 'saved', 2500);
+            showSystemNotification(`Keys deleted: ${count}`, 'saved', 2500);
             appLog('success', `All API keys deleted (${count})`);
         }
 
@@ -996,7 +996,7 @@ If the data is not enough, say it directly and do not think too much.`
             // Update manual model hints
             if (isManual) {
                 const manualHint = document.getElementById('lms-model-manual-hint');
-                if (manualHint) manualHint.innerHTML = info.hint || 'Enter model ID manually.';
+                if (manualHint) manualHint.innerHTML = info.hint || 'Specify model ID manually.';
                 // Restore saved manual model
                 const manualInput = document.getElementById('lmsModelManualInput');
                 if (manualInput && lmStudioSettings.model) manualInput.value = lmStudioSettings.model;
@@ -1014,9 +1014,9 @@ If the data is not enough, say it directly and do not think too much.`
             const modelHint = document.getElementById('lms-model-hint');
             if (modelHint && !isManual) {
                 if (info.modelsApi === 'hardcoded') {
-                    modelHint.textContent = `List of ${info.label} models (up-to-date at the time of app update).`;
+                    modelHint.textContent = `List of models ${info.label} (current at the time of application update).`;
                 } else {
-                    modelHint.textContent = 'List loads when connection is checked.';
+                    modelHint.textContent = 'List loads when checking connection.';
                 }
             }
         }
@@ -1366,7 +1366,7 @@ If the data is not enough, say it directly and do not think too much.`
             if (isManual) {
                 if (!apiKey) {
                     setAnyLmsStatus('error', 'Enter API key');
-                    appLog('warn', `Check ${info.label}: API key not specified`);
+                    appLog('warn', `Checking ${info.label}: API key not specified`);
                     showSystemNotification(`Enter API key for ${info.label}`, 'warning', 3000);
                     if (btn) btn.disabled = false;
                     return [];
@@ -1410,8 +1410,8 @@ If the data is not enough, say it directly and do not think too much.`
                     lmStudioSettings.model = manualModel;
                 }
                 saveCurrentProviderCredentials();
-                setAnyLmsStatus('connected', `Key valid${manualModel ? ' · ' + manualModel : ''}`);
-                appLog('success', `${info.label} — API key checked${manualModel ? ', model: ' + manualModel : ''}`);
+                setAnyLmsStatus('connected', `Key is valid${manualModel ? ' · ' + manualModel : ''}`);
+                appLog('success', `${info.label} — API key verified${manualModel ? ', model: ' + manualModel : ''}`);
                 showSystemNotification(`${info.label} configured ✓`, 'saved', 2500);
                 if (btn) btn.disabled = false;
                 return manualModel ? [manualModel] : [];
@@ -1450,7 +1450,7 @@ If the data is not enough, say it directly and do not think too much.`
             const select  = document.getElementById('lmsModelSelect');
             if (!select) return;
             if (!modelsList || modelsList.length === 0) {
-                select.innerHTML = '<option value="">— No available models —</option>';
+                select.innerHTML = '<option value="">— No models available —</option>';
                 return;
             }
             const current = lmStudioSettings.model;
@@ -1545,7 +1545,7 @@ If the data is not enough, say it directly and do not think too much.`
 
             if (!model) {
                 showSystemNotification('Select a model in Settings → Providers', 'warning', 3200);
-                appLog('warn', 'Send cancelled: model not selected');
+                appLog('warn', 'Send cancelled: no model selected');
                 return;
             }
             if (info.isCloud && !apiKey) {
@@ -1578,7 +1578,7 @@ If the data is not enough, say it directly and do not think too much.`
 
                 if (statusEl) { statusEl.textContent = `✓ ${info.label} · ${model}`; statusEl.style.color = '#16a34a'; }
                 appLog('success', `Response received ← ${info.label} · ${model}, chars: ${result.length}`);
-                showSystemNotification(`Response from ${model} received ✓`, 'saved', 2500);
+                showSystemNotification(`Response from ${model} received`, 'saved', 2500);
 
             } catch(e) {
                 appLog('error', `Error ${info.label} · ${model}`, e.message);
@@ -1594,8 +1594,8 @@ If the data is not enough, say it directly and do not think too much.`
 
         async function sendEnhancerToLmStudio() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Enter a query at step 1', 'warning', 2500);
-                appLog('warn', 'Prompt improvement send: empty query');
+                showSystemNotification('Enter request on step 1', 'warning', 2500);
+                appLog('warn', 'Prompt improvement send: empty request');
                 return;
             }
             await callLmsApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -1603,8 +1603,8 @@ If the data is not enough, say it directly and do not think too much.`
 
         async function sendAggregatorToLmStudio() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Add model responses at step 3', 'warning', 2500);
-                appLog('warn', 'Synthesis send: no model responses');
+                showSystemNotification('Add model answers on step 3', 'warning', 2500);
+                appLog('warn', 'Synthesis send: no model answers');
                 return;
             }
             await callLmsApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -1660,12 +1660,13 @@ If the data is not enough, say it directly and do not think too much.`
             try {
                 const raw = localStorage.getItem('multillm_huggingface');
                 if (raw) hfSettings = { ...hfSettings, ...JSON.parse(raw) };
-            } catch(e) { appLog('error', 'Error loading HF settings', e.message); }
+            } catch(e) { appLog('error', 'Error loading settings HF', e.message); }
+        }
 
         function saveHfSettings() {
             try {
                 localStorage.setItem('multillm_huggingface', JSON.stringify(hfSettings));
-            } catch(e) { appLog('error', 'Error saving HF settings', e.message); }
+            } catch(e) { appLog('error', 'Error saving settings HF', e.message); }
         }
 
         function onHfToggleChange() {
@@ -1711,7 +1712,7 @@ If the data is not enough, say it directly and do not think too much.`
             if (!apiKey) {
                 setHfConnectionStatus('error', 'Enter API key');
                 appLog('warn', 'HF check: API key not specified');
-                showSystemNotification('Enter Hugging Face API key', 'warning', 3000);
+                showSystemNotification('Enter API key Hugging Face', 'warning', 3000);
                 return;
             }
 
@@ -1726,7 +1727,7 @@ If the data is not enough, say it directly and do not think too much.`
             const btn = document.getElementById('hf-test-btn');
             if (btn) btn.disabled = true;
 
-            appLog('info', `Checking HF → ${model}`);
+            appLog('info', `HF check → ${model}`);
 
             try {
                 // Test with a minimal request
@@ -1759,7 +1760,7 @@ If the data is not enough, say it directly and do not think too much.`
                 showSystemNotification(`Hugging Face connected ✓`, 'saved', 2500);
             } catch(e) {
                 setHfConnectionStatus('error', 'Error');
-                appLog('error', `HF error: ${model}`, e.message);
+                appLog('error', `Error HF: ${model}`, e.message);
                 showSystemNotification(`HF: ${e.message.slice(0, 60)}`, 'error', 4000);
             } finally {
                 if (btn) btn.disabled = false;
@@ -1814,12 +1815,12 @@ If the data is not enough, say it directly and do not think too much.`
             const statusEl = document.getElementById(statusElId);
 
             if (!model) {
-                showSystemNotification('Specify HF model in Settings → HF', 'warning', 3200);
+                showSystemNotification('Specify HF model in settings → HF', 'warning', 3200);
                 appLog('warn', 'HF send: model not specified');
                 return;
             }
             if (!apiKey) {
-                showSystemNotification('Enter HF API key', 'warning', 3200);
+                showSystemNotification('Enter API key HF', 'warning', 3200);
                 appLog('warn', 'HF send: no API key');
                 return;
             }
@@ -1856,10 +1857,10 @@ If the data is not enough, say it directly and do not think too much.`
 
                 if (statusEl) { statusEl.textContent = `✓ HF · ${model}`; statusEl.style.color = '#16a34a'; }
                 appLog('success', `Response received ← HF · ${model}, chars: ${result.length}`);
-                showSystemNotification(`Response from HF ${model} received ✓`, 'saved', 2500);
+                showSystemNotification(`Response from HF ${model} received`, 'saved', 2500);
 
             } catch(e) {
-                appLog('error', `HF error · ${model}`, e.message);
+                appLog('error', `Error HF · ${model}`, e.message);
                 if (statusEl) { statusEl.textContent = `✗ ${e.message.slice(0, 120)}`; statusEl.style.color = '#ef4444'; }
                 showSystemNotification(`HF: ${e.message.slice(0, 70)}`, 'error', 4500);
             } finally {
@@ -1872,8 +1873,8 @@ If the data is not enough, say it directly and do not think too much.`
 
         async function sendEnhancerToHf() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Enter a query at step 1', 'warning', 2500);
-                appLog('warn', 'HF improvement send: empty query');
+                showSystemNotification('Enter request on step 1', 'warning', 2500);
+                appLog('warn', 'HF improvement send: empty request');
                 return;
             }
             await callHfApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -1881,8 +1882,8 @@ If the data is not enough, say it directly and do not think too much.`
 
         async function sendAggregatorToHf() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Add model responses at step 3', 'warning', 2500);
-                appLog('warn', 'HF synthesis send: no model responses');
+                showSystemNotification('Add model answers on step 3', 'warning', 2500);
+                appLog('warn', 'HF synthesis send: no model answers');
                 return;
             }
             await callHfApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -2167,7 +2168,7 @@ If the data is not enough, say it directly and do not think too much.`
 
                 autosaveStepToRestore = state.currentStep || 1;
 
-                // Restore currentThread by saved ID
+                // Restoring currentThread from saved ID
                 if (state.currentThreadId && allThreads.length > 0) {
                     const foundThread = allThreads.find(t => t.id === state.currentThreadId);
                     if (foundThread) {
@@ -2242,7 +2243,7 @@ If the data is not enough, say it directly and do not think too much.`
                 html += `<button class="star-btn ${filled}" data-action="setRating" data-model-id="${modelId}" data-star="${i}" data-action-enter="hoverStar" data-action-leave="unhoverStar">★</button>`;
             }
             if (rating > 0) {
-                const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
+                const labels = ['', 'Poor', 'So-so', 'OK', 'Good', 'Excellent'];
                 html += `<span class="rating-label">${labels[rating]}</span>`;
             }
             html += '</div>';
@@ -2284,7 +2285,7 @@ If the data is not enough, say it directly and do not think too much.`
 
         function updateRatingDisplay(modelId) {
             const rating = modelRatings[modelId] || 0;
-            const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
+            const labels = ['', 'Poor', 'So-so', 'OK', 'Good', 'Excellent'];
             const containers = document.querySelectorAll(`.star-rating[data-model-id="${modelId}"]`);
             if (!containers.length) return;
 
@@ -2346,7 +2347,7 @@ If the data is not enough, say it directly and do not think too much.`
                 .filter((m) => m.answer);
 
             if (answersWithContent.length === 0) {
-                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No answers to compare</p><p class="text-xs mt-1">Add model responses at step 3</p></div>';
+                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No answers to compare</p><p class="text-xs mt-1">Add model answers on step 3</p></div>';
                 comparisonDirty = false;
                 return;
             }
@@ -2404,7 +2405,7 @@ If the data is not enough, say it directly and do not think too much.`
 
             updateLmsUiVisibility();
             updateLogBadge();
-            appLog('info', 'App launched');
+            appLog('info', 'Application started');
         });
 
         // Keyboard shortcuts
@@ -2750,7 +2751,7 @@ If the data is not enough, say it directly and do not think too much.`
         }
 
         function restoreDefaultModels() {
-            if (confirm('Restore all default models? Current models will be replaced.')) {
+            if (confirm('Restore all default models? Current models will be replaced..')) {
                 models = [...DEFAULT_MODELS];
                 localStorage.setItem('multillm_models', JSON.stringify(models));
                 renderModelsList();
@@ -2819,7 +2820,7 @@ If the data is not enough, say it directly and do not think too much.`
             if (newName === null) return;
             const newProvider = prompt('Provider:', model.provider);
             if (newProvider === null) return;
-            const newSystemPrompt = prompt('System prompt (empty = global):', model.systemPrompt || '');
+            const newSystemPrompt = prompt('System prompt (empty = use default):', model.systemPrompt || '');
             if (newSystemPrompt === null) return;
             const newChatUrl = prompt('Chat URL:', model.chatUrl || '');
             
@@ -2958,8 +2959,8 @@ If the data is not enough, say it directly and do not think too much.`
                         <div class="mb-3">
                             ${renderStarRating(m.id)}
                         </div>
-                        <p class="text-zinc-500 text-sm mb-2">Paste answer from ${escapeHtml(m.name)}:</p>
-                        <textarea id="answer-${m.id}" class="textarea" placeholder="Paste answer from ${escapeHtml(m.name)}..." data-action="handleAnswerInput" data-model-id="${m.id}">${escapeHtml(answerValue)}</textarea>
+                        <p class="text-zinc-500 text-sm mb-2">Paste the answer from ${escapeHtml(m.name)}:</p>
+                        <textarea id="answer-${m.id}" class="textarea" placeholder="Paste the answer from ${escapeHtml(m.name)}..." data-action="handleAnswerInput" data-model-id="${m.id}">${escapeHtml(answerValue)}</textarea>
                     </div>
                 </div>
             `}).join('');
@@ -2993,7 +2994,7 @@ If the data is not enough, say it directly and do not think too much.`
             if (!m) return;
 
             const improved = document.getElementById('improvedPrompt').value.trim();
-            let textToCopy = improved || '(prompt not set yet)';
+            let textToCopy = improved || '(prompt not yet set)';
             
             // If model has a system prompt, prepend it
             if (m.systemPrompt && m.systemPrompt.trim()) {
@@ -3044,22 +3045,22 @@ If the data is not enough, say it directly and do not think too much.`
         function setStep(step) {
             // Validate
             if (step === 2 && !document.getElementById('rawPrompt').value.trim()) {
-                alert('Enter a query');
+                alert('Enter request');
                 return;
             }
             if (step === 3 && !document.getElementById('improvedPrompt').value.trim()) {
-                alert('Paste improved prompt');
+                alert('Paste the improved prompt');
                 return;
             }
             if (step === 4) {
                 const hasAnswers = models.some((m) => getTrimmedAnswerValue(m.id));
                 if (!hasAnswers) {
-                    alert('Add at least one model response');
+                    alert('Add at least one model answer');
                     return;
                 }
             }
             if (step === 5 && !document.getElementById('finalAnswer').value.trim()) {
-                alert('Paste synthesized answer');
+                alert('Paste the synthesized answer');
                 return;
             }
 
@@ -3088,7 +3089,7 @@ If the data is not enough, say it directly and do not think too much.`
 
             // Update dynamic content
             if (step === 2) {
-                document.getElementById('enhancerUserPrompt').innerHTML = '<div class="code-block scrollable">Here is the user\'s original query:\n«' + escapeHtml(document.getElementById('rawPrompt').value) + '»</div>';
+                document.getElementById('enhancerUserPrompt').innerHTML = '<div class="code-block scrollable">Here is the user original request:\n«' + escapeHtml(document.getElementById('rawPrompt').value) + '»</div>';
             }
             if (step === 3) {
                 renderMarkdownInto(document.getElementById('improvedPromptDisplay'), document.getElementById('improvedPrompt').value);
@@ -3127,7 +3128,7 @@ If the data is not enough, say it directly and do not think too much.`
         }
 
         function generateEnhancerUserPrompt() {
-            return 'Here is the user\'s original query:\n«' + document.getElementById('rawPrompt').value + '»';
+            return 'Here is the user original request:\n«' + document.getElementById('rawPrompt').value + '»';
         }
 
         function generateAggregatorPromptLegacy() {
@@ -3143,8 +3144,8 @@ If the data is not enough, say it directly and do not think too much.`
                     if (useRatings) {
                         const rating = modelRatings[m.id];
                         ratingText = rating
-                            ? `User rating: ${rating}/5. This is a soft signal of preference, not a guarantee of factual accuracy.\n`
-                            : 'User rating: not specified. This is a neutral case; do not treat missing rating as a negative.\n';
+                            ? `User rating: ${rating}/5. This is a soft preference signal, not a guarantee of factual accuracy.\n`
+                            : 'User rating: not specified. This is a neutral case; do not treat absence of a rating as a minus.\n';
                     }
 
                     answersText += `Answer ${index} (${m.name}, ${m.provider}):\n${ratingText}«${answer}»\n\n`;
@@ -3153,10 +3154,10 @@ If the data is not enough, say it directly and do not think too much.`
             });
 
             const ratingsGuidance = useRatings
-                ? `Interpreting user ratings:
+                ? `Interpretation of user ratings:
 - If an answer has a rating, treat it as an additional signal of usefulness and user preference.
-- Do not substitute user ratings for factual accuracy, logical consistency, and completeness.
-- If a rating is absent, treat it as absence of signal, not a negative rating.
+- Do not substitute user rating for factual accuracy, logical consistency, and completeness.
+- If no rating is present, treat it as absence of signal, not as a negative rating.
 
 `
                 : '';
@@ -3164,7 +3165,7 @@ If the data is not enough, say it directly and do not think too much.`
             return `Original question (improved prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Responses from different models:
+${ratingsGuidance}Answers from different models:
 
 ${answersText}`;
         }
@@ -3184,19 +3185,19 @@ ${answersText}`;
                 if (useRatings) {
                     const rating = modelRatings[m.id];
                     ratingText = rating
-                        ? `User rating for this variant: ${rating}/5. This is a soft signal of preference, not a guarantee of factual accuracy.\n`
-                        : 'User rating for this variant: not specified. This is a neutral case; do not treat missing rating as a negative.\n';
+                        ? `User rating of this option: ${rating}/5. This is a soft preference signal, not a guarantee of factual accuracy.\n`
+                        : 'User rating of this option: not specified. This is a neutral case; do not treat absence of a rating as a minus.\n';
                 }
 
-                answersText += `Variant ${index}:\n${ratingText}«${answer}»\n\n`;
+                answersText += `Option ${index}:\n${ratingText}«${answer}»\n\n`;
                 index++;
             });
 
             const ratingsGuidance = useRatings
-                ? `Interpreting user ratings:
-- If a variant has a rating, treat it as an additional signal of usefulness and user preference.
-- Do not substitute user ratings for factual accuracy, logical consistency, and completeness.
-- If a rating is absent, treat it as absence of signal, not a negative rating.
+                ? `Interpretation of user ratings:
+- If an option has a rating, treat it as an additional signal of usefulness and user preference.
+- Do not substitute user rating for factual accuracy, logical consistency, and completeness.
+- If no rating is present, treat it as absence of signal, not as a negative rating.
 
 `
                 : '';
@@ -3204,9 +3205,9 @@ ${answersText}`;
             return `Original question (improved prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Below are several anonymized answer variants. Model and provider names are intentionally hidden; evaluate only content, logic, usefulness, and clarity.
+${ratingsGuidance}Below are several anonymized answer options. Model and provider names are intentionally hidden; evaluate only content, logic, usefulness, and clarity.
 
-Anonymized variants:
+Anonymized options:
 
 ${answersText}`;
         }
@@ -3428,7 +3429,7 @@ ${answersText}`;
             });
         }
 
-        // ── Universal clipboard: Clipboard API + execCommand fallback ──
+        // ── Universal clipboard: Clipboard API + execCommand fallback (Yandex Browser / file://) ──
         function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(text)
@@ -3613,12 +3614,15 @@ ${answersText}`;
             if (!currentThread || currentThread.turns.length === 0) {
                 wrap.classList.add('hidden');
                 body.innerHTML = '';
-                if (step1Title) step1Title.textContent = 'Step 1: Your raw query';
+                if (step1Title) step1Title.textContent = 'Step 1: Your raw request';
                 if (step1Hint) step1Hint.textContent = 'Enter your original question or task';
+                return;
             }
+
+            wrap.classList.remove('hidden');
             if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'question' : 'questions'}`;
             if (step1Title) step1Title.textContent = 'Continue chat';
-            if (step1Hint) step1Hint.textContent = 'Ask the next question - it will be sent to the same chats';
+            if (step1Hint) step1Hint.textContent = 'Ask the next question — it will be sent to the same chats';
 
             body.innerHTML = currentThread.turns.map((turn, i) => {
                 const aiId = 'ai-bubble-' + i;
@@ -3689,7 +3693,7 @@ ${answersText}`;
                     try {
                         const data = JSON.parse(e.target.result);
                         if (data.threads && Array.isArray(data.threads)) {
-                            if (confirm(`Import ${data.threads.length} chats? Existing history will be appended.`)) {
+                            if (confirm(`Import ${data.threads.length} chats? Existing history will be supplemented.`)) {
                                 // Merge threads
                                 const existingIds = new Set(allThreads.map(t => t.id));
                                 data.threads.forEach(thread => {
@@ -3815,7 +3819,7 @@ ${answersText}`;
 
         function deleteThread(idx) {
             const thread = allThreads[idx];
-            if (!confirm(`Delete chat "${thread.title.slice(0,40)}"?`)) return;
+            if (!confirm(`Delete chat «${thread.title.slice(0,40)}»?`)) return;
             if (currentThread && currentThread.id === thread.id) {
                 currentThread = null;
                 isContinuation = false;
@@ -3852,7 +3856,7 @@ ${answersText}`;
 
         function closeContinueModal() {
             document.getElementById('continueModal').classList.add('hidden');
-            // Don't reset currentThread to preserve chat context
+            // Do not reset currentThread to avoid losing chat context
         }
 
         function submitContinue() {

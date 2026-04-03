@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Documentation – Multi-LLM</title>
+    <title>API Documentation — Multi-LLM</title>
     <script src="lib/tailwindcss.js"></script>
     <script src="lib/marked.min.js"></script>
     <style>
@@ -295,37 +295,37 @@
         <!-- Overview -->
         <section id="overview">
             <h1>📡 API Documentation</h1>
-            <p>Welcome to the Multi-LLM API documentation. The API provides a single interface for working with different language models through a single query format compatible with the OpenAI API.</p>
-            
+            <p>Welcome to the Multi-LLM API documentation. The API provides a unified interface for working with various language models through a single request format, compatible with the OpenAI API.</p>
+
             <div class="info-box info">
-                <div class="info-box-title">💡 Unified format</div>
-                <p>All providers use a format compatible with the OpenAI API. This makes it easy to switch between models without changing the code.</p>
+                <div class="info-box-title">💡 Unified Format</div>
+                <p>All providers use a format compatible with the OpenAI API. This allows you to easily switch between models without changing code.</p>
             </div>
 
-            <h3>Key features</h3>
+            <h3>Key Features</h3>
             <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
-                <li>Access 20+ language models through a single API</li>
-                <li>Support for chat format with system prompts</li>
+                <li>Access to 20+ language models through a single API</li>
+                <li>Chat format support with system prompts</li>
                 <li>Streaming responses</li>
                 <li>JSON mode for structured responses</li>
-                <li>Compatible with OpenAI SDK</li>
+                <li>OpenAI SDK compatibility</li>
             </ul>
         </section>
 
         <!-- Quick Start -->
         <section id="quickstart">
             <h2>⚡ Quick Start</h2>
-            <p>Start using the API in a few minutes. Choose your favorite language or tool:</p>
-            
+            <p>Start using the API in just a few minutes. Choose your preferred language or tool:</p>
+
             <div class="quick-cards">
                 <a href="#chat-completions" class="quick-card">
                     <div class="quick-card-icon">💬</div>
                     <div class="quick-card-title">Chat Completions</div>
-                    <div class="quick-card-desc">Send the first request to the model</div>
+                    <div class="quick-card-desc">Send your first request to a model</div>
                 </a>
                 <a href="#authentication" class="quick-card">
                     <div class="quick-card-icon">🔑</div>
-                    <div class="quick-card-title">Get API key</div>
+                    <div class="quick-card-title">Get API Key</div>
                     <div class="quick-card-desc">Set up authentication</div>
                 </a>
                 <a href="#streaming" class="quick-card">
@@ -335,8 +335,8 @@
                 </a>
             </div>
 
-            <h3>Your first request</h3>
-            <p>Here is a minimal example of sending a message to a model:</p>
+            <h3>Your First Request</h3>
+            <p>Here's a minimal example of sending a message to a model:</p>
             
             <div class="code-tabs" id="firstRequestTabs">
                 <button id="ext-el-12" class="code-tab active">cURL</button>
@@ -401,7 +401,7 @@ console.log(data.choices[0].message.content);</pre>
         <!-- Authentication -->
         <section id="authentication">
             <h2>🔑 Authentication</h2>
-            <p>All API requests require authentication via an API key. The key is passed in the <code class="inline-code">Authorization</code> header.</p>
+            <p>All requests to the API require authentication via an API key. The key is passed in the <code class="inline-code">Authorization</code> header.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -409,19 +409,19 @@ console.log(data.choices[0].message.content);</pre>
                     <span class="endpoint-path">Authorization: Bearer YOUR_API_KEY</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Replace <code class="inline-code">YOUR_API_KEY</code> with your actual API key from the provider.</p>
+                    <p>Replace <code class="inline-code">YOUR_API_KEY</code> with your real API key from the provider.</p>
                 </div>
             </div>
 
-            <h3>Getting API keys</h3>
-            <p>Each provider has its own way to obtain an API key:</p>
-            
+            <h3>Obtaining API Keys</h3>
+            <p>Each provider has its own method for obtaining API keys:</p>
+
             <table>
                 <thead>
                     <tr>
                         <th>Provider</th>
-                        <th>Where to get the key</th>
-                        <th>Key format</th>
+                        <th>Where to Get Key</th>
+                        <th>Key Format</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -473,15 +473,15 @@ console.log(data.choices[0].message.content);</pre>
                 <p>Never store API keys in client-side code. Use environment variables or server-side proxies for production applications.</p>
             </div>
 
-            <h3>Import and export of keys</h3>
-            <p>In the settings (the "Providers" tab), buttons for bulk key management are available:</p>
+            <h3>Import and Export Keys</h3>
+            <p>In settings (the "Providers" tab), buttons are available for bulk key management:</p>
             <ul>
-                <li><strong>Import keys (.txt)</strong> — upload a file with keys, all providers at once</li>
-                <li><strong>Export keys</strong> — download all keys to a <code class="inline-code">api-keys.txt</code> file</li>
-                <li><strong>Delete all keys</strong> — clear all keys with one click (with confirmation)</li>
+                <li><strong>Import Keys (.txt)</strong> — Upload a file with keys, all providers at once</li>
+                <li><strong>Export Keys</strong> — Download all keys to <code class="inline-code">api-keys.txt</code></li>
+                <li><strong>Delete All Keys</strong> — Clear all keys in one click (with confirmation)</li>
             </ul>
 
-            <h4>File format for import</h4>
+            <h4>Import File Format</h4>
             <div class="card">
                 <div class="code-block-wrapper">
                     <button id="ext-el-16" class="code-copy-btn">
@@ -501,16 +501,16 @@ OPENROUTER - sk-or-your-key-here</pre>
             <p>Rules:</p>
             <ul>
                 <li>Each key on a new line</li>
-                <li>Format: <code class="inline-code">PROVIDER - key</code> (separator — space, hyphen, space)</li>
-                <li>The order of lines does not matter</li>
-                <li>Not all keys are required — you can specify only the ones you need</li>
+                <li>Format: <code class="inline-code">PROVIDER - key</code> (separator is space, dash, space)</li>
+                <li>Line order does not matter</li>
+                <li>Not all keys are required — specify only the ones you need</li>
                 <li>Lines starting with <code class="inline-code">#</code> are ignored (comments)</li>
             </ul>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Name in file</th>
+                        <th>Name in File</th>
                         <th>Provider</th>
                     </tr>
                 </thead>
@@ -530,51 +530,51 @@ OPENROUTER - sk-or-your-key-here</pre>
         <!-- Chat Completions -->
         <section id="chat-completions">
             <h2>💬 Chat Completions</h2>
-            <p>Creates a model response for a given conversation.</p>
-            
+            <p>Generates a model response for a given conversation.</p>
+
             <div class="endpoint">
                 <div class="endpoint-header">
                     <span class="method-badge post">POST</span>
                     <span class="endpoint-path">/v1/chat/completions</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Request parameters</h4>
-                    
+                    <h4>Request Parameters</h4>
+
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
                         <span class="param-required">Required</span>
-                        <div class="param-desc">Model ID to use. For example: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
+                        <div class="param-desc">ID of the model to use. For example: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
                     </div>
-                    
+
                     <div class="param">
                         <span class="param-name">messages</span>
                         <span class="param-type">array</span>
                         <span class="param-required">Required</span>
-                        <div class="param-desc">List of messages representing the conversation. Each object contains <code class="inline-code">role</code> and <code class="inline-code">content</code>.</div>
+                        <div class="param-desc">A list of messages representing the conversation. Each object contains <code class="inline-code">role</code> and <code class="inline-code">content</code>.</div>
                     </div>
-                    
+
                     <div class="param">
                         <span class="param-name">temperature</span>
                         <span class="param-type">number</span>
                         <span class="param-optional">Optional</span>
                         <div class="param-desc">Sampling temperature from 0 to 2. Higher values make responses more random. Default: 1</div>
                     </div>
-                    
+
                     <div class="param">
                         <span class="param-name">max_tokens</span>
                         <span class="param-type">integer</span>
                         <span class="param-optional">Optional</span>
                         <div class="param-desc">Maximum number of tokens in the response. Default: model-dependent</div>
                     </div>
-                    
+
                     <div class="param">
                         <span class="param-name">stream</span>
                         <span class="param-type">boolean</span>
                         <span class="param-optional">Optional</span>
-                        <div class="param-desc">Enable response streaming. Default: false</div>
+                        <div class="param-desc">Enable streaming response. Default: false</div>
                     </div>
-                    
+
                     <div class="param">
                         <span class="param-name">response_format</span>
                         <span class="param-type">object</span>
@@ -584,9 +584,9 @@ OPENROUTER - sk-or-your-key-here</pre>
                 </div>
             </div>
 
-            <h3>Message structure</h3>
+            <h3>Message Structure</h3>
             <p>Each message in the <code class="inline-code">messages</code> array contains:</p>
-            
+
             <table>
                 <thead>
                     <tr>
@@ -597,7 +597,7 @@ OPENROUTER - sk-or-your-key-here</pre>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">system</code></td>
-                        <td>System prompt that defines the model's behavior</td>
+                        <td>System prompt that sets the model's behavior</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">user</code></td>
@@ -610,7 +610,7 @@ OPENROUTER - sk-or-your-key-here</pre>
                 </tbody>
             </table>
 
-            <h3>Response example</h3>
+            <h3>Example Response</h3>
             <div class="response-example">
 {
   <span class="key">"id"</span>: <span class="string">"chatcmpl-abc123"</span>,
@@ -622,7 +622,7 @@ OPENROUTER - sk-or-your-key-here</pre>
       <span class="key">"index"</span>: <span class="number">0</span>,
       <span class="key">"message"</span>: {
         <span class="key">"role"</span>: <span class="string">"assistant"</span>,
-        <span class="key">"content"</span>: <span class="string">"Hello! I am a language model developed by OpenAI..."</span>
+        <span class="key">"content"</span>: <span class="string">"Hello! I'm a language model developed by OpenAI..."</span>
       },
       <span class="key">"finish_reason"</span>: <span class="string">"stop"</span>
     }
@@ -639,18 +639,18 @@ OPENROUTER - sk-or-your-key-here</pre>
         <section id="list-models">
             <h2>📋 List Models</h2>
             <p>Returns a list of all available models.</p>
-            
+
             <div class="endpoint">
                 <div class="endpoint-header">
                     <span class="method-badge get">GET</span>
                     <span class="endpoint-path">/v1/models</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Does not require parameters. Returns a list of all models available for your API key.</p>
+                    <p>Requires no parameters. Returns a list of all models available for your API key.</p>
                 </div>
             </div>
 
-            <h3>Request example</h3>
+            <h3>Example Request</h3>
             <div class="code-tabs" id="listModelsTabs">
                 <button id="ext-el-17" class="code-tab active">cURL</button>
                 <button id="ext-el-18" class="code-tab">Python</button>
@@ -674,7 +674,7 @@ for model in models:
     print(model["id"])</pre>
             </div>
 
-            <h3>Response example</h3>
+            <h3>Example Response</h3>
             <div class="response-example">
 {
   <span class="key">"object"</span>: <span class="string">"list"</span>,
@@ -699,24 +699,24 @@ for model in models:
         <section id="retrieve-model">
             <h2>🔍 Retrieve Model</h2>
             <p>Returns information about a specific model.</p>
-            
+
             <div class="endpoint">
                 <div class="endpoint-header">
                     <span class="method-badge get">GET</span>
                     <span class="endpoint-path">/v1/models/{model}</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Path parameters</h4>
+                    <h4>Path Parameters</h4>
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
                         <span class="param-required">Required</span>
-                        <div class="param-desc">Model ID. For example: <code class="inline-code">gpt-4</code></div>
+                        <div class="param-desc">ID of the model. For example: <code class="inline-code">gpt-4</code></div>
                     </div>
                 </div>
             </div>
 
-            <h3>Request example</h3>
+            <h3>Example Request</h3>
             <div class="code-block-wrapper">
                 <button id="ext-el-20" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -730,15 +730,15 @@ for model in models:
         <!-- Streaming -->
         <section id="streaming">
             <h2>⚡ Streaming</h2>
-            <p>Streaming allows you to receive the model's response as it is generated, improving perceived response speed.</p>
-            
+            <p>Streaming allows receiving the model's response as it's being generated, improving perceived response speed.</p>
+
             <div class="info-box info">
-                <div class="info-box-title">💡 When to use streaming</div>
-                <p>Use streaming for long responses or when it's important to show the user the generation progress in real time.</p>
+                <div class="info-box-title">💡 When to Use Streaming</div>
+                <p>Use streaming for long responses or when it's important to show the user generation progress in real time.</p>
             </div>
 
-            <h3>Enabling streaming</h3>
-            <p>Add the <code class="inline-code">"stream": true</code> parameter to the request:</p>
+            <h3>Enabling Streaming</h3>
+            <p>Add the parameter <code class="inline-code">"stream": true</code> to the request:</p>
             
             <div class="code-tabs" id="streamingTabs">
                 <button id="ext-el-21" class="code-tab active">cURL</button>
@@ -755,7 +755,7 @@ for model in models:
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
     "model": "gpt-4",
-    "messages": [{"role": "user", "content": "Tell a long story"}],
+    "messages": [{"role": "user", "content": "Tell me a long story"}],
     "stream": true
   }'</pre>
                 <pre class="code-block hidden" id="streaming-python">import requests
@@ -768,7 +768,7 @@ response = requests.post(
     },
     json={
         "model": "gpt-4",
-        "messages": [{"role": "user", "content": "Tell a long story"}],
+        "messages": [{"role": "user", "content": "Tell me a long story"}],
         "stream": True
     },
     stream=True
@@ -790,7 +790,7 @@ for line in response.iter_lines():
   },
   body: JSON.stringify({
     model: "gpt-4",
-    messages: [{role: "user", content: "Tell a long story"}],
+    messages: [{role: "user", content: "Tell me a long story"}],
     stream: true
   })
 });
@@ -814,8 +814,8 @@ while (true) {
 }</pre>
             </div>
 
-            <h3>SSE response format</h3>
-            <p>Each chunk comes in Server-Sent Events format:</p>
+            <h3>SSE Response Format</h3>
+            <p>Each chunk arrives in Server-Sent Events format:</p>
             <div class="code-block-wrapper">
                 <pre class="code-block">data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":"Hello"},"index":0}]}
 
@@ -829,7 +829,7 @@ data: [DONE]</pre>
         <section id="errors">
             <h2>❌ Errors</h2>
             <p>The API uses standard HTTP error codes. When an error occurs, the response body contains a detailed description.</p>
-            
+
             <table>
                 <thead>
                     <tr>
@@ -862,7 +862,7 @@ data: [DONE]</pre>
                     <tr>
                         <td><code class="inline-code">429</code></td>
                         <td>Rate Limited</td>
-                        <td>Request limit exceeded. Wait and retry</td>
+                        <td>Rate limit exceeded. Wait and retry</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">500</code></td>
@@ -877,7 +877,7 @@ data: [DONE]</pre>
                 </tbody>
             </table>
 
-            <h3>Error format</h3>
+            <h3>Error Format</h3>
             <div class="response-example">
 {
   <span class="key">"error"</span>: {
@@ -888,7 +888,7 @@ data: [DONE]</pre>
   }
 }</div>
 
-            <h3>Retry logic</h3>
+            <h3>Retry Logic</h3>
             <div class="info-box success">
                 <div class="info-box-title">✅ Best Practice</div>
                 <p>When receiving a 429 (Rate Limit) or 5xx (Server Error) error, use exponential backoff: wait 1 second, then 2, 4, 8... Maximum 5 attempts.</p>
@@ -898,9 +898,9 @@ data: [DONE]</pre>
         <!-- Rate Limits -->
         <section id="rate-limits">
             <h2>⏱️ Rate Limits</h2>
-            <p>Request limits depend on the provider and your pricing plan. Limit information is passed in the response headers.</p>
-            
-            <h3>Response headers</h3>
+            <p>Request limits depend on the provider and your pricing plan. Information about limits is passed in response headers.</p>
+
+            <h3>Response Headers</h3>
             <table>
                 <thead>
                     <tr>
@@ -932,7 +932,7 @@ data: [DONE]</pre>
                 </tbody>
             </table>
 
-            <h3>Limits by provider (free plans)</h3>
+            <h3>Provider Limits (Free Plans)</h3>
             <table>
                 <thead>
                     <tr>
@@ -984,9 +984,9 @@ data: [DONE]</pre>
         <!-- Providers -->
         <section id="providers">
             <h2>🔌 Providers</h2>
-            <p>Multi-LLM supports a wide range of providers. All of them use a unified API format.</p>
-            
-            <h3>Supported providers</h3>
+            <p>Multi-LLM supports a wide range of providers. They all use a unified API format.</p>
+
+            <h3>Supported Providers</h3>
             <div class="provider-grid">
                 <div class="provider-chip">🤖 OpenAI</div>
                 <div class="provider-chip">🧠 Anthropic</div>
@@ -999,8 +999,8 @@ data: [DONE]</pre>
                 <div class="provider-chip">🖥️ LM Studio</div>
                 <div class="provider-chip">🔵 Meta (Llama)</div>
                 <div class="provider-chip">🟠 Alibaba (Qwen)</div>
-                <div class="provider-chip">🟡 Яндекс</div>
-                <div class="provider-chip">🟢 Сбер (GigaChat)</div>
+                <div class="provider-chip">🟡 Yandex</div>
+                <div class="provider-chip">🟢 Sber (GigaChat)</div>
                 <div class="provider-chip">🟣 Cohere</div>
             </div>
 
@@ -1053,15 +1053,15 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box info">
-                <div class="info-box-title">💡 Local models</div>
-                <p>To use local models through Ollama or LM Studio, start the corresponding server and specify its address in the settings.</p>
+                <div class="info-box-title">💡 Local Models</div>
+                <p>To use local models via Ollama or LM Studio, start the appropriate server and specify its address in settings.</p>
             </div>
 
             <h3>🤗 Hugging Face Inference API</h3>
             <p>Hugging Face provides access to thousands of open models through a unified cloud API. The request format is compatible with the OpenAI API.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Request example к HF</h4>
+                <h4 style="margin-top:0;">Example HF Request</h4>
                 <div class="code-block-wrapper">
                     <button id="ext-el-25" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -1077,7 +1077,7 @@ data: [DONE]</pre>
                 </div>
             </div>
 
-            <h4>Popular models on HF Hub</h4>
+            <h4>Popular Models on HF Hub</h4>
             <table>
                 <thead>
                     <tr>
@@ -1116,18 +1116,18 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box warning">
-                <div class="info-box-title">⚠️ Free HF plan</div>
-                <p>The free Inference API has limitations: large models may be unavailable or work slowly. For stable use, consider the <a href="https://huggingface.co/pricing" target="_blank">PRO plan</a> or Serverless Inference.</p>
+                <div class="info-box-title">⚠️ HF Free Tier</div>
+                <p>The free Inference API has limitations: large models may be unavailable or run slowly. For stable usage, consider the <a href="https://huggingface.co/pricing" target="_blank">PRO plan</a> or Serverless Inference.</p>
             </div>
         </section>
 
         <!-- OpenRouter -->
         <section id="openrouter">
             <h3>🔀 OpenRouter</h3>
-            <p>OpenRouter is an API aggregator that provides access to 300+ models from different providers through a unified interface compatible with the OpenAI API. One key, all models.</p>
+            <p>OpenRouter is an API aggregator providing access to 300+ models from different providers through a single interface compatible with the OpenAI API. One key — all models.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Request example к OpenRouter</h4>
+                <h4 style="margin-top:0;">Example OpenRouter Request</h4>
                 <div class="code-block-wrapper">
                     <button id="ext-el-26" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
@@ -1143,15 +1143,15 @@ data: [DONE]</pre>
                 </div>
             </div>
 
-            <h4>OpenRouter Benefits</h4>
+            <h4>OpenRouter Advantages</h4>
             <ul>
-                <li>One API key to access models from OpenAI, Anthropic, Google, Meta, Mistral and others</li>
+                <li>One API key for access to models from OpenAI, Anthropic, Google, Meta, Mistral and others</li>
                 <li>Automatic fallback between providers</li>
                 <li>Unified billing and expense tracking</li>
-                <li>Free models available without card binding</li>
+                <li>Free models available without a card</li>
             </ul>
 
-            <h4>Popular models on OpenRouter</h4>
+            <h4>Popular Models on OpenRouter</h4>
             <table>
                 <thead>
                     <tr>
@@ -1195,8 +1195,8 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box">
-                <div class="info-box-title">💡 Full list of models</div>
-                <p>The up-to-date list of 300+ models is available at <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. In the application, the list is loaded automatically when checking the API key.</p>
+                <div class="info-box-title">💡 Full Model List</div>
+                <p>The up-to-date list of 300+ models is available at <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. The list is loaded automatically when checking the API key in the app.</p>
             </div>
         </section>
 
@@ -1204,7 +1204,7 @@ data: [DONE]</pre>
         <div style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.875rem;">
             <p>Multi-LLM API Documentation v1.0</p>
             <p style="margin-top: 0.5rem;">
-                <a href="LLM_Compare.html" style="color: var(--text-link);">← Return to the application</a>
+                <a href="LLM_Compare.html" style="color: var(--text-link);">← Back to Application</a>
             </p>
         </div>
         </div><!-- /main-inner -->
