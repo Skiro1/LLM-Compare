@@ -1,252 +1,252 @@
 
         // Default prompts
-        const DEFAULT_ENHANCER_SYSTEM = `Ты — архитектор и оптимизатор промтов для больших языковых моделей. Твоя задача — на основе описания пользователя создать один максимально точный, понятный и эффективный промт, который ИИ сможет правильно выполнить с первого раза без дополнительных уточнений.
+        const DEFAULT_ENHANCER_SYSTEM = `You're an architect and optimizer for big language models. Your task is based on the description of the user to create one of the most accurate, understandable and effective prom, which the AI will be able to perform correctly the first time without additional clarification.
 
-ВХОДНЫЕ ДАННЫЕ
+Input data
 
-Пользователь описывает задачу, цель, идею или проблему (в любой форме и степени детализации).
-
-
-ЦЕЛЬ
-
-Создать один самодостаточный промт, который:
-- точно передаёт намерение пользователя,
-- минимизирует вероятность ошибок и неправильной интерпретации,
-- задаёт чёткие ожидания к результату,
-- даёт ИИ все необходимые ориентиры для качественного ответа.
+The user describes the task, goal, idea or problem (in any form and degree of detail).
 
 
-АЛГОРИТМ РАБОТЫ
+GOAL
 
-1. Определи тип запроса
-
-Определи, что просит пользователь:
-- УЛУЧШЕНИЕ ПРОМТА: «улучши этот промт», «сделай лучше», «оптимизируй», «перепиши» — тогда переформулируй и улучши промт пользователя.
-- СОЗДАНИЕ ПРОМТА: «создай промт», «напиши промт», «сделай промт», «нужен промт для» — тогда создай готовый промт для конкретной задачи.
-- ОБЫЧНЫЙ ЗАПРОС: всё остальное — определи по контексту:
-  - Если запрос похож на прямой вопрос («как сделать X», «почему Y», «что такое Z», рецепты, инструкции, факты) — это запрос на получение ответа. Сконструируй промт для ИИ, который даст развёрнутый, полезный ответ на этот вопрос.
-  - Если запрос похож на задачу для ИИ-системы (сложный анализ, генерация контента, написание кода, сравнение концепций) — сконструируй промт-инструкцию для ИИ-исполнителя.
-- НЕЯСНЫЙ ЗАПРОС: если невозможно однозначно определить намерение — сделай наиболее вероятную интерпретацию с пометкой в начале: «[Интерпретация запроса: ...]». Не задавай уточняющих вопросов — давай лучший вариант из возможных.
-
-ПРИМЕРЫ РАЗЛИЧЕНИЯ:
-  Вход: «Как сварить борщ?» → Это прямой вопрос. Промт: «Ты — опытный повар. Дай подробный рецепт борща: список ингредиентов с пропорциями, пошаговые инструкции, время готовки на каждом этапе, советы по выбору продуктов.»
-  Вход: «Сделай промт для генерации рецептов» → Это мета-запрос. Промт: «Ты — кулинарный редактор. По заданной кухне/ингредиентам/типу блюда составь рецепт в формате: название, ингредиенты, шаги, время, порции, советы.»
-  Вход: «Объясни квантовую запутанность» → Это прямой вопрос. Промт: «Ты — физик-коммуникатор. Объясни квантовую запутанность для человека без физического образования. Используй одну аналогию из жизни, объясни за 3 абзаца, без формул.»
-  Вход: «Напиши Python-скрипт для парсинга сайтов» → Это прямой запрос на действие. Промт: «Ты — Python-разработчик. Напиши скрипт для парсинга HTML-страниц с использованием requests и BeautifulSoup. Скрипт должен: принимать URL, извлекать заголовки и ссылки, обрабатывать ошибки сети. Добавь комментарии к ключевым участкам.»
-
-Не превращай простые вопросы в мета-инструкции. Если пользователь спрашивает «как» или «что» — он хочет ответ, а не промт для получения ответа.
-
-2. Обработка мета-запросов (создание промтов)
-
-Если пользователь просит создать/написать промт:
-- Определи ДЛЯ КАКОЙ ЗАДАЧИ нужен промт (не для какой модели, а что должен делать ИИ-получатель).
-- Определи ЯЗЫК промта:
-  - Если пользователь указал язык — создай промт на этом языке.
-  - Если не указал — используй язык исходного запроса.
-- Включи в промт только те элементы, которые реально нужны:
-  - Роль (кто выполняет задача — без пафоса, конкретно)
-  - Контекст (что важно знать)
-  - Конкретные требования (что должно быть в результате)
-  - Формат ответа (структура, язык, объём)
-  - Ограничения (что исключить)
-  - Все детали из запроса пользователя
-
-3. Глубокий разбор задачи
-- Определи реальную цель (что считается успешным результатом).
-- Выяви контекст, аудиторию и сценарий использования.
-- Определи тип задачи (анализ, генерация, объяснение, код, сравнение и т.д.).
-- Найди неявные требования, которые пользователь мог не сформулировать.
-- Учти типичные ошибки ИИ в подобных задачах.
-
-4. Проектирование и оптимизация промта
-Выбери только необходимые элементы (роль, контекст, цель, алгоритм, формат, стиль, ограничения). Не добавляй элементы ради полноты — только если они реально улучшают результат.
-- Устрани двусмысленности, замени абстрактное на конкретное.
-- Убедись, что промт не допускает двойной интерпретации.
-- Сделай требования к результату проверяемыми.
-- Удали всё лишнее.
+Create a self-sufficient product that:
+- accurately conveys the intent of the user,
+Minimizes the likelihood of errors and misinterpretation,
+sets clear expectations for the outcome,
+gives AI all the necessary benchmarks for a qualitative response.
 
 
-ПРАВИЛА ВЫВОДА
+ALGORITHM OF WORK
 
-- Выводи ТОЛЬКО готовый промт.
-- Без объяснений, комментариев и мета-текста.
-- Готовый промт обращается к ИИ-исполнителю на «Ты» (например: «Ты — переводчик. Переведи текст...»). Это не «первое лицо» — это инструкция для получателя промта.
-- Роль должна быть конкретной и уместной: «Ты — специалист по сетям» достаточно, «Ты — величайший инженер с 30-летним опытом и глубочайшим пониманием...» — избыточно. Опыт указывай, только если он релевантен задаче.
-- Сохраняй язык исходного запроса (для мета-запросов — язык, на котором просили создать промт).
-- Не искажай исходное намерение.
-- Если исходный запрос уже качественный — улучшай минимально, не усложняй.
+1. Determine the type of request
 
-ЗАПРЕЩЕНО:
-- Писать вступления вроде «Вот улучшенный промт», «Я оптимизировал ваш запрос» и т.п.
-- Писать заключения или пояснения о внесённых изменениях.
-- Упоминать процесс своей работы или методологию.
-- Описывать промежуточные шаги алгоритма, показывать ход анализа.
-- Использовать избитые клише и пустые вводные фразы: «In the ever-evolving landscape...», «As a leading expert...», «В современном мире...», «В наше время...», «Необходимо отметить, что...» и аналогичный шлак. Каждое слово должно нести смысл.
+Determine what the user is asking for:
+- PROMET IMPROVEMENT: "Improving this promt", "do better", "optimize", "rewrite" - then reformulate and improve the user's prom.
+CREATING PROMTA: “Create a promt”, “write a promt”, “make a promt”, “need a promt for” – then create a ready-made industrial for a specific task.
+- Usual query: everything else - define by context:
+If a query is similar to a direct question ("how to do X," "why Y," "what is Z," recipes, instructions, facts) it is a request for an answer. Construct an AI prom that will provide a detailed, useful answer to this question.
+If the query is similar to the task for an AI system (complex analysis, content generation, code writing, concept comparison) – construct a promt-instruction for the AI performer.
+- Ambiguous Query: If it is not possible to clearly define the intention, make the most likely interpretation marked at the beginning: "[interpretation of the query: ...]". Don’t ask questions, give me the best option possible.
 
-ДОПОЛНИТЕЛЬНО (рекомендация):
-Если задача предполагает работу с внешними данными (текст для перевода, код для рефакторинга, список для анализа и т.д.), используй в промте маркер-плейсхолдер [ВСТАВЬТЕ ТЕКСТ ЗДЕСЬ] (или аналогичный по смыслу: [ВСТАВЬТЕ КОД], [УКАЖИТЕ ДАННЫЕ]), чтобы пользователь точно знал, куда подставлять свои данные. Не применяй плейсхолдер, если задача самодостаточна и не требует внешнего ввода.
+Examples of differences:
+Entrance: "How to cook borscht?" This is a direct question. Promt: “You are an experienced cook. Give a detailed borsch recipe: a list of ingredients with proportions, step-by-step instructions, cooking time at each stage, tips for choosing products.
+Entrance: "Make a promt to generate recipes" It's a meta-query. Promt: You're a culinary editor. For a given kitchen / ingredients / type of dish, make a recipe in the format: name, ingredients, steps, time, portions, tips.
+Entry: “Explain quantum entanglement” → This is a direct question. Promt: You're a physicist. Explain quantum entanglement to a person without a physical education. Use one analogy from life, explain in 3 paragraphs, without formulas.
+Entrance: “Write a Python script for site parsing” This is a direct request for action. Promt: You're a Python developer. Write a script to parse HTML pages using requests and BeautifulSoup. The script should: accept URLs, extract titles and links, handle network errors. Add comments to key areas.”
 
+Do not turn simple questions into meta-instructions. If a user asks “how” or “what,” they want an answer, not a prom for an answer.
 
-ФИНАЛЬНЫЙ ПРИНЦИП
+2. Meta-query processing (creating proms)
 
-Ты не переписываешь текст — ты проектируешь инструмент мышления для ИИ.
-Каждое слово в промте должно повышать точность, предсказуемость и качество результата.
+If the user asks to create / write a prom:
+Determine for what task you need a promt (not for what model, but what the AI recipient should do).
+- Identify the prom language:
+If the user has specified a language, create a promt in this language.
+If not, use the language of the original request.
+Include only those elements that are really needed:
+Role (who performs the task - without pathos, specifically)
+- Context (what is important to know)
+Specific requirements (which should result)
+Response format (structure, language, volume)
+- Restrictions (to be deleted)
+- All details from the user request
 
+3. In-depth analysis of the problem
+Identify a real goal (which is considered a successful outcome).
+Identify the context, audience and use case.
+Determine the type of task (analysis, generation, explanation, code, comparison, etc.).
+Find implicit requirements that the user may not have formulated.
+Consider typical AI errors in such tasks.
 
-ПРИМЕРЫ ТРАНСФОРМАЦИИ (для понимания логики, не для дословного копирования)
-
-Вход: «Переведи текст на английский»
-Выход: «Ты — переводчик. Переведи следующий текст на английский язык. Сохрани стиль и тон оригинала. Адаптируй идиомы для англоязычной аудитории. Термины, которые лучше оставить без перевода — оставь в оригинале в скобках.»
-
-Вход: «Напиши код сортировки»
-Выход: «Ты — разработчик. Напиши на Python функцию сортировки массива. Функция должна принимать список чисел и возвращать отсортированный список. Обработай крайние случаи (пустой список, один элемент). Добавь docstring с описанием параметров и возвращаемого значения. Приведи 2–3 примера вызова с ожидаемым результатом.»
-
-Вход: «Как работает DNS?»
-Выход: «Ты — сетевой инженер. Объясни, как работает DNS (Domain Name System), для человека без технического образования. Используй аналогию из повседневной жизни. Покрой: зачем нужен DNS, что происходит когда пользователь вводит адрес в браузере, и почему DNS-кэширование ускоряет загрузку. Ограничь ответ 300 словами.»
-
-Жди описание задачи от пользователя.`;
-
-        const DEFAULT_AGGREGATOR_SYSTEM = `Ты — синтезатор ответов нескольких ИИ-моделей. Твоя задача — на основе исходного вопроса и набора ответов разных моделей создать единый, точный, связный и полезный финальный ответ.
-
-ВХОДНЫЕ ДАННЫЕ
-
-1. Исходный вопрос пользователя.
-2. Ответы нескольких моделей (каждый ответ обозначен названием модели).
-
-
-ЦЕЛЬ
-
-Собрать лучший возможный ответ, объединив сильные стороны разных вариантов, убрав повторы, противоречия, ошибки и лишнюю воду, при этом сохранив исходный смысл вопроса и не добавляя вымышленных сведений.
+4. Design and optimization of utilities
+Choose only the necessary elements (role, context, purpose, algorithm, format, style, limitations). Do not add items for the sake of completeness – only if they really improve the result.
+Eliminate ambiguity, replace the abstract with the concrete.
+- Make sure the prom doesn't allow for double interpretation.
+- Make the results requirements verifiable.
+- Delete everything superfluous.
 
 
-АЛГОРИТМ РАБОТЫ
+Rule of Exclusion
 
-1. Разбор исходного вопроса
-- Определи его смысл, цель, контекст и ожидаемый тип ответа.
-- Выяви, что именно нужно дать: объяснение, сравнение, инструкцию, совет, вывод, список, пример и т. д.
-- Отметь ограничения: язык ответа, желаемый объём, уровень сложности, тон, формат.
+- Take out the pre-made smt only.
+- No explanations, comments or meta-text.
+The ready-made promt addresses the AI performer on “You” (for example: “You are a translator”). Translate the text ...). This is not a "first person" - this is an instruction for the recipient of the prom.
+The role should be specific and appropriate: “You are a network specialist” is enough, “You are the greatest engineer with 30 years of experience and deepest understanding...” is excessive. Indicate experience only if it is relevant to the task.
+Save the language of the original query (for meta queries, the language in which you were asked to create a promt).
+- Don't distort the original intent.
+If the initial request is already high-quality - improve minimally, do not complicate.
 
-2. Анализ ответов моделей (для каждого ответа)
-- Выдели ключевые идеи, факты, аргументы и полезные формулировки.
-- Отметь сильные стороны: точность, ясность, полноту, удачные примеры, хорошую структуру.
-- Отметь слабые стороны: ошибки, неточности, логические провалы, повторы, лишние детали, расплывчатость.
-- Зафиксируй расхождения между ответами.
+PROHIBITED:
+Write introductions like “Here’s an improved promt”, “I optimized your request”, etc.
+Write conclusions or explanations about the changes.
+Mention your work process or methodology.
+Describe the intermediate steps of the algorithm, show the progress of the analysis.
+- Use clichés and empty introductory phrases: "In the ever-evolving landscape ...", "As a leading expert ...", "In the modern world ...", "In our time ...", "It should be noted that ..." and similar slag. Every word has to make sense.
 
-3. Оценка расхождений
-Если ответы противоречат друг другу:
-- Кратко определи суть расхождения.
-- Оцени, какая позиция надёжнее, опираясь на:
-  - внутреннюю логическую согласованность,
-  - соответствие общепринятым знаниям,
-  - отсутствие явных ошибок,
-  - полноту и аккуратность формулировок.
-- Если надёжно выбрать нельзя — честно укажи на неопределённость.
-- Если модели приводят разные цифры, даты, имена или фактические утверждения — проверь, является ли это общеизвестным фактом (столицы, годы исторических событий, базовые научные константы). Если да — используй корректный вариант с короткой оговоркой. Если факт узкоспециальный, спорный или ты в нём не уверен — выдели противоречивые данные в сравнительную таблицу (Факт | Модель 1 | Модель 2 | Пояснение) и не маскируй неопределённость.
-- Если один из ответов содержит явную ошибку — не включай её в финальный ответ.
-- Если ошибка может быть полезна как предостережение — упомяни её кратко как распространённое заблуждение, не повторяя ошибочную формулировку.
-
-Если во входных данных есть пользовательские оценки ответов:
-- Считай их мягким сигналом предпочтения пользователя, а не доказательством фактической правильности.
-- Используй высокую оценку как аргумент в пользу полезности, ясности или удачной подачи, но не ставь её выше логики и точности.
-- Если оценка отсутствует, трактуй это как отсутствие сигнала, а не как низкое качество ответа.
-
-4. Синтез финального ответа
-- Объедини лучшие идеи, объяснения и примеры из всех ответов.
-- Переформулируй материал своими словами, не копируя дословно исходные ответы. При этом сохраняй специфические термины, названия, единицы измерения и точные формулировки из исходных ответов, если они важны для смысла. Правило: если замена термина на «свои слова» снижает точность — оставь оригинал.
-- Если в ответах даны разные реализации кода — выбери наиболее оптимизированную и безопасную, объединяя лучшие практики из разных вариантов (например, обработку исключений из одного ответа и более эффективный алгоритм из другого). Не оставляй дублирующиеся реализации.
-- Удали повторы, воду, второстепенные детали и несущественные отступления.
-- Сохрани точность, логику и полноту.
-- Не добавляй новых фактов, если они не следуют из исходных ответов или не являются общеизвестным знанием уровня школьной программы (география, базовая история, фундаментальные научные факты).
-- Если ни один из ответов не содержит достаточно качественного материала — укажи это явно: «Ответы моделей не содержат достаточно полной информации по запросу» — и дай лучший возможный ответ на основе имеющегося, обозначив ограничения.
-- Если ответа недостаточно для уверенного вывода, прямо скажи об этом.
+Further (recommendation):
+If the task involves working with external data (text for translation, code for refactoring, list for analysis, etc.), use a marker-placeholder in the prom [Insert text here] (or similar in meaning: [Insert code], [Specify data]), so that the user knows exactly where to substitute their data. Do not use a placeholder if the task is self-sufficient and does not require external input.
 
 
-СТРУКТУРА ФИНАЛЬНОГО ОТВЕТА
+Final Principle
 
-Используй двухчастную структуру, если ответ достаточно сложен для неё (объяснение, анализ, инструкция):
-1. Краткий ответ — 1–5 предложений, передающих суть.
-2. Основная часть — развёрнутое объяснение с заголовками/списками, если они улучшают восприятие.
-
-Для простых вопросов (однозначный факт, короткая справка) — давай прямой ответ без разделения на части.
+You don't rewrite text; you design an AI thinking tool.
+Every word in a prom should improve the accuracy, predictability and quality of the result.
 
 
-ТРЕБОВАНИЯ К КАЧЕСТВУ
+Examples of Transformation (for understanding logic, not for literal copying)
 
-- Ясный, естественный, человеческий язык.
-- Единый стиль на всём протяжении ответа. Если исходные ответы написаны в разных тонах (один официально, другой с юмором, третий разговорно) — приведи итоговый текст к нейтрально-деловому тону, допуская лёгкую дружелюбность, но без стилистических перепадов.
-- Без канцелярита, шаблонных фраз и механических повторов.
-- Без дословного копирования исходных ответов.
-- Без вымышленных фактов и смысловых искажений.
-- Баланс между краткостью и полнотой.
-- Приоритет — полезность, точность и связность.
+Entrance: "Translate the text into English"
+The answer: “You are a translator. Translate the following text into English. Keep the style and tone of the original. Adapt idioms for an English-speaking audience. Terms that are better left without translation - leave in the original in brackets.
 
+Entrance: "Write the sorting code"
+Solution: "You're a developer. Write an array sorting function in Python. The function must accept the list of numbers and return the sorted list. Handle extreme cases (empty list, one item). Add docstring describing the parameters and the return value. Give 2-3 example calls with the expected result.
 
-ЯЗЫК
+Entrance: "How does DNS work?"
+The answer is, “You are a network engineer.” Explain how the DNS (Domain Name System) works for a person without a technical background. Use an analogy from everyday life. Cut: Why you need DNS, what happens when a user enters an address in a browser, and why DNS caching speeds up loading. Limit the answer to 300 words.”
 
-Отвечай на том же языке, на котором задан исходный вопрос.
+Wait for the task description from the user.`;
 
+        const DEFAULT_AGGREGATOR_SYSTEM = `You're the answer synthesizer for several AI models. Your task is to create a single, accurate, coherent and useful final answer based on the initial question and the set of answers of different models.
 
-ЕСЛИ ИНФОРМАЦИИ НЕДОСТАТОЧНО
+Input data
 
-- Не додумывай.
-- Отделяй уверенные выводы от предположений.
-- При необходимости кратко обозначай неопределённость.
+1. The original user question.
+2. Answers of several models (each answer is indicated by the model name).
 
 
-ФИНАЛЬНЫЙ ПРИНЦИП
+GOAL
 
-Делай не усреднение ответов, а их интеллектуальный синтез: сохраняй лучшее, отбрасывай слабое, исправляй ошибки и выдавай единый качественный результат.
+Collect the best possible answer, combining the strengths of different options, removing repetitions, contradictions, errors and excess water, while preserving the original meaning of the question and not adding fictional information.
 
-ЗАПРЕЩЕНО:
-- Писать вступления вроде «Вот синтезированный ответ», «Объединив варианты», «На основе ответов моделей» и т.п.
-- Писать заключения вроде «Я использовал лучшие формулировки», «Я устранил повторы», «Я сохранил структуру» и т.п.
-- Упоминать процесс синтеза, свою роль или методологию работы.
-- Комментировать качество исходных ответов («Вариант 1 был лучше», «Вариант 2 содержал ошибку» и т.п.).
 
-Твой ответ — это готовый текст для пользователя. Не пиши о том, как ты его создавал. Просто дай ответ.
+ALGORITHM OF WORK
 
-Жди описание задачи от пользователя.`;
+1. Analysis of the starting point
+Determine its meaning, purpose, context, and expected response type.
+Identify what exactly needs to be given: explanation, comparison, instruction, advice, conclusion, list, example, etc.
+Mark the limitations: response language, desired volume, difficulty level, tone, format.
+
+2. Analysis of model responses (for each response)
+Highlight key ideas, facts, arguments and useful formulations.
+Note the strengths: accuracy, clarity, completeness, good examples, good structure.
+Note the weaknesses: errors, inaccuracies, logical failures, repetitions, unnecessary details, vagueness.
+- Record the discrepancies between the answers.
+
+3. Assessment of discrepancies
+If the answers contradict each other:
+- Briefly define the discrepancy.
+Evaluate which position is more reliable based on:
+internal logical consistency,
+Conformity with generally accepted knowledge,
+- no apparent errors,
+- completeness and accuracy of the wording.
+If you can’t choose reliably, honestly point to uncertainty.
+If the models give different numbers, dates, names, or factual statements, check whether this is a well-known fact (capitals, years of historical events, basic scientific constants). If yes, use the correct option with a short reservation. If the fact is highly specialized, controversial or you are not sure about it, highlight the conflicting data in a comparative table (Fact | Model 1 | Model 2 | Explanation) and do not mask the uncertainty.
+If one of the answers contains a clear error, do not include it in the final answer.
+If a mistake can be useful as a warning, mention it briefly as a common misconception, without repeating the erroneous formulation.
+
+If the input data has user ratings of responses:
+Consider them a mild signal of user preference rather than proof of factual correctness.
+Use high praise as an argument for usefulness, clarity or good presentation, but do not put it above logic and accuracy.
+If there is no score, treat this as a lack of signal, not a low quality response.
+
+4. Synthesis of the final answer
+Combine the best ideas, explanations and examples from all the answers.
+Reformulate the material in your own words, without copying verbatim the original answers. Keep specific terms, names, units of measure, and precise formulations from the original answers if they are important to the meaning. Rule: If replacing a term with “your words” reduces accuracy, leave the original.
+If the answers give different implementations of the code, choose the most optimized and secure, combining best practices from different options (for example, handling exceptions from one answer and a more efficient algorithm from another). Do not leave duplicate implementations.
+Remove replays, water, minor details and non-essential deviations.
+- Keep accuracy, logic and completeness.
+Do not add new facts unless they follow from the original answers or are generally known knowledge of the level of the school curriculum (geography, basic history, fundamental scientific facts).
+If none of the answers contains enough quality material – state this explicitly: “Model responses do not contain enough complete information on request” – and give the best possible answer based on the available one, indicating the limitations.
+If the answer is not enough for a confident conclusion, say it directly.
+
+
+Final Response Structure
+
+Use a two-part structure if the answer is complex enough (explanation, analysis, instruction):
+1. The short answer is 1-5 sentences that convey the essence.
+2. The main part is a detailed explanation with headings/lists if they improve perception.
+
+For simple questions (unambiguous fact, short help) - give a direct answer without dividing into parts.
+
+
+Quality requirements
+
+- Clear, natural, human language.
+- Unified style throughout the answer. If the initial answers are written in different tones (one officially, the other with humor, the third colloquially), bring the final text to a neutral business tone, allowing easy friendliness, but without stylistic differences.
+- No paperwork, template phrases and mechanical repetitions.
+- No literal copying of the original answers.
+- Without fictitious facts and misrepresentations.
+Balance between brevity and completeness.
+Priority is usefulness, accuracy and coherence.
+
+
+Language
+
+Answer in the same language as the original question.
+
+
+If the information is insufficient
+
+- Don't think.
+Separate confident conclusions from assumptions.
+If necessary, briefly indicate uncertainty.
+
+
+Final Principle
+
+Do not average the answers, but their intellectual synthesis: save the best, discard the weak, correct errors and give a single qualitative result.
+
+PROHIBITED:
+Write introductions like “Here’s a synthesized answer,” “Combining options,” “Based on model responses,” etc.
+Write conclusions like “I used better wording,” “I eliminated repetitions,” “I kept the structure,” etc.
+Mention the synthesis process, its role or methodology of work.
+Comment on the quality of the initial responses ("Variant 1 was better", "Variant 2 contained an error", etc.).
+
+Your answer is a ready-made text for the user. Don't write about how you created it. Just give me the answer.
+
+Wait for the task description from the user.`;
 
         const TASK_PROFILES = [
             {
                 id: 'balanced',
-                name: 'Универсальный',
-                description: 'Сбалансированный режим для большинства задач: без перекоса в код, исследование или сверхкраткость.',
+                name: 'Universal',
+                description: 'Balanced mode for most tasks: without skewing into code, research, or superconciseness.',
                 enhancerNote: '',
                 aggregatorNote: ''
             },
             {
                 id: 'research',
-                name: 'Исследование',
-                description: 'Для глубокого разбора темы, анализа неопределённостей, аргументов, ограничений и альтернатив.',
-                enhancerNote: `Сконструируй промт как исследовательскую задачу. Попроси модель отделять факты от гипотез, отмечать ограничения, указывать спорные места, рассматривать альтернативные объяснения и явно обозначать, где данных недостаточно.`,
-                aggregatorNote: `При синтезе делай акцент на точности, нюансах и честности. Отделяй подтверждённое от вероятного, показывай ограничения и открытые вопросы, не сглаживай реальные противоречия между вариантами.`
+                name: 'Research',
+                description: 'For in-depth analysis of the topic, analysis of uncertainties, arguments, limitations and alternatives.',
+                enhancerNote: `Construct a prom as a research task. Ask the model to separate facts from hypotheses, note limitations, point out points of contention, consider alternative explanations, and explicitly indicate where data is scarce.`,
+                aggregatorNote: `When synthesising, emphasize accuracy, nuance and honesty. Separate the confirmed from the probable, show limitations and open questions, do not smooth out the real contradictions between the options.`
             },
             {
                 id: 'coding',
-                name: 'Код и отладка',
-                description: 'Для задач по программированию, дебагу, архитектуре, исправлению ошибок и техническим решениям.',
-                enhancerNote: `Сконструируй промт для сильного инженерного ответа. Попроси модель искать корневую причину проблемы, давать минимальный рабочий фикс, объяснять решение простыми словами, учитывать риски регрессии и добавлять шаги проверки результата.`,
-                aggregatorNote: `При синтезе ставь на первое место корректность технического решения. Сохраняй конкретику, шаги внедрения, риски, ограничения и способы проверки. Если варианты спорят, явно объясни, какой подход надёжнее и почему.`
+                name: 'Code and debugging',
+                description: 'For programming, debugging, architecture, error correction and technical solutions.',
+                enhancerNote: `Design a prompt for a strong engineering response. Ask the model to look for the root cause of the problem, give a minimum working fix, explain the solution in simple words, consider regression risks, and add steps to verify the result.`,
+                aggregatorNote: `When synthesising, put the correctness of the technical solution first. Keep specifics, implementation steps, risks, limitations and verification methods. If the options are in dispute, clearly explain which approach is more reliable and why.`
             },
             {
                 id: 'concise',
-                name: 'Краткий ответ',
-                description: 'Для плотных, коротких и быстрых ответов без воды и лишних отвлечений.',
-                enhancerNote: `Сконструируй промт так, чтобы ответ был максимально лаконичным, но не поверхностным. Попроси убрать воду, повторы и второстепенные детали, сохранить только суть, ключевые пункты и конкретные выводы.`,
-                aggregatorNote: `При синтезе делай упор на краткость и плотность. Убирай повторы и второстепенные детали, сохраняй только самую полезную часть. Итог должен читаться быстро и без потери смысла.`
+                name: 'Brief answer',
+                description: 'For dense, short and fast answers without water and unnecessary distractions.',
+                enhancerNote: `Construct the promt so that the answer is as concise as possible, but not superficial. Ask to remove water, repetitions and secondary details, save only the essence, key points and specific conclusions.`,
+                aggregatorNote: `When synthesising, focus on brevity and density. Remove repetitions and secondary details, save only the most useful part. The result should be read quickly and without loss of meaning.`
             },
             {
                 id: 'comparison',
-                name: 'Сравнение вариантов',
-                description: 'Для выбора между несколькими подходами, инструментами, решениями или стратегиями.',
-                enhancerNote: `Сконструируй промт как задачу сравнения вариантов. Попроси модель сравнивать решения по критериям, выделять плюсы, минусы, риски, ограничения, стоимость или сложность и завершать ответ рекомендацией по выбору.`,
-                aggregatorNote: `При синтезе оформи различия между вариантами особенно ясно. Сохраняй критерии сравнения, компромиссы и рекомендации. Если лучший вариант зависит от условий, явно укажи, при каких вводных какой вариант предпочтительнее.`
+                name: 'Comparison of options',
+                description: 'Choose between several approaches, tools, solutions or strategies.',
+                enhancerNote: `Construct a prompt as a problem of comparing options. Ask the model to compare decisions by criteria, highlight pros, cons, risks, constraints, cost, or complexity, and complete the answer with a selection recommendation.`,
+                aggregatorNote: `In the synthesis of the form, the differences between the variants are particularly clear. Keep comparison criteria, compromises and recommendations. If the best option depends on the conditions, clearly indicate which introductory option is preferable.`
             },
             {
                 id: 'custom',
-                name: 'Свой',
-                description: 'Ручной режим: используются ваши текущие системные промты без автозамены.',
+                name: 'Custom',
+                description: 'Manual mode: your current system prompts are used without auto-replacement.',
                 enhancerNote: '',
                 aggregatorNote: '',
                 isCustom: true
@@ -258,7 +258,7 @@
                 id: 1,
                 name: "Claude",
                 provider: "Anthropic",
-                systemPrompt: `Ты — Claude (Anthropic). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Claude (Anthropic). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://claude.ai",
                 truncateLimit: 0
@@ -267,7 +267,7 @@
                 id: 2,
                 name: "ChatGPT",
                 provider: "OpenAI",
-                systemPrompt: `Ты — ChatGPT (OpenAI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are ChatGPT (OpenAI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#00ff88",
                 chatUrl: "https://chatgpt.com",
                 truncateLimit: 0
@@ -276,7 +276,7 @@
                 id: 3,
                 name: "Gemini",
                 provider: "Google",
-                systemPrompt: `Ты — Gemini (Google). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Gemini (Google). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#0088ff",
                 chatUrl: "https://gemini.google.com",
                 truncateLimit: 0
@@ -285,7 +285,7 @@
                 id: 4,
                 name: "DeepSeek",
                 provider: "DeepSeek-AI",
-                systemPrompt: `Ты — DeepSeek (DeepSeek-AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are DeepSeek (DeepSeek-AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#00ccff",
                 chatUrl: "https://chat.deepseek.com",
                 truncateLimit: 0
@@ -294,7 +294,7 @@
                 id: 5,
                 name: "GLM",
                 provider: "Zhipu AI",
-                systemPrompt: `Ты — GLM (Zhipu AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are GLM (Zhipu AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ffaa33",
                 chatUrl: "https://chat.z.ai",
                 truncateLimit: 0
@@ -303,7 +303,7 @@
                 id: 6,
                 name: "Grok",
                 provider: "xAI",
-                systemPrompt: `Ты — Grok (xAI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Grok (xAI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ff44aa",
                 chatUrl: "https://grok.com",
                 truncateLimit: 0
@@ -312,7 +312,7 @@
                 id: 7,
                 name: "Mistral",
                 provider: "Mistral AI",
-                systemPrompt: `Ты — Mistral (Mistral AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Mistral (Mistral AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#aaff00",
                 chatUrl: "https://chat.mistral.ai",
                 truncateLimit: 0
@@ -321,7 +321,7 @@
                 id: 8,
                 name: "Llama",
                 provider: "Meta",
-                systemPrompt: `Ты — Llama (Meta). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Llama (Meta). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ff8800",
                 chatUrl: "https://www.meta.ai",
                 truncateLimit: 0
@@ -330,7 +330,7 @@
                 id: 9,
                 name: "Qwen",
                 provider: "Alibaba Cloud",
-                systemPrompt: `Ты — Qwen (Alibaba Cloud). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Qwen (Alibaba Cloud). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ff6644",
                 chatUrl: "https://chat.qwen.ai",
                 truncateLimit: 0
@@ -339,7 +339,7 @@
                 id: 10,
                 name: "Pi",
                 provider: "Inflection AI",
-                systemPrompt: `Ты — Pi (Inflection AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Pi (Inflection AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#33eebb",
                 chatUrl: "https://pi.ai",
                 truncateLimit: 0
@@ -348,7 +348,7 @@
                 id: 11,
                 name: "Kimi",
                 provider: "Moonshot AI",
-                systemPrompt: `Ты — Kimi (Moonshot AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Kimi (Moonshot AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#00bbff",
                 chatUrl: "https://kimi.moonshot.cn",
                 truncateLimit: 0
@@ -357,7 +357,7 @@
                 id: 12,
                 name: "ERNIE",
                 provider: "Baidu",
-                systemPrompt: `Ты — ERNIE (Baidu). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are ERNIE (Baidu). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://ernie.baidu.com",
                 truncateLimit: 0
@@ -366,7 +366,7 @@
                 id: 13,
                 name: "Yandex",
                 provider: "Яндекс",
-                systemPrompt: `Ты — Yandex (Яндекс). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Yandex (Яндекс). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ffcc00",
                 chatUrl: "https://alice.yandex.ru",
                 truncateLimit: 0
@@ -375,7 +375,7 @@
                 id: 14,
                 name: "GigaChat",
                 provider: "Сбер",
-                systemPrompt: `Ты — GigaChat (Сбер). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are GigaChat (Сбер). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#44ffcc",
                 chatUrl: "https://giga.chat",
                 truncateLimit: 0
@@ -384,7 +384,7 @@
                 id: 15,
                 name: "MiniMax",
                 provider: "MiniMax AI",
-                systemPrompt: `Ты — MiniMax (MiniMax AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are MiniMax (MiniMax AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#cc44ff",
                 chatUrl: "https://agent.minimax.io",
                 truncateLimit: 0
@@ -393,7 +393,7 @@
                 id: 16,
                 name: "Cohere",
                 provider: "Cohere",
-                systemPrompt: `Ты — Cohere (Cohere). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Cohere (Cohere). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#44bbff",
                 chatUrl: "https://dashboard.cohere.com/playground/chat",
                 truncateLimit: 0
@@ -402,7 +402,7 @@
                 id: 17,
                 name: "Sarvam",
                 provider: "Sarvam AI",
-                systemPrompt: `Ты — Sarvam (Sarvam AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Sarvam (Sarvam AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#f43f5e",
                 chatUrl: "https://dashboard.sarvam.ai/chat",
                 truncateLimit: 0
@@ -411,7 +411,7 @@
                 id: 18,
                 name: "Upstage",
                 provider: "Upstage AI",
-                systemPrompt: `Ты — Upstage (Upstage AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Upstage (Upstage AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#14b8a6",
                 chatUrl: "https://console.upstage.ai/playground/chat",
                 truncateLimit: 0
@@ -420,7 +420,7 @@
                 id: 19,
                 name: "StepFun",
                 provider: "StepFun AI",
-                systemPrompt: `Ты — StepFun (StepFun AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are StepFun (StepFun AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#8b5cf6",
                 chatUrl: "https://stepfun.ai/chats/new",
                 truncateLimit: 0
@@ -429,7 +429,7 @@
                 id: 20,
                 name: "Trinity",
                 provider: "Arcee AI",
-                systemPrompt: `Ты — Trinity (Arcee AI). Отвечай точно, логично и по делу. Чётко разделяй факты и предположения, адаптируй стиль под сложность вопроса. Будь краток там, где это уместно, и развёрнут там, где необходимо.`,
+                systemPrompt: `You are Trinity (Arcee AI). Answer accurately, logically and on the point. Separate facts and assumptions, adapt the style to the complexity of the question. Be brief where appropriate and deployed where necessary.`,
                 color: "#ec4899",
                 chatUrl: "https://chat.arcee.ai/chat",
                 truncateLimit: 0
@@ -438,75 +438,75 @@
 
         const DEFAULT_TEMPLATES = [
             {
-                name: 'Глубокий разбор',
-                content: `Разбери тему глубоко и структурно.
+                name: 'In-depth analysis',
+                content: `Discuss the topic deeply and structurally.
 
-Сначала дай короткий ответ в 2-4 предложениях.
-Потом объясни основную идею простыми словами.
-Далее раскрой важные детали, ограничения и частые ошибки понимания.
-Если уместно, добавь 1-2 понятных примера.
-Пиши ясно, без воды и без лишней теории ради теории.`
+First give a short answer in 2-4 sentences.
+Then explain the main idea in simple words.
+Discover important details, limitations, and frequent errors of understanding.
+If appropriate, add 1-2 clear examples.
+Write clearly, without water and without unnecessary theory for the sake of theory.`
             },
             {
-                name: 'Пошаговый план',
-                content: `Составь практический пошаговый план решения задачи.
+                name: 'Step-by-step plan',
+                content: `Make a practical step-by-step plan for solving the problem.
 
-Нужен формат:
-1. Что сделать сначала
-2. Что сделать потом
-3. Какие риски и подводные камни учесть
-4. Как проверить, что всё сделано правильно
+We need a format:
+1. What to do first
+2. What to do next.
+3. What risks and pitfalls to consider
+4. How to check that everything is done correctly
 
-Если есть несколько стратегий, кратко сравни их и порекомендуй лучшую.`
+If there are several strategies, briefly compare them and recommend the best.`
             },
             {
-                name: 'Сравнение вариантов',
-                content: `Сравни несколько вариантов решения.
+                name: 'Comparison of options',
+                content: `Compare a few solutions.
 
-Сделай сравнение по критериям:
-- плюсы
-- минусы
-- стоимость или сложность
-- риски
-- когда какой вариант лучше выбирать
+Comparison by criteria:
+- pluses
+- minuses
+cost or complexity
+- risks
+When is the best option to choose
 
-В конце дай чёткую рекомендацию с объяснением, почему именно она лучшая.`
+In the end, give a clear recommendation explaining why it is the best.`
             },
             {
-                name: 'Код и отладка',
-                content: `Помоги как сильный инженер.
+                name: 'Code and debugging',
+                content: `Help me like a strong engineer.
 
-Нужно:
-- найти вероятную причину проблемы
-- объяснить её простыми словами
-- предложить минимальный рабочий фикс
-- показать, как проверить результат
-- если есть несколько причин, отсортировать их по вероятности
+Need:
+Find the probable cause of the problem
+- explain it in simple terms.
+- offer a minimum working fix
+Show how to check the result
+If there are several reasons, sort them by probability.
 
-Не ограничивайся общими советами, дай конкретику.`
+Don’t limit yourself to general advice, give specifics.`
             },
             {
-                name: 'Краткая выжимка',
-                content: `Сделай плотную выжимку без воды.
+                name: 'Brief squeeze',
+                content: `Do a tight squeeze without water.
 
-Формат:
-- суть в 1-2 предложениях
-- 3-7 ключевых пунктов
-- что важно запомнить
+Format:
+- essence in 1-2 sentences
+3-7 key points
+- What's important to remember
 
-Убери повторы, общие фразы и всё второстепенное.`
+Remove repetitions, general phrases and all secondary.`
             },
             {
-                name: 'Факт vs мнение',
-                content: `Ответь аккуратно и интеллектуально честно.
+                name: 'Fact vs. opinion',
+                content: `Answer carefully and intellectually honestly.
 
-Явно разделяй:
-- подтверждённые факты
-- вероятные выводы
-- предположения
-- спорные моменты
+Make it clear:
+- confirmed facts
+- probable conclusions
+assumptions
+- points of contention
 
-Если данных недостаточно, прямо скажи об этом и не додумывай лишнего.`
+If the data is not enough, say it directly and do not think too much.`
             }
         ];
 
@@ -614,7 +614,7 @@
             a.download = `multillm-logs-${new Date().toISOString().slice(0,10)}.txt`;
             a.click();
             URL.revokeObjectURL(url);
-            appLog('info', 'Логи экспортированы');
+             appLog('info', 'Logs exported');
         }
 
         function setLogFilter(filter, btn) {
@@ -687,7 +687,7 @@
                 label:      'LM Studio',
                 isCloud:    false,
                 defaultUrl: 'http://localhost:1234',
-                hint:       'Откройте LM Studio → Local Server → Start Server. Включите режим совместимости с OpenAI API.',
+                hint:       'Open LM Studio → Local Server → Start Server. Enable OpenAI API compatibility mode.',
                 modelsApi:  'openai',
                 chatApi:    'openai',
                 models:     null,
@@ -696,16 +696,16 @@
                 label:      'Ollama',
                 isCloud:    false,
                 defaultUrl: 'http://localhost:11434',
-                hint:       'Запустите Ollama: <code>ollama serve</code>. Загрузите модель: <code>ollama pull &lt;model&gt;</code>.',
+                hint:       'Run Ollama: <code>ollama serve</code>. Load a model: <code>ollama pull &lt;model&gt;</code>.',
                 modelsApi:  'ollama',
                 chatApi:    'openai',
                 models:     null,
             },
             custom: {
-                label:      'Другой (OpenAI API)',
+                label:      'Other (OpenAI API)',
                 isCloud:    false,
                 defaultUrl: 'http://localhost:8080',
-                hint:       'Любой OpenAI-совместимый сервер: LiteLLM, llama.cpp, Jan, text-generation-webui и др.',
+                hint:       'Any OpenAI-compatible server: LiteLLM, llama.cpp, Jan, text-generation-webui, etc.',
                 modelsApi:  'openai',
                 chatApi:    'openai',
                 models:     null,
@@ -715,9 +715,9 @@
                 label:       'OpenAI',
                 isCloud:     true,
                 defaultUrl:  'https://api.openai.com',
-                hint:        'Получите ключ на <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
-                apikeyHint:  'Ключ начинается с <code>sk-…</code>',
-                apikeyLabel: 'OpenAI API ключ',
+                hint:        'Get a key at <a href="https://platform.openai.com/api-keys" target="_blank" class="text-blue-500 hover:underline">platform.openai.com</a>.',
+                apikeyHint:  'Key starts with <code>sk-…</code>',
+                apikeyLabel: 'OpenAI API key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -744,9 +744,9 @@
                 label:       'DeepSeek',
                 isCloud:     true,
                 defaultUrl:  'https://api.deepseek.com',
-                hint:        'Получите ключ на <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
-                apikeyHint:  'API ключ DeepSeek',
-                apikeyLabel: 'DeepSeek API ключ',
+                hint:        'Get a key at <a href="https://platform.deepseek.com" target="_blank" class="text-blue-500 hover:underline">platform.deepseek.com</a>.',
+                apikeyHint:  'DeepSeek API key',
+                apikeyLabel: 'DeepSeek API key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
                 models:      null,
@@ -755,9 +755,9 @@
                 label:       'Anthropic',
                 isCloud:     true,
                 defaultUrl:  'https://api.anthropic.com',
-                hint:        'Получите ключ на <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">',
-                apikeyHint:  'Ключ начинается с <code>sk-ant-…</code>',
-                apikeyLabel: 'Anthropic API ключ',
+                hint:        'Get a key at <a href="https://console.anthropic.com" target="_blank" class="text-blue-500 hover:underline">console.anthropic.com</a>.<br><span style="color:#a16207;">',
+                apikeyHint:  'Key starts with <code>sk-ant-…</code>',
+                apikeyLabel: 'Anthropic API key',
                 modelsApi:   'hardcoded',
                 chatApi:     'anthropic',
                 models:      [
@@ -776,9 +776,9 @@
                 label:       'Mistral AI',
                 isCloud:     true,
                 defaultUrl:  'https://api.mistral.ai',
-                hint:        'Получите ключ на <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
-                apikeyHint:  'API ключ Mistral',
-                apikeyLabel: 'Mistral API ключ',
+                hint:        'Get a key at <a href="https://console.mistral.ai" target="_blank" class="text-blue-500 hover:underline">console.mistral.ai</a>.',
+                apikeyHint:  'Mistral API key',
+                apikeyLabel: 'Mistral API key',
                 modelsApi:   'openai',
                 chatApi:     'openai',
                 models:      null,
@@ -787,9 +787,9 @@
                 label:       'Hugging Face',
                 isCloud:     true,
                 defaultUrl:  'https://router.huggingface.co/hf-inference/models',
-                hint:        'Получите ключ на <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Укажите модель вручную, например: meta-llama/Llama-3.3-70B-Instruct',
-                apikeyHint:  'Ключ HF (hf_…)',
-                apikeyLabel: 'Hugging Face API ключ',
+                hint:        'Get a key at <a href="https://huggingface.co/settings/tokens" target="_blank" class="text-blue-500 hover:underline">huggingface.co</a>. Specify the model manually, e.g.: meta-llama/Llama-3.3-70B-Instruct',
+                apikeyHint:  'HF key (hf_…)',
+                apikeyLabel: 'Hugging Face API key',
                 modelsApi:   'manual',
                 chatApi:     'openai',
                 models:      null,
@@ -800,9 +800,9 @@
                 label:       'OpenRouter',
                 isCloud:     true,
                 defaultUrl:  'https://openrouter.ai/api',
-                hint:        'Получите ключ на <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Укажите модель вручную, например: <code>anthropic/claude-3.5-sonnet</code>',
-                apikeyHint:  'Ключ начинается с <code>sk-or-…</code>',
-                apikeyLabel: 'OpenRouter API ключ',
+                hint:        'Get a key at <a href="https://openrouter.ai/keys" target="_blank" class="text-blue-500 hover:underline">openrouter.ai/keys</a>. Specify the model manually, e.g.: <code>anthropic/claude-3.5-sonnet</code>',
+                apikeyHint:  'Key starts with <code>sk-or-…</code>',
+                apikeyLabel: 'OpenRouter API key',
                 modelsApi:   'manual',
                 chatApi:     'openai',
                 models:      null,
@@ -813,9 +813,9 @@
                 label:       'Google (Gemini)',
                 isCloud:     true,
                 defaultUrl:  'https://generativelanguage.googleapis.com/v1beta/openai',
-                hint:        'Получите ключ на <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
-                apikeyHint:  'Google AI Studio API ключ',
-                apikeyLabel: 'Google API ключ',
+                hint:        'Get a key at <a href="https://aistudio.google.com/apikey" target="_blank" class="text-blue-500 hover:underline">aistudio.google.com</a>.',
+                apikeyHint:  'Google AI Studio API key',
+                apikeyLabel: 'Google API key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -830,9 +830,9 @@
                 label:       'Groq Cloud',
                 isCloud:     true,
                 defaultUrl:  'https://api.groq.com/openai',
-                hint:        'Получите ключ на <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
-                apikeyHint:  'Ключ начинается с <code>gsk_…</code>',
-                apikeyLabel: 'Groq API ключ',
+                hint:        'Get a key at <a href="https://console.groq.com/keys" target="_blank" class="text-blue-500 hover:underline">console.groq.com/keys</a>.',
+                apikeyHint:  'Key starts with <code>gsk_…</code>',
+                apikeyLabel: 'Groq API key',
                 modelsApi:   'hardcoded',
                 chatApi:     'openai',
                 models:      [
@@ -917,8 +917,8 @@
                     const apiKeyInput = document.getElementById('lmsApiKeyInput');
                     if (apiKeyInput) apiKeyInput.value = providerCredentials[currentProvider].apiKey;
                 }
-                showSystemNotification(`Импортировано ключей: ${imported}`, 'saved', 3000);
-                appLog('success', `Импорт ключей: ${imported} из ${lines.length} строк`);
+                showSystemNotification(`Imported keys: ${imported}`, 'saved', 3000);
+                appLog('success', `Key import: ${imported} from ${lines.length} lines`);
             };
             reader.readAsText(file);
             event.target.value = '';
@@ -940,7 +940,7 @@
                 }
             });
             if (lines.length === 0) {
-                showSystemNotification('Нет ключей для экспорта', 'warning', 2500);
+                showSystemNotification('No keys to export', 'warning', 2500);
                 return;
             }
             const blob = new Blob([lines.join('\n') + '\n'], { type: 'text/plain' });
@@ -950,24 +950,24 @@
             a.download = 'api-keys.txt';
             a.click();
             URL.revokeObjectURL(url);
-            showSystemNotification(`Экспортировано ключей: ${lines.length}`, 'saved', 2500);
+            showSystemNotification(`Exported keys: ${lines.length}`, 'saved', 2500);
         }
 
         // ── Clear all API keys ──
         function clearAllApiKeys() {
             const count = Object.keys(providerCredentials).filter(p => providerCredentials[p]?.apiKey).length;
             if (count === 0) {
-                showSystemNotification('Ключей нет', 'warning', 2000);
+                showSystemNotification('No keys stored', 'warning', 2000);
                 return;
             }
-            if (!confirm(`Удалить все сохранённые API ключи (${count} шт.)? Это действие нельзя отменить.`)) return;
+            if (!confirm(`Delete all saved API keys (${count} pcs)? This action cannot be undone.`)) return;
             providerCredentials = {};
             lmStudioSettings.apiKey = '';
             saveLmsSettings();
             const apiKeyInput = document.getElementById('lmsApiKeyInput');
             if (apiKeyInput) apiKeyInput.value = '';
-            showSystemNotification(`Удалено ключей: ${count}`, 'saved', 2500);
-            appLog('success', `Все API ключи удалены (${count})`);
+            showSystemNotification(`Deleted keys: ${count}`, 'saved', 2500);
+            appLog('success', `All API keys deleted (${count})`);
         }
 
         function updateLmsLayoutForProvider(provider) {
@@ -996,7 +996,7 @@
             // Update manual model hints
             if (isManual) {
                 const manualHint = document.getElementById('lms-model-manual-hint');
-                if (manualHint) manualHint.innerHTML = info.hint || 'Укажите ID модели вручную.';
+                if (manualHint) manualHint.innerHTML = info.hint || 'Enter model ID manually.';
                 // Restore saved manual model
                 const manualInput = document.getElementById('lmsModelManualInput');
                 if (manualInput && lmStudioSettings.model) manualInput.value = lmStudioSettings.model;
@@ -1006,17 +1006,17 @@
             if (isCloud) {
                 const lbl = document.getElementById('lms-apikey-label');
                 const hint = document.getElementById('lms-apikey-hint');
-                if (lbl) lbl.textContent = info.apikeyLabel || 'API ключ';
-                if (hint) hint.innerHTML = (info.apikeyHint || '') + ' · Ключ хранится только в вашем браузере.';
+                if (lbl) lbl.textContent = info.apikeyLabel || 'API key';
+                if (hint) hint.innerHTML = (info.apikeyHint || '') + ' · Key is stored only in your browser.';
             }
 
             // Update model hint
             const modelHint = document.getElementById('lms-model-hint');
             if (modelHint && !isManual) {
                 if (info.modelsApi === 'hardcoded') {
-                    modelHint.textContent = `Список моделей ${info.label} (актуальные на момент обновления приложения).`;
+                    modelHint.textContent = `List of ${info.label} models (up-to-date at the time of app update).`;
                 } else {
-                    modelHint.textContent = 'Список загружается при проверке подключения.';
+                    modelHint.textContent = 'List loads when connection is checked.';
                 }
             }
         }
@@ -1071,7 +1071,7 @@
             const providerHint = document.getElementById('lms-provider-hint');
             if (providerHint) {
                 const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', deepseek:'🔮', anthropic:'🧠', google:'🌟', groq:'⚡', mistral:'🌀', huggingface:'🤗', openrouter:'🔀' };
-                providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> выбран${info.isCloud ? ` · <span style="color:var(--text-muted)">требуется API ключ</span>` : ''}`;
+                providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> selected${info.isCloud ? ` · <span style="color:var(--text-muted)">API key required</span>` : ''}`;
             }
 
             // Update cloud hint
@@ -1082,8 +1082,8 @@
             updateLmsLayoutForProvider(provider);
 
             // Reset connection status
-            setLmsConnectionStatus('disconnected', 'Не проверено');
-            setLmsCloudStatus('disconnected', 'Не проверено');
+            setLmsConnectionStatus('disconnected', 'Not checked');
+            setLmsCloudStatus('disconnected', 'Not checked');
 
             // For hardcoded-model providers, pre-populate list immediately
             if (info.modelsApi === 'hardcoded' && info.models) {
@@ -1096,11 +1096,11 @@
                 // Show saved model even before refresh
                 const modelSelect = document.getElementById('lmsModelSelect');
                 if (modelSelect) {
-                    modelSelect.innerHTML = `<option value="${escapeHtml(saved.model)}" selected>${escapeHtml(saved.model)}</option><option value="">— Обновить список —</option>`;
+                    modelSelect.innerHTML = `<option value="${escapeHtml(saved.model)}" selected>${escapeHtml(saved.model)}</option><option value="">— Refresh list —</option>`;
                 }
             } else {
                 const modelSelect = document.getElementById('lmsModelSelect');
-                if (modelSelect) modelSelect.innerHTML = '<option value="">— Проверьте подключение —</option>';
+                if (modelSelect) modelSelect.innerHTML = '<option value="">— Check connection —</option>';
             }
 
             // Restore manual model input
@@ -1134,14 +1134,14 @@
                         url:    lmStudioSettings.url || ''
                     };
                 }
-            } catch(e) { appLog('error', 'Ошибка загрузки настроек провайдера', e.message); }
+            } catch(e) { appLog('error', 'Error loading provider settings', e.message); }
         }
 
         function saveLmsSettings() {
             try {
                 localStorage.setItem('multillm_lmstudio', JSON.stringify(lmStudioSettings));
                 localStorage.setItem('multillm_provider_credentials', JSON.stringify(providerCredentials));
-            } catch(e) { appLog('error', 'Ошибка сохранения настроек провайдера', e.message); }
+            } catch(e) { appLog('error', 'Error saving provider settings', e.message); }
         }
 
         function saveCurrentProviderCredentials() {
@@ -1215,7 +1215,7 @@
             const providerHint = document.getElementById('lms-provider-hint');
             if (providerHint) {
                 const icons = { lmstudio:'🖥️', ollama:'🦙', custom:'⚙️', openai:'🤖', deepseek:'🔮', anthropic:'🧠', google:'🌟', groq:'⚡', mistral:'🌀', huggingface:'🤗', openrouter:'🔀' };
-                providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> выбран${info.isCloud ? ` · <span style="color:var(--text-muted)">требуется API ключ</span>` : ''}`;
+                providerHint.innerHTML = `${icons[provider]||'⚙️'} <strong>${info.label}</strong> selected${info.isCloud ? ` · <span style="color:var(--text-muted)">API key required</span>` : ''}`;
             }
 
             // Layout
@@ -1234,7 +1234,7 @@
                     if (opt) modelSelect.value = savedModel;
                 }
             } else if (savedModel && modelSelect) {
-                modelSelect.innerHTML = `<option value="${escapeHtml(savedModel)}" selected>${escapeHtml(savedModel)}</option><option value="">— Обновить список —</option>`;
+                modelSelect.innerHTML = `<option value="${escapeHtml(savedModel)}" selected>${escapeHtml(savedModel)}</option><option value="">— Refresh list —</option>`;
             }
 
             // Restore manual model input
@@ -1275,7 +1275,7 @@
 
             // Hardcoded lists (Anthropic, Google)
             if (info.modelsApi === 'hardcoded') {
-                if (!apiKey) throw new Error('Введите API ключ');
+                if (!apiKey) throw new Error('Enter API key');
                 // Quick auth test via a minimal chat request
                 await testCloudAuth(url, provider, apiKey);
                 return info.models || [];
@@ -1331,8 +1331,8 @@
                         messages:   [{ role: 'user', content: 'Hi' }],
                     })
                 }, 10000);
-                if (resp.status === 401) throw new Error('Неверный API ключ');
-                if (resp.status === 403) throw new Error('Доступ запрещён');
+                if (resp.status === 401) throw new Error('Invalid API key');
+                if (resp.status === 403) throw new Error('Access denied');
                 // 400/529 etc. are acceptable — key is valid
                 return;
             }
@@ -1341,7 +1341,7 @@
                 method: 'GET',
                 headers: { 'Authorization': `Bearer ${apiKey}` },
             }, 8000);
-            if (resp.status === 401) throw new Error('Неверный API ключ');
+            if (resp.status === 401) throw new Error('Invalid API key');
             if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
         }
 
@@ -1358,16 +1358,16 @@
             const btnId = info.isCloud ? 'lms-test-cloud-btn' : 'lms-test-btn';
             const btn   = document.getElementById(btnId);
 
-            setAnyLmsStatus('checking', 'Проверка…');
+            setAnyLmsStatus('checking', 'Checking…');
             if (btn) btn.disabled = true;
-            appLog('info', `Проверка подключения → ${info.label}${url ? ' (' + url + ')' : ''}`);
+            appLog('info', `Checking connection → ${info.label}${url ? ' (' + url + ')' : ''}`);
 
             // For manual model providers, check API key
             if (isManual) {
                 if (!apiKey) {
-                    setAnyLmsStatus('error', 'Введите API ключ');
-                    appLog('warn', `Проверка ${info.label}: API ключ не указан`);
-                    showSystemNotification(`Введите API ключ для ${info.label}`, 'warning', 3000);
+                    setAnyLmsStatus('error', 'Enter API key');
+                    appLog('warn', `Check ${info.label}: API key not specified`);
+                    showSystemNotification(`Enter API key for ${info.label}`, 'warning', 3000);
                     if (btn) btn.disabled = false;
                     return [];
                 }
@@ -1397,11 +1397,11 @@
                         }
                         const resp = await fetchWithTimeout(testUrl, testOpts, 10000);
                         if (resp.status === 401 || resp.status === 403) {
-                            throw new Error('Неверный API ключ');
+                            throw new Error('Invalid API key');
                         }
                         // Any other response means key is valid
                     } catch(e) {
-                        if (e.message === 'Неверный API ключ') throw e;
+                        if (e.message === 'Invalid API key') throw e;
                         // Network errors are ok — key might still be valid
                     }
                 }
@@ -1410,9 +1410,9 @@
                     lmStudioSettings.model = manualModel;
                 }
                 saveCurrentProviderCredentials();
-                setAnyLmsStatus('connected', `Ключ валидный${manualModel ? ' · ' + manualModel : ''}`);
-                appLog('success', `${info.label} — API ключ проверен${manualModel ? ', модель: ' + manualModel : ''}`);
-                showSystemNotification(`${info.label} настроен ✓`, 'saved', 2500);
+                setAnyLmsStatus('connected', `Key valid${manualModel ? ' · ' + manualModel : ''}`);
+                appLog('success', `${info.label} — API key checked${manualModel ? ', model: ' + manualModel : ''}`);
+                showSystemNotification(`${info.label} configured ✓`, 'saved', 2500);
                 if (btn) btn.disabled = false;
                 return manualModel ? [manualModel] : [];
             }
@@ -1421,14 +1421,14 @@
                 const modelList = await fetchLmsModelList(url, provider, apiKey);
                 const count = modelList.length;
                 saveCurrentProviderCredentials();
-                setAnyLmsStatus('connected', `Подключено · ${count} мод.`);
+                setAnyLmsStatus('connected', `Connected · ${count} models`);
                 populateLmsModelSelect(modelList);
-                appLog('success', `${info.label} — OK. Моделей: ${count}`, modelList.slice(0,10).join(', '));
-                showSystemNotification(`${info.label} подключён ✓`, 'saved', 2500);
+                appLog('success', `${info.label} — OK. Models: ${count}`, modelList.slice(0,10).join(', '));
+                showSystemNotification(`${info.label} connected ✓`, 'saved', 2500);
                 return modelList;
             } catch(e) {
-                setAnyLmsStatus('error', 'Ошибка');
-                appLog('error', `Не удалось подключиться к ${info.label}`, e.message);
+                setAnyLmsStatus('error', 'Error');
+                appLog('error', `Failed to connect to ${info.label}`, e.message);
                 showSystemNotification(`${info.label}: ${e.message.slice(0, 60)}`, 'error', 4000);
                 return [];
             } finally {
@@ -1442,7 +1442,7 @@
             await testLmsConnection();
             if (btn) {
                 btn.disabled = false;
-                btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Обновить`;
+                btn.innerHTML = `<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Refresh`;
             }
         }
 
@@ -1450,7 +1450,7 @@
             const select  = document.getElementById('lmsModelSelect');
             if (!select) return;
             if (!modelsList || modelsList.length === 0) {
-                select.innerHTML = '<option value="">— Нет доступных моделей —</option>';
+                select.innerHTML = '<option value="">— No available models —</option>';
                 return;
             }
             const current = lmStudioSettings.model;
@@ -1544,30 +1544,30 @@
             const statusEl = document.getElementById(statusElId);
 
             if (!model) {
-                showSystemNotification('Выберите модель в настройках → Провайдеры', 'warning', 3200);
-                appLog('warn', 'Отправка отменена: модель не выбрана');
+                showSystemNotification('Select a model in Settings → Providers', 'warning', 3200);
+                appLog('warn', 'Send cancelled: model not selected');
                 return;
             }
             if (info.isCloud && !apiKey) {
-                showSystemNotification(`Введите API ключ для ${info.label}`, 'warning', 3200);
-                appLog('warn', `Отправка отменена: нет API ключа для ${info.label}`);
+                showSystemNotification(`Enter API key for ${info.label}`, 'warning', 3200);
+                appLog('warn', `Send cancelled: no API key for ${info.label}`);
                 return;
             }
 
             if (btn) {
                 btn.disabled = true; btn.classList.add('loading');
-                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Жду ответа…`;
+                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response…`;
             }
             if (statusEl) {
                 statusEl.textContent = `⏳ ${info.label} · ${model}…`;
                 statusEl.classList.remove('hidden');
                 statusEl.style.color = 'var(--text-muted)';
             }
-            appLog('info', `Запрос → ${info.label} · ${model}`);
+            appLog('info', `Request → ${info.label} · ${model}`);
 
             try {
                 const result = await doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt);
-                if (!result) throw new Error('Пустой ответ от модели');
+                if (!result) throw new Error('Empty response from model');
 
                 const field = document.getElementById(targetFieldId);
                 if (field) { field.value = result; field.dispatchEvent(new Event('input')); }
@@ -1577,25 +1577,25 @@
                 if (badge) badge.classList.remove('hidden');
 
                 if (statusEl) { statusEl.textContent = `✓ ${info.label} · ${model}`; statusEl.style.color = '#16a34a'; }
-                appLog('success', `Ответ получен ← ${info.label} · ${model}, симв.: ${result.length}`);
-                showSystemNotification(`Ответ от ${model} получен ✓`, 'saved', 2500);
+                appLog('success', `Response received ← ${info.label} · ${model}, chars: ${result.length}`);
+                showSystemNotification(`Response from ${model} received ✓`, 'saved', 2500);
 
             } catch(e) {
-                appLog('error', `Ошибка ${info.label} · ${model}`, e.message);
+                appLog('error', `Error ${info.label} · ${model}`, e.message);
                 if (statusEl) { statusEl.textContent = `✗ ${e.message.slice(0, 120)}`; statusEl.style.color = '#ef4444'; }
                 showSystemNotification(`${info.label}: ${e.message.slice(0, 70)}`, 'error', 4500);
             } finally {
                 if (btn) {
                     btn.disabled = false; btn.classList.remove('loading');
-                    btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Отправить в ИИ`;
+                    btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Send to AI`;
                 }
             }
         }
 
         async function sendEnhancerToLmStudio() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Введите запрос на шаге 1', 'warning', 2500);
-                appLog('warn', 'Отправка улучшения промта: пустой запрос');
+                showSystemNotification('Enter a query at step 1', 'warning', 2500);
+                appLog('warn', 'Prompt improvement send: empty query');
                 return;
             }
             await callLmsApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -1603,8 +1603,8 @@
 
         async function sendAggregatorToLmStudio() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Добавьте ответы моделей на шаге 3', 'warning', 2500);
-                appLog('warn', 'Отправка синтеза: нет ответов моделей');
+                showSystemNotification('Add model responses at step 3', 'warning', 2500);
+                appLog('warn', 'Synthesis send: no model responses');
                 return;
             }
             await callLmsApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -1660,13 +1660,12 @@
             try {
                 const raw = localStorage.getItem('multillm_huggingface');
                 if (raw) hfSettings = { ...hfSettings, ...JSON.parse(raw) };
-            } catch(e) { appLog('error', 'Ошибка загрузки настроек HF', e.message); }
-        }
+            } catch(e) { appLog('error', 'Error loading HF settings', e.message); }
 
         function saveHfSettings() {
             try {
                 localStorage.setItem('multillm_huggingface', JSON.stringify(hfSettings));
-            } catch(e) { appLog('error', 'Ошибка сохранения настроек HF', e.message); }
+            } catch(e) { appLog('error', 'Error saving HF settings', e.message); }
         }
 
         function onHfToggleChange() {
@@ -1710,24 +1709,24 @@
             const model = modelInput?.value?.trim() || '';
 
             if (!apiKey) {
-                setHfConnectionStatus('error', 'Введите API ключ');
-                appLog('warn', 'Проверка HF: API ключ не указан');
-                showSystemNotification('Введите API ключ Hugging Face', 'warning', 3000);
+                setHfConnectionStatus('error', 'Enter API key');
+                appLog('warn', 'HF check: API key not specified');
+                showSystemNotification('Enter Hugging Face API key', 'warning', 3000);
                 return;
             }
 
             if (!model) {
-                setHfConnectionStatus('error', 'Укажите модель');
-                appLog('warn', 'Проверка HF: модель не указана');
-                showSystemNotification('Укажите ID модели Hugging Face', 'warning', 3000);
+                setHfConnectionStatus('error', 'Specify model');
+                appLog('warn', 'HF check: model not specified');
+                showSystemNotification('Specify Hugging Face model ID', 'warning', 3000);
                 return;
             }
 
-            setHfConnectionStatus('checking', 'Проверка…');
+            setHfConnectionStatus('checking', 'Checking…');
             const btn = document.getElementById('hf-test-btn');
             if (btn) btn.disabled = true;
 
-            appLog('info', `Проверка HF → ${model}`);
+            appLog('info', `Checking HF → ${model}`);
 
             try {
                 // Test with a minimal request
@@ -1749,18 +1748,18 @@
                 );
 
                 if (resp.status === 401) {
-                    throw new Error('Неверный API ключ');
+                    throw new Error('Invalid API key');
                 }
                 if (resp.status === 404) {
-                    throw new Error('Модель не найдена');
+                    throw new Error('Model not found');
                 }
 
-                setHfConnectionStatus('connected', 'Подключено ✓');
-                appLog('success', `HF подключён → ${model}`);
-                showSystemNotification(`Hugging Face подключён ✓`, 'saved', 2500);
+                setHfConnectionStatus('connected', 'Connected ✓');
+                appLog('success', `HF connected → ${model}`);
+                showSystemNotification(`Hugging Face connected ✓`, 'saved', 2500);
             } catch(e) {
-                setHfConnectionStatus('error', 'Ошибка');
-                appLog('error', `Ошибка HF: ${model}`, e.message);
+                setHfConnectionStatus('error', 'Error');
+                appLog('error', `HF error: ${model}`, e.message);
                 showSystemNotification(`HF: ${e.message.slice(0, 60)}`, 'error', 4000);
             } finally {
                 if (btn) btn.disabled = false;
@@ -1815,26 +1814,26 @@
             const statusEl = document.getElementById(statusElId);
 
             if (!model) {
-                showSystemNotification('Укажите модель HF в настройках → HF', 'warning', 3200);
-                appLog('warn', 'Отправка HF: модель не указана');
+                showSystemNotification('Specify HF model in Settings → HF', 'warning', 3200);
+                appLog('warn', 'HF send: model not specified');
                 return;
             }
             if (!apiKey) {
-                showSystemNotification('Введите API ключ HF', 'warning', 3200);
-                appLog('warn', 'Отправка HF: нет API ключа');
+                showSystemNotification('Enter HF API key', 'warning', 3200);
+                appLog('warn', 'HF send: no API key');
                 return;
             }
 
             if (btn) {
                 btn.disabled = true; btn.classList.add('loading');
-                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Жду ответа…`;
+                btn.innerHTML = `<svg class="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Waiting for response…`;
             }
             if (statusEl) {
                 statusEl.textContent = `⏳ HF · ${model}…`;
                 statusEl.classList.remove('hidden');
                 statusEl.style.color = 'var(--text-muted)';
             }
-            appLog('info', `Запрос → HF · ${model}`);
+            appLog('info', `Request → HF · ${model}`);
 
             try {
                 const result = await doCloudChatRequest(
@@ -1846,7 +1845,7 @@
                     userPrompt
                 );
 
-                if (!result) throw new Error('Пустой ответ от HF');
+                if (!result) throw new Error('Empty response from HF');
 
                 const field = document.getElementById(targetFieldId);
                 if (field) { field.value = result; field.dispatchEvent(new Event('input')); }
@@ -1856,25 +1855,25 @@
                 if (badge) badge.classList.remove('hidden');
 
                 if (statusEl) { statusEl.textContent = `✓ HF · ${model}`; statusEl.style.color = '#16a34a'; }
-                appLog('success', `Ответ получен ← HF · ${model}, симв.: ${result.length}`);
-                showSystemNotification(`Ответ от HF ${model} получен ✓`, 'saved', 2500);
+                appLog('success', `Response received ← HF · ${model}, chars: ${result.length}`);
+                showSystemNotification(`Response from HF ${model} received ✓`, 'saved', 2500);
 
             } catch(e) {
-                appLog('error', `Ошибка HF · ${model}`, e.message);
+                appLog('error', `HF error · ${model}`, e.message);
                 if (statusEl) { statusEl.textContent = `✗ ${e.message.slice(0, 120)}`; statusEl.style.color = '#ef4444'; }
                 showSystemNotification(`HF: ${e.message.slice(0, 70)}`, 'error', 4500);
             } finally {
                 if (btn) {
                     btn.disabled = false; btn.classList.remove('loading');
-                    btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Отправить в ИИ`;
+                    btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg> Send to AI`;
                 }
             }
         }
 
         async function sendEnhancerToHf() {
             if (!document.getElementById('rawPrompt')?.value?.trim()) {
-                showSystemNotification('Введите запрос на шаге 1', 'warning', 2500);
-                appLog('warn', 'Отправка улучшения HF: пустой запрос');
+                showSystemNotification('Enter a query at step 1', 'warning', 2500);
+                appLog('warn', 'HF improvement send: empty query');
                 return;
             }
             await callHfApi(enhancerSystem, generateEnhancerUserPrompt(), 'improvedPrompt', 'lms-enhancer-status', 'lms-send-enhancer-btn', 'lms-enhancer-filled-badge');
@@ -1882,8 +1881,8 @@
 
         async function sendAggregatorToHf() {
             if (!models.some(m => getTrimmedAnswerValue(m.id))) {
-                showSystemNotification('Добавьте ответы моделей на шаге 3', 'warning', 2500);
-                appLog('warn', 'Отправка синтеза HF: нет ответов моделей');
+                showSystemNotification('Add model responses at step 3', 'warning', 2500);
+                appLog('warn', 'HF synthesis send: no model responses');
                 return;
             }
             await callHfApi(aggregatorSystem, generateAggregatorPrompt(), 'finalAnswer', 'lms-aggregator-status', 'lms-send-aggregator-btn', 'lms-aggregator-filled-badge');
@@ -2168,7 +2167,7 @@
 
                 autosaveStepToRestore = state.currentStep || 1;
 
-                // Восстанавливаем currentThread по сохранённому ID
+                // Restore currentThread by saved ID
                 if (state.currentThreadId && allThreads.length > 0) {
                     const foundThread = allThreads.find(t => t.id === state.currentThreadId);
                     if (foundThread) {
@@ -2190,9 +2189,9 @@
 
         function showAutoSaveIndicator(status) {
             if (status === 'saving') {
-                showSystemNotification('Сохранение...', 'saving', 0);
+                showSystemNotification('Saving...', 'saving', 0);
             } else if (status === 'saved') {
-                showSystemNotification('Сохранено', 'saved', 2000);
+                showSystemNotification('Saved', 'saved', 2000);
             }
         }
 
@@ -2243,7 +2242,7 @@
                 html += `<button class="star-btn ${filled}" data-action="setRating" data-model-id="${modelId}" data-star="${i}" data-action-enter="hoverStar" data-action-leave="unhoverStar">★</button>`;
             }
             if (rating > 0) {
-                const labels = ['', 'Плохо', 'Так себе', 'Нормально', 'Хорошо', 'Отлично'];
+                const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
                 html += `<span class="rating-label">${labels[rating]}</span>`;
             }
             html += '</div>';
@@ -2285,7 +2284,7 @@
 
         function updateRatingDisplay(modelId) {
             const rating = modelRatings[modelId] || 0;
-            const labels = ['', 'Плохо', 'Так себе', 'Нормально', 'Хорошо', 'Отлично'];
+            const labels = ['', 'Bad', 'Okay', 'Normal', 'Good', 'Excellent'];
             const containers = document.querySelectorAll(`.star-rating[data-model-id="${modelId}"]`);
             if (!containers.length) return;
 
@@ -2347,7 +2346,7 @@
                 .filter((m) => m.answer);
 
             if (answersWithContent.length === 0) {
-                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>Нет ответов для сравнения</p><p class="text-xs mt-1">Добавьте ответы от моделей на шаге 3</p></div>';
+                container.innerHTML = '<div class="comparison-empty"><svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg><p>No answers to compare</p><p class="text-xs mt-1">Add model responses at step 3</p></div>';
                 comparisonDirty = false;
                 return;
             }
@@ -2364,14 +2363,14 @@
                             <span class="badge badge-dark">${escapeHtml(m.name)}</span>
                             <span class="badge badge-light">${escapeHtml(m.provider)}</span>
                         </div>
-                        <div style="color: #facc15; font-size: 0.85rem;" title="Оценка: ${rating}/5">${ratingStars}</div>
+                        <div style="color: #facc15; font-size: 0.85rem;" title="Rating: ${rating}/5">${ratingStars}</div>
                     </div>
                     <div class="comparison-card-body">
                         <div class="md-content">${parseMarkdown(answer)}</div>
                     </div>
                     <div class="comparison-card-footer">
                         ${renderStarRating(m.id)}
-                        <button class="btn btn-copy btn-sm btn-icon" data-icon-size="w-3.5 h-3.5" title="Скопировать ответ модели" aria-label="Скопировать ответ модели" data-action="copyModelAnswer" data-model-id="${m.id}" data-copy-id="comp-copy-${m.id}" id="comp-copy-${m.id}">
+                        <button class="btn btn-copy btn-sm btn-icon" data-icon-size="w-3.5 h-3.5" title="Copy model answer" aria-label="Copy model answer" data-action="copyModelAnswer" data-model-id="${m.id}" data-copy-id="comp-copy-${m.id}" id="comp-copy-${m.id}">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         </button>
                     </div>
@@ -2405,7 +2404,7 @@
 
             updateLmsUiVisibility();
             updateLogBadge();
-            appLog('info', 'Приложение запущено');
+            appLog('info', 'App launched');
         });
 
         // Keyboard shortcuts
@@ -2485,7 +2484,7 @@
             const note = promptKind === 'enhancer' ? profile.enhancerNote : profile.aggregatorNote;
             if (!note) return basePrompt;
 
-            return `${basePrompt}\n\nПРОФИЛЬ ЗАДАЧИ: ${profile.name.toUpperCase()}\n${note}`;
+            return `${basePrompt}\n\nTASK PROFILE: ${profile.name.toUpperCase()}\n${note}`;
         }
 
         function buildTaskProfilePrompts(profileId) {
@@ -2643,7 +2642,7 @@
             }
             updatePromptDisplays();
             updateLmsUiVisibility();
-            appLog('success', 'Настройки сохранены');
+            appLog('success', 'Settings saved');
             closeSettings();
         }
 
@@ -2692,16 +2691,16 @@
             const countEl = document.getElementById('modelsListCount');
             
             if (models.length === 0) {
-                container.innerHTML = '<p class="text-zinc-500 text-sm text-center py-4">Нет моделей. Добавьте первую модель ниже.</p>';
-                countEl.textContent = 'Моделей: 0';
+                container.innerHTML = '<p class="text-zinc-500 text-sm text-center py-4">No models. Add your first model below.</p>';
+                countEl.textContent = 'Models: 0';
                 return;
             }
 
-            countEl.innerHTML = `Моделей: ${models.length} (выбрано: <span id="selectedCount">0</span>)`;
+            countEl.innerHTML = `Models: ${models.length} (selected: <span id="selectedCount">0</span>)`;
 
             container.innerHTML = `<div id="selectAllRow" class="model-row mb-2 border-b border-zinc-200">
                 <input type="checkbox" class="model-checkbox mr-3" data-action="toggleAllModels">
-                <span class="text-base text-zinc-500">Выбрать все</span>
+                <span class="text-base text-zinc-500">Select all</span>
             </div>` + models.map((m, i) => `
                 <div class="model-row">
                     <input type="checkbox" class="model-checkbox mr-3" data-index="${i}" data-action="updateSelectedCount">
@@ -2709,12 +2708,12 @@
                         <div class="font-medium text-sm">${escapeHtml(m.name)}</div>
                         <div class="text-xs text-zinc-500">${escapeHtml(m.provider)}</div>
                         ${getSafeHttpUrl(m.chatUrl) ? `<div class="text-xs text-blue-500 mt-0.5 truncate"><a href="${escapeHtml(getSafeHttpUrl(m.chatUrl))}" target="_blank" rel="noopener noreferrer" class="hover:underline">🔗 ${escapeHtml(getSafeHttpUrl(m.chatUrl))}</a></div>` : ''}
-                        ${m.systemPrompt ? '<div class="text-xs text-blue-600 mt-1">✓ Индивидуальный промт</div>' : ''}
+                        ${m.systemPrompt ? '<div class="text-xs text-blue-600 mt-1">✓ Custom prompt</div>' : ''}
                     </div>
-                    <button data-action="editModel" data-index="${i}" class="btn btn-outline btn-sm" title="Редактировать">
+                    <button data-action="editModel" data-index="${i}" class="btn btn-outline btn-sm" title="Edit">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                     </button>
-                    <button data-action="deleteModel" data-index="${i}" class="btn btn-danger btn-sm" title="Удалить">
+                    <button data-action="deleteModel" data-index="${i}" class="btn btn-danger btn-sm" title="Delete">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                 </div>
@@ -2751,7 +2750,7 @@
         }
 
         function restoreDefaultModels() {
-            if (confirm('Восстановить все модели по умолчанию? Текущие модели будут заменены.')) {
+            if (confirm('Restore all default models? Current models will be replaced.')) {
                 models = [...DEFAULT_MODELS];
                 localStorage.setItem('multillm_models', JSON.stringify(models));
                 renderModelsList();
@@ -2767,7 +2766,7 @@
             
             if (indices.length === 0) return;
             
-            if (confirm(`Удалить выбранные модели (${indices.length})?`)) {
+            if (confirm(`Delete selected models (${indices.length})?`)) {
                 indices.forEach(i => models.splice(i, 1));
                 localStorage.setItem('multillm_models', JSON.stringify(models));
                 renderModelsList();
@@ -2777,7 +2776,7 @@
         }
 
         function deleteAllModels() {
-            if (confirm('Удалить ВСЕ модели? Это действие нельзя отменить.')) {
+            if (confirm('Delete ALL models? This action cannot be undone.')) {
                 models = [];
                 localStorage.setItem('multillm_models', JSON.stringify(models));
                 renderModelsList();
@@ -2793,11 +2792,11 @@
             const chatUrl = document.getElementById('newModelChatUrl').value.trim();
 
             if (!name) {
-                alert('Введите название модели');
+                alert('Enter model name');
                 return;
             }
             if (!provider) {
-                alert('Введите провайдера');
+                alert('Enter provider');
                 return;
             }
 
@@ -2816,13 +2815,13 @@
 
         function editModel(index) {
             const model = models[index];
-            const newName = prompt('Название:', model.name);
+            const newName = prompt('Name:', model.name);
             if (newName === null) return;
-            const newProvider = prompt('Провайдер:', model.provider);
+            const newProvider = prompt('Provider:', model.provider);
             if (newProvider === null) return;
-            const newSystemPrompt = prompt('Системный промт (пусто = общий):', model.systemPrompt || '');
+            const newSystemPrompt = prompt('System prompt (empty = global):', model.systemPrompt || '');
             if (newSystemPrompt === null) return;
-            const newChatUrl = prompt('Ссылка на чат:', model.chatUrl || '');
+            const newChatUrl = prompt('Chat URL:', model.chatUrl || '');
             
             models[index].name = newName.trim() || model.name;
             models[index].provider = newProvider.trim() || model.provider;
@@ -2834,7 +2833,7 @@
         }
 
         function deleteModel(index) {
-            if (confirm(`Удалить модель "${models[index].name}"?`)) {
+            if (confirm(`Delete model "${models[index].name}"?`)) {
                 models.splice(index, 1);
                 renderModelsList();
                 updateModelsCount();
@@ -2857,7 +2856,7 @@
         function renderTemplatesList() {
             const container = document.getElementById('templatesList');
             if (templates.length === 0) {
-                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4">Нет сохранённых шаблонов</p>';
+                container.innerHTML = '<p class="text-xs text-zinc-500 text-center py-4">No saved templates</p>';
                 return;
             }
             container.innerHTML = templates.map((t, i) => `
@@ -2867,10 +2866,10 @@
                         <div class="text-xs text-zinc-500 truncate mt-1">${escapeHtml(t.content.slice(0, 80))}${t.content.length > 80 ? '...' : ''}</div>
                     </div>
                     <div class="flex gap-2 ml-3">
-                        <button data-action="applyTemplate" data-index="${i}" class="btn btn-outline btn-sm" title="Использовать">
+                        <button data-action="applyTemplate" data-index="${i}" class="btn btn-outline btn-sm" title="Use">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
                         </button>
-                        <button data-action="deleteTemplate" data-index="${i}" class="btn btn-outline btn-sm text-red-500" title="Удалить">
+                        <button data-action="deleteTemplate" data-index="${i}" class="btn btn-outline btn-sm text-red-500" title="Delete">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>
@@ -2879,9 +2878,9 @@
         }
 
         function addTemplate() {
-            const name = prompt('Название шаблона:');
+            const name = prompt('Template name:');
             if (!name || !name.trim()) return;
-            const content = prompt('Содержимое шаблона:');
+            const content = prompt('Template content:');
             if (!content || !content.trim()) return;
             
             templates.push({ name: name.trim(), content: content.trim() });
@@ -2890,7 +2889,7 @@
         }
 
         function deleteTemplate(index) {
-            if (confirm(`Удалить шаблон "${templates[index].name}"?`)) {
+            if (confirm(`Delete template "${templates[index].name}"?`)) {
                 templates.splice(index, 1);
                 localStorage.setItem('multillm_templates', JSON.stringify(templates));
                 renderTemplatesList();
@@ -2905,7 +2904,7 @@
         }
 
         function updateModelsCount() {
-            document.getElementById('modelsCount').textContent = `Моделей: ${models.length}`;
+            document.getElementById('modelsCount').textContent = `Models: ${models.length}`;
         }
 
         function invalidateModelViews() {
@@ -2936,21 +2935,21 @@
                         <div class="answer-section-header-left">
                             <span class="badge badge-dark">${escapeHtml(m.name)}</span>
                             <span class="badge badge-light">${escapeHtml(m.provider)}</span>
-                            ${hasSystemPrompt ? '<span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;">⚙ Свой промт</span>' : ''}
-                            ${isCont ? '<span class="continuation-badge">🔗 Продолжение чата</span>' : ''}
+                            ${hasSystemPrompt ? '<span class="badge" style="background:#e0f2fe;color:#0369a1;font-size:0.75rem;">⚙ Custom prompt</span>' : ''}
+                            ${isCont ? '<span class="continuation-badge">🔗 Chat continuation</span>' : ''}
                         </div>
                         <svg id="section-toggle-model-${m.id}" class="answer-section-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                     </div>
                     <div id="section-content-model-${m.id}" class="answer-section-content">
                         <div class="flex flex-wrap gap-2 mb-3">
-                            <button id="copy-open-${m.id}" class="btn btn-primary btn-sm" data-action="copyAndOpen" data-model-id="${m.id}" title="Скопировать промт${hasSystemPrompt ? ' с системным промтом' : ''} ${hasUrl ? 'и открыть ' + escapeHtml(m.name) : ''}">
+                            <button id="copy-open-${m.id}" class="btn btn-primary btn-sm" data-action="copyAndOpen" data-model-id="${m.id}" title="Copy prompt${hasSystemPrompt ? ' with system prompt' : ''} ${hasUrl ? 'and open ' + escapeHtml(m.name) : ''}">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                                ${hasUrl ? `Скопировать и открыть ${escapeHtml(m.name)}` : 'Скопировать промт'}
+                                ${hasUrl ? `Copy and open ${escapeHtml(m.name)}` : 'Copy prompt'}
                                 ${hasUrl ? '<svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' : ''}
                             </button>
                         </div>
                         <div class="mb-3">
-                            <label class="text-xs text-zinc-500 mb-1 block">Ссылка на чат:</label>
+                            <label class="text-xs text-zinc-500 mb-1 block">Chat URL:</label>
                             <input type="url" class="model-chat-url-input" id="chat-url-${m.id}"
                                 placeholder="${escapeHtml(getSafeHttpUrl(m.chatUrl) || 'https://...')}"
                                 value="${escapeHtml(contUrl || '')}"
@@ -2959,8 +2958,8 @@
                         <div class="mb-3">
                             ${renderStarRating(m.id)}
                         </div>
-                        <p class="text-zinc-500 text-sm mb-2">Вставьте ответ от ${escapeHtml(m.name)}:</p>
-                        <textarea id="answer-${m.id}" class="textarea" placeholder="Вставьте ответ от ${escapeHtml(m.name)}..." data-action="handleAnswerInput" data-model-id="${m.id}">${escapeHtml(answerValue)}</textarea>
+                        <p class="text-zinc-500 text-sm mb-2">Paste answer from ${escapeHtml(m.name)}:</p>
+                        <textarea id="answer-${m.id}" class="textarea" placeholder="Paste answer from ${escapeHtml(m.name)}..." data-action="handleAnswerInput" data-model-id="${m.id}">${escapeHtml(answerValue)}</textarea>
                     </div>
                 </div>
             `}).join('');
@@ -2973,7 +2972,7 @@
             if (!m || !m.systemPrompt) return;
             copyToClipboard(m.systemPrompt).then((success) => {
                 if (!success) {
-                    showSystemNotification('Не удалось скопировать системный промт', 'warning', 2600);
+                    showSystemNotification('Failed to copy system prompt', 'warning', 2600);
                     return;
                 }
                 const btn = document.getElementById('copy-sys-' + modelId);
@@ -2994,7 +2993,7 @@
             if (!m) return;
 
             const improved = document.getElementById('improvedPrompt').value.trim();
-            let textToCopy = improved || '(промт ещё не задан)';
+            let textToCopy = improved || '(prompt not set yet)';
             
             // If model has a system prompt, prepend it
             if (m.systemPrompt && m.systemPrompt.trim()) {
@@ -3011,7 +3010,7 @@
                 if (popup) {
                     popup.opener = null;
                 } else {
-                    showSystemNotification('Браузер заблокировал новую вкладку', 'warning', 2600);
+                    showSystemNotification('Browser blocked new tab', 'warning', 2600);
                 }
             }
 
@@ -3020,16 +3019,16 @@
                 const hasUrl = !!urlToOpen;
                 if (btn) {
                     if (!success) {
-                        showSystemNotification('Не удалось скопировать промт', 'warning', 2600);
+                        showSystemNotification('Failed to copy prompt', 'warning', 2600);
                         return;
                     }
                     btn.classList.remove('btn-primary');
                     btn.classList.add('btn-copy', 'copied');
-                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скопировано!';
+                    btn.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
                     setTimeout(() => {
                         btn.classList.remove('btn-copy', 'copied');
                         btn.classList.add('btn-primary');
-                        const label = hasUrl ? `Скопировать и открыть ${escapeHtml(m.name)}` : 'Скопировать промт';
+                        const label = hasUrl ? `Copy and open ${escapeHtml(m.name)}` : 'Copy prompt';
                         btn.innerHTML = `<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> ${label}${hasUrl ? '<svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>' : ''}`;
                     }, 2000);
                 }
@@ -3045,22 +3044,22 @@
         function setStep(step) {
             // Validate
             if (step === 2 && !document.getElementById('rawPrompt').value.trim()) {
-                alert('Введите запрос');
+                alert('Enter a query');
                 return;
             }
             if (step === 3 && !document.getElementById('improvedPrompt').value.trim()) {
-                alert('Вставьте улучшенный промт');
+                alert('Paste improved prompt');
                 return;
             }
             if (step === 4) {
                 const hasAnswers = models.some((m) => getTrimmedAnswerValue(m.id));
                 if (!hasAnswers) {
-                    alert('Добавьте хотя бы один ответ от модели');
+                    alert('Add at least one model response');
                     return;
                 }
             }
             if (step === 5 && !document.getElementById('finalAnswer').value.trim()) {
-                alert('Вставьте синтезированный ответ');
+                alert('Paste synthesized answer');
                 return;
             }
 
@@ -3089,7 +3088,7 @@
 
             // Update dynamic content
             if (step === 2) {
-                document.getElementById('enhancerUserPrompt').innerHTML = '<div class="code-block scrollable">Вот исходный запрос пользователя:\n«' + escapeHtml(document.getElementById('rawPrompt').value) + '»</div>';
+                document.getElementById('enhancerUserPrompt').innerHTML = '<div class="code-block scrollable">Here is the user\'s original query:\n«' + escapeHtml(document.getElementById('rawPrompt').value) + '»</div>';
             }
             if (step === 3) {
                 renderMarkdownInto(document.getElementById('improvedPromptDisplay'), document.getElementById('improvedPrompt').value);
@@ -3128,7 +3127,7 @@
         }
 
         function generateEnhancerUserPrompt() {
-            return 'Вот исходный запрос пользователя:\n«' + document.getElementById('rawPrompt').value + '»';
+            return 'Here is the user\'s original query:\n«' + document.getElementById('rawPrompt').value + '»';
         }
 
         function generateAggregatorPromptLegacy() {
@@ -3144,28 +3143,28 @@
                     if (useRatings) {
                         const rating = modelRatings[m.id];
                         ratingText = rating
-                            ? `Пользовательская оценка: ${rating}/5. Это мягкий сигнал предпочтения, а не гарантия фактической точности.\n`
-                            : 'Пользовательская оценка: не указана. Это нейтральный случай; не считай отсутствие оценки минусом.\n';
+                            ? `User rating: ${rating}/5. This is a soft signal of preference, not a guarantee of factual accuracy.\n`
+                            : 'User rating: not specified. This is a neutral case; do not treat missing rating as a negative.\n';
                     }
 
-                    answersText += `Ответ ${index} (${m.name}, ${m.provider}):\n${ratingText}«${answer}»\n\n`;
+                    answersText += `Answer ${index} (${m.name}, ${m.provider}):\n${ratingText}«${answer}»\n\n`;
                     index++;
                 }
             });
 
             const ratingsGuidance = useRatings
-                ? `Интерпретация оценок пользователя:
-- Если у ответа есть оценка, учитывай её как дополнительный сигнал полезности и предпочтения пользователя.
-- Не подменяй пользовательской оценкой фактическую точность, логическую согласованность и полноту.
-- Если оценка отсутствует, считай это отсутствием сигнала, а не негативной оценкой.
+                ? `Interpreting user ratings:
+- If an answer has a rating, treat it as an additional signal of usefulness and user preference.
+- Do not substitute user ratings for factual accuracy, logical consistency, and completeness.
+- If a rating is absent, treat it as absence of signal, not a negative rating.
 
 `
                 : '';
 
-            return `Исходный вопрос (улучшенный промт):
+            return `Original question (improved prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Ответы разных моделей:
+${ratingsGuidance}Responses from different models:
 
 ${answersText}`;
         }
@@ -3185,29 +3184,29 @@ ${answersText}`;
                 if (useRatings) {
                     const rating = modelRatings[m.id];
                     ratingText = rating
-                        ? `Пользовательская оценка этого варианта: ${rating}/5. Это мягкий сигнал предпочтения, а не гарантия фактической точности.\n`
-                        : 'Пользовательская оценка этого варианта: не указана. Это нейтральный случай; не считай отсутствие оценки минусом.\n';
+                        ? `User rating for this variant: ${rating}/5. This is a soft signal of preference, not a guarantee of factual accuracy.\n`
+                        : 'User rating for this variant: not specified. This is a neutral case; do not treat missing rating as a negative.\n';
                 }
 
-                answersText += `Вариант ${index}:\n${ratingText}«${answer}»\n\n`;
+                answersText += `Variant ${index}:\n${ratingText}«${answer}»\n\n`;
                 index++;
             });
 
             const ratingsGuidance = useRatings
-                ? `Интерпретация оценок пользователя:
-- Если у варианта есть оценка, учитывай её как дополнительный сигнал полезности и предпочтения пользователя.
-- Не подменяй пользовательской оценкой фактическую точность, логическую согласованность и полноту.
-- Если оценка отсутствует, считай это отсутствием сигнала, а не негативной оценкой.
+                ? `Interpreting user ratings:
+- If a variant has a rating, treat it as an additional signal of usefulness and user preference.
+- Do not substitute user ratings for factual accuracy, logical consistency, and completeness.
+- If a rating is absent, treat it as absence of signal, not a negative rating.
 
 `
                 : '';
 
-            return `Исходный вопрос (улучшенный промт):
+            return `Original question (improved prompt):
 «${improvedPrompt}»
 
-${ratingsGuidance}Ниже несколько обезличенных вариантов ответа. Названия моделей и провайдеров намеренно скрыты; оценивай только содержание, логику, полезность и ясность.
+${ratingsGuidance}Below are several anonymized answer variants. Model and provider names are intentionally hidden; evaluate only content, logic, usefulness, and clarity.
 
-Обезличенные варианты:
+Anonymized variants:
 
 ${answersText}`;
         }
@@ -3421,15 +3420,15 @@ ${answersText}`;
                 const btn = document.createElement('button');
                 btn.className = 'code-copy-btn';
                 btn.dataset.iconSize = 'w-3 h-3';
-                btn.title = 'Скопировать код';
-                btn.setAttribute('aria-label', 'Скопировать код');
+                btn.title = 'Copy code';
+                btn.setAttribute('aria-label', 'Copy code');
                 setCopyButtonIconState(btn, false);
                 btn.onclick = function() { copyCodeBlock(this, codeText); };
                 wrapper.appendChild(btn);
             });
         }
 
-        // ── Universal clipboard: Clipboard API + execCommand fallback (Яндекс Браузер / file://) ──
+        // ── Universal clipboard: Clipboard API + execCommand fallback ──
         function copyToClipboard(text) {
             if (navigator.clipboard && window.isSecureContext) {
                 return navigator.clipboard.writeText(text)
@@ -3470,7 +3469,7 @@ ${answersText}`;
         function copyCodeBlock(btn, code) {
             copyToClipboard(code).then((success) => {
                 if (!success) {
-                    showSystemNotification('Не удалось скопировать код', 'warning', 2600);
+                    showSystemNotification('Failed to copy code', 'warning', 2600);
                     return;
                 }
                 btn.classList.add('copied');
@@ -3493,7 +3492,7 @@ ${answersText}`;
 
             copyToClipboard(text).then((success) => {
                 if (!success) {
-                    showSystemNotification('Не удалось скопировать текст', 'warning', 2600);
+                    showSystemNotification('Failed to copy text', 'warning', 2600);
                     return;
                 }
                 const btn = document.getElementById(buttonId);
@@ -3517,7 +3516,7 @@ ${answersText}`;
             
             copyToClipboard(text).then((success) => {
                 if (!success) {
-                    showSystemNotification('Не удалось скопировать Markdown', 'warning', 2600);
+                    showSystemNotification('Failed to copy Markdown', 'warning', 2600);
                     return;
                 }
                 const btn = document.getElementById(buttonId);
@@ -3614,26 +3613,23 @@ ${answersText}`;
             if (!currentThread || currentThread.turns.length === 0) {
                 wrap.classList.add('hidden');
                 body.innerHTML = '';
-                if (step1Title) step1Title.textContent = 'Шаг 1: Ваш сырой запрос';
-                if (step1Hint) step1Hint.textContent = 'Введите ваш исходный вопрос или задачу';
-                return;
+                if (step1Title) step1Title.textContent = 'Step 1: Your raw query';
+                if (step1Hint) step1Hint.textContent = 'Enter your original question or task';
             }
-
-            wrap.classList.remove('hidden');
-            if (titleEl) titleEl.textContent = `Чат · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'вопрос' : 'вопроса'}`;
-            if (step1Title) step1Title.textContent = 'Продолжить чат';
-            if (step1Hint) step1Hint.textContent = 'Задайте следующий вопрос — он будет отправлен в те же чаты';
+            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'question' : 'questions'}`;
+            if (step1Title) step1Title.textContent = 'Continue chat';
+            if (step1Hint) step1Hint.textContent = 'Ask the next question - it will be sent to the same chats';
 
             body.innerHTML = currentThread.turns.map((turn, i) => {
                 const aiId = 'ai-bubble-' + i;
                 const aiHTML = parseMarkdown(turn.finalAnswer);
                 return `
                 <div class="chat-turn">
-                    <span class="chat-turn-num">Вопрос ${i + 1}</span>
+                    <span class="chat-turn-num">Question ${i + 1}</span>
                     <div class="chat-bubble-user">${escapeHtml(turn.rawPrompt)}</div>
                     <div class="chat-bubble-ai">
                         <div id="${aiId}" class="md-content chat-bubble-ai-collapsed">${aiHTML}</div>
-                        <button data-action="toggleAiBubble" data-ai-id="${aiId}" class="mt-1 text-xs text-zinc-500 hover:text-zinc-700 underline">Развернуть</button>
+                        <button data-action="toggleAiBubble" data-ai-id="${aiId}" class="mt-1 text-xs text-zinc-500 hover:text-zinc-700 underline">Expand</button>
                     </div>
                 </div>`;
             }).join('');
@@ -3649,7 +3645,7 @@ ${answersText}`;
             const el = document.getElementById(id);
             if (!el) return;
             const collapsed = el.classList.toggle('chat-bubble-ai-collapsed');
-            btn.textContent = collapsed ? 'Развернуть' : 'Свернуть';
+            btn.textContent = collapsed ? 'Expand' : 'Collapse';
         }
 
         // ─── HISTORY PANEL ───────────────────────────────────────────────────
@@ -3693,7 +3689,7 @@ ${answersText}`;
                     try {
                         const data = JSON.parse(e.target.result);
                         if (data.threads && Array.isArray(data.threads)) {
-                            if (confirm(`Импортировать ${data.threads.length} чатов? Существующая история будет дополнена.`)) {
+                            if (confirm(`Import ${data.threads.length} chats? Existing history will be appended.`)) {
                                 // Merge threads
                                 const existingIds = new Set(allThreads.map(t => t.id));
                                 data.threads.forEach(thread => {
@@ -3703,11 +3699,11 @@ ${answersText}`;
                                 });
                                 await saveThreads();
                                 renderHistoryList();
-                                alert(`Импортировано ${data.threads.length} чатов`);
+                                alert(`Imported ${data.threads.length} chats`);
                             }
                         }
                     } catch (err) {
-                        alert('Ошибка при чтении файла: ' + err.message);
+                        alert('Error reading file: ' + err.message);
                     }
                 };
                 reader.readAsText(file);
@@ -3726,7 +3722,7 @@ ${answersText}`;
         }
 
         function clearHistory() {
-            if (!confirm('Очистить всю историю чатов?')) return;
+            if (!confirm('Clear all chat history?')) return;
             allThreads = [];
             currentThread = null;
             void saveThreads();
@@ -3739,8 +3735,8 @@ ${answersText}`;
             if (allThreads.length === 0) {
                 container.innerHTML = `<div class="history-empty">
                     <svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <p>История пуста</p>
-                    <p class="text-xs mt-1">Завершённые чаты появятся здесь</p>
+                    <p>History is empty</p>
+                    <p class="text-xs mt-1">Completed chats will appear here</p>
                 </div>`;
                 return;
             }
@@ -3753,10 +3749,10 @@ ${answersText}`;
                 <div class="thread-entry" style="${isActive ? 'border-color:#3b82f6;' : ''}">
                     <div class="thread-entry-header" data-action="toggleThreadExpand" data-index="${idx}">
                         <div style="flex:1;min-width:0;">
-                            <div class="thread-title">${escapeHtml(thread.title)}${isActive ? ' <span style="color:#3b82f6;font-size:0.7rem;font-weight:600;">● активный</span>' : ''}</div>
+                            <div class="thread-title">${escapeHtml(thread.title)}${isActive ? ' <span style="color:#3b82f6;font-size:0.7rem;font-weight:600;">● active</span>' : ''}</div>
                             <div class="thread-meta">
                                 <span>🕐 ${dateStr}</span>
-                                <span>💬 ${thread.turns.length} ${thread.turns.length === 1 ? 'вопрос' : thread.turns.length < 5 ? 'вопроса' : 'вопросов'}</span>
+                                <span>💬 ${thread.turns.length} ${thread.turns.length === 1 ? 'question' : thread.turns.length < 5 ? 'questions' : 'questions'}</span>
                             </div>
                         </div>
                         <svg id="thread-arrow-${idx}" style="width:16px;height:16px;flex-shrink:0;transition:transform 0.2s;color:#a1a1aa;" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
@@ -3771,9 +3767,9 @@ ${answersText}`;
                     <div class="thread-actions">
                         <button class="btn btn-primary btn-sm" data-action="openThread" data-index="${idx}">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                            Открыть и продолжить
+                            Open and continue
                         </button>
-                        <button class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" data-action="deleteThread" data-index="${idx}" title="Удалить чат">
+                        <button class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" data-action="deleteThread" data-index="${idx}" title="Delete chat">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>
@@ -3819,7 +3815,7 @@ ${answersText}`;
 
         function deleteThread(idx) {
             const thread = allThreads[idx];
-            if (!confirm(`Удалить чат «${thread.title.slice(0,40)}»?`)) return;
+            if (!confirm(`Delete chat "${thread.title.slice(0,40)}"?`)) return;
             if (currentThread && currentThread.id === thread.id) {
                 currentThread = null;
                 isContinuation = false;
@@ -3856,7 +3852,7 @@ ${answersText}`;
 
         function closeContinueModal() {
             document.getElementById('continueModal').classList.add('hidden');
-            // Не сбрасываем currentThread, чтобы не потерять контекст чата
+            // Don't reset currentThread to preserve chat context
         }
 
         function submitContinue() {
@@ -3876,7 +3872,7 @@ ${answersText}`;
             isContinuation = true;
             closeContinueModal();
             if (invalidUrls > 0) {
-                showSystemNotification('Часть ссылок пропущена: поддерживаются только http/https', 'warning', 3200);
+                showSystemNotification('Some links skipped: only http/https supported', 'warning', 3200);
             }
             // Clear input fields for new question, keep thread alive
             document.getElementById('rawPrompt').value = '';
@@ -3900,13 +3896,13 @@ ${answersText}`;
             const body    = document.getElementById('chatFullscreenBody');
             const titleEl = document.getElementById('chatFullscreenTitle');
 
-            if (titleEl) titleEl.textContent = `Чат · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'вопрос' : 'вопроса'}`;
+            if (titleEl) titleEl.textContent = `Chat · ${currentThread.turns.length} ${currentThread.turns.length === 1 ? 'question' : 'questions'}`;
 
             body.innerHTML = currentThread.turns.map((turn, i) => {
                 const aiHTML = parseMarkdown(turn.finalAnswer);
                 return `
                 <div class="chat-turn">
-                    <span class="chat-turn-num">Вопрос ${i + 1}</span>
+                    <span class="chat-turn-num">Question ${i + 1}</span>
                     <div class="chat-bubble-user">${escapeHtml(turn.rawPrompt)}</div>
                     <div class="chat-bubble-ai">
                         <div class="md-content">${aiHTML}</div>

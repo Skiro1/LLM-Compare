@@ -1,35 +1,35 @@
-# LLM Compare — Расширение для Chrome
+# LLM Compare — Chrome Extension
 
-Расширение для Chrome (Manifest V3) приложения LLM Compare.
+Chrome extension (Manifest V3) for the LLM Compare application.
 
-## Возможности
+## Features
 
-- Поля для ввода ссылок на чаты прямо на этапе «Модели»
-- Автоматическое сохранение URL чатов
-- Локальный автосейв данных в `localStorage`
+- Fields for entering chat links directly at the "Models" step
+- Automatic saving of chat URLs
+- Local auto-save of data in `localStorage`
 
-## Установка
+## Installation
 
-1. Откройте `chrome://extensions/`
-2. Включите **«Режим разработчика»** (переключатель в правом верхнем углу)
-3. Нажмите **«Загрузить распакованное расширение»**
-4. Выберите папку `chrome-extension/` из проекта
+1. Open `chrome://extensions/`
+2. Enable **"Developer mode"** (toggle in the top right corner)
+3. Click **"Load unpacked extension"**
+4. Select the `chrome-extension/` folder from the project
 
-## Структура
+## Structure
 
 ```
 chrome-extension/
-├── manifest.json       # Манифест расширения (MV3)
+├── manifest.json       # Extension manifest (MV3)
 ├── background.js       # Service worker
-├── popup.html          # Попап расширения
-├── LLM_Compare.html    # Основной интерфейс
-├── app.js              # Логика приложения
-└── icons/              # Иконки расширения
+├── popup.html          # Extension popup
+├── LLM_Compare.html    # Main interface
+├── app.js              # Application logic
+└── icons/              # Extension icons
 ```
 
-## Технические детали
+## Technical Details
 
 - Manifest V3
-- Service worker в `background.js`
-- Данные хранятся в `localStorage` браузера
-- Не требует сборки
+- Service worker in `background.js`
+- Data is stored in browser `localStorage`
+- No build required

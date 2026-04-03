@@ -98,7 +98,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, () => {
-    console.log(`\n  LLM Compare server started: http://localhost:${PORT}`);
-    console.log(`  Anthropic API proxy: http://localhost:${PORT}/v1/messages`);
-    console.log(`\n  Open http://localhost:${PORT} in browser\n`);
+    console.log(`\n  LLM Compare сервер запущен: http://localhost:${PORT}`);
+    console.log(`  Прокси Anthropic API: http://localhost:${PORT}/v1/messages`);
+    console.log(`\n  Откройте http://localhost:${PORT} в браузере\n`);
 });

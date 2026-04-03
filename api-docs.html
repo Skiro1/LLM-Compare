@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Документация — Multi-LLM</title>
+    <title>API Documentation — Multi-LLM</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <style>
@@ -214,41 +214,41 @@
     <header class="header">
         <div class="header-inner">
             <div class="breadcrumb">
-                <a href="LLM_Compare.html">🏠 Главная</a>
+                <a href="LLM_Compare.html">🏠 Home</a>
                 <span class="breadcrumb-sep">/</span>
-                <span>API Документация</span>
+                <span>API Documentation</span>
             </div>
             <div style="display:flex; align-items:center; gap:0.75rem;">
                 <span style="font-size:0.8rem; color:var(--text-muted);">v1.0</span>
                 <button onclick="toggleTheme()" class="theme-btn" id="themeToggle">
                     <svg id="themeIconLight" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg id="themeIconDark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="hidden"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <span id="themeText">Тёмная</span>
+                    <span id="themeText">Dark</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Sidebar Toggle (Mobile) -->
-    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Меню">
+    <button class="sidebar-toggle" onclick="toggleSidebar()" aria-label="Menu">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-section">
-            <div class="sidebar-title">Начало работы</div>
+            <div class="sidebar-title">Getting Started</div>
             <a href="#overview" class="sidebar-link active" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Обзор
+                Overview
             </a>
             <a href="#quickstart" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                Быстрый старт
+                Quick Start
             </a>
             <a href="#authentication" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                Аутентификация
+                Authentication
             </a>
         </div>
 
@@ -269,14 +269,14 @@
         </div>
 
         <div class="sidebar-section">
-            <div class="sidebar-title">Дополнительно</div>
+            <div class="sidebar-title">Additional</div>
             <a href="#streaming" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Streaming
             </a>
             <a href="#errors" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Ошибки
+                Errors
             </a>
             <a href="#rate-limits" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -284,7 +284,7 @@
             </a>
             <a href="#providers" class="sidebar-link" onclick="setActiveLink(this)">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                Провайдеры
+                Providers
             </a>
         </div>
     </aside>
@@ -294,49 +294,49 @@
       <div class="main-inner">
         <!-- Overview -->
         <section id="overview">
-            <h1>📡 API Документация</h1>
-            <p>Добро пожаловать в документацию API Multi-LLM. API предоставляет единый интерфейс для работы с различными языковыми моделями через единый формат запросов, совместимый с OpenAI API.</p>
+            <h1>📡 API Documentation</h1>
+            <p>Welcome to the Multi-LLM API documentation. The API provides a single interface for working with different language models through a single query format compatible with the OpenAI API.</p>
             
             <div class="info-box info">
-                <div class="info-box-title">💡 Единый формат</div>
-                <p>Все провайдеры используют формат, совместимый с OpenAI API. Это позволяет легко переключаться между моделями без изменения кода.</p>
+                <div class="info-box-title">💡 Unified Format</div>
+                <p>All providers use a format compatible with the OpenAI API. This allows you to easily switch between models without changing your code.</p>
             </div>
 
-            <h3>Основные возможности</h3>
+            <h3>Key Features</h3>
             <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
-                <li>Доступ к 20+ языковым моделям через единый API</li>
-                <li>Поддержка чат-формата с системными промптами</li>
-                <li>Потоковые ответы (streaming)</li>
-                <li>JSON mode для структурированных ответов</li>
-                <li>Совместимость с OpenAI SDK</li>
+                <li>Access to 20+ language models through a single API</li>
+                <li>Chat format support with system prompts</li>
+                <li>Streaming responses</li>
+                <li>JSON mode for structured responses</li>
+                <li>OpenAI SDK compatibility</li>
             </ul>
         </section>
 
         <!-- Quick Start -->
         <section id="quickstart">
-            <h2>⚡ Быстрый старт</h2>
-            <p>Начните использовать API за несколько минут. Выберите ваш любимый язык или инструмент:</p>
+            <h2>⚡ Quick Start</h2>
+            <p>Start using the API in minutes. Choose your favorite language or tool:</p>
             
             <div class="quick-cards">
                 <a href="#chat-completions" class="quick-card">
                     <div class="quick-card-icon">💬</div>
                     <div class="quick-card-title">Chat Completions</div>
-                    <div class="quick-card-desc">Отправьте первый запрос к модели</div>
+                    <div class="quick-card-desc">Send your first request to the model</div>
                 </a>
                 <a href="#authentication" class="quick-card">
                     <div class="quick-card-icon">🔑</div>
-                    <div class="quick-card-title">Получить API ключ</div>
-                    <div class="quick-card-desc">Настройте аутентификацию</div>
+                    <div class="quick-card-title">Get API Key</div>
+                    <div class="quick-card-desc">Set up authentication</div>
                 </a>
                 <a href="#streaming" class="quick-card">
                     <div class="quick-card-icon">⚡</div>
                     <div class="quick-card-title">Streaming</div>
-                    <div class="quick-card-desc">Получайте ответы в реальном времени</div>
+                    <div class="quick-card-desc">Receive responses in real time</div>
                 </a>
             </div>
 
-            <h3>Ваш первый запрос</h3>
-            <p>Вот минимальный пример отправки сообщения модели:</p>
+            <h3>Your First Request</h3>
+            <p>Here's a minimal example of sending a message to the model:</p>
             
             <div class="code-tabs" id="firstRequestTabs">
                 <button class="code-tab active" onclick="switchTab('firstRequest', 'curl', this)">cURL</button>
@@ -347,7 +347,7 @@
                 <div class="code-lang" id="firstRequestLang">cURL</div>
                 <button class="code-copy-btn" onclick="copyCode('firstRequest')">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Копировать
+                    Copy
                 </button>
                 <pre class="code-block" id="firstRequest-curl">curl https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -355,8 +355,8 @@
   -d '{
     "model": "gpt-4",
     "messages": [
-      {"role": "system", "content": "Ты полезный ассистент."},
-      {"role": "user", "content": "Привет! Расскажи о себе."}
+      {"role": "system", "content": "You are a helpful assistant."},
+      {"role": "user", "content": "Hello! Tell me about yourself."}
     ]
   }'</pre>
                 <pre class="code-block hidden" id="firstRequest-python">import requests
@@ -370,8 +370,8 @@ response = requests.post(
     json={
         "model": "gpt-4",
         "messages": [
-            {"role": "system", "content": "Ты полезный ассистент."},
-            {"role": "user", "content": "Привет! Расскажи о себе."}
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "Hello! Tell me about yourself."}
         ]
     }
 )
@@ -387,8 +387,8 @@ print(data["choices"][0]["message"]["content"])</pre>
   body: JSON.stringify({
     model: "gpt-4",
     messages: [
-      {role: "system", content: "Ты полезный ассистент."},
-      {role: "user", content: "Привет! Расскажи о себе."}
+      {role: "system", content: "You are a helpful assistant."},
+      {role: "user", content: "Hello! Tell me about yourself."}
     ]
   })
 });
@@ -400,8 +400,8 @@ console.log(data.choices[0].message.content);</pre>
 
         <!-- Authentication -->
         <section id="authentication">
-            <h2>🔑 Аутентификация</h2>
-            <p>Все запросы к API требуют аутентификации через API ключ. Ключ передается в заголовке <code class="inline-code">Authorization</code>.</p>
+            <h2>🔑 Authentication</h2>
+            <p>All API requests require authentication via an API key. The key is passed in the <code class="inline-code">Authorization</code> header.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -409,19 +409,19 @@ console.log(data.choices[0].message.content);</pre>
                     <span class="endpoint-path">Authorization: Bearer YOUR_API_KEY</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Замените <code class="inline-code">YOUR_API_KEY</code> на ваш реальный API ключ от провайдера.</p>
+                    <p>Replace <code class="inline-code">YOUR_API_KEY</code> with your actual API key from the provider.</p>
                 </div>
             </div>
 
-            <h3>Получение API ключей</h3>
-            <p>Каждый провайдер имеет свой способ получения API ключа:</p>
+            <h3>Getting API Keys</h3>
+            <p>Each provider has its own method for obtaining an API key:</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Провайдер</th>
-                        <th>Где получить ключ</th>
-                        <th>Формат ключа</th>
+                        <th>Provider</th>
+                        <th>Where to Get Key</th>
+                        <th>Key Format</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -431,7 +431,7 @@ console.log(data.choices[0].message.content);</pre>
                         <td><code class="inline-code">sk-...</code></td>
                     </tr>
                     <tr>
-                        <td>Anthropic <span style="color:#a16207;font-size:0.75rem;">🔒 прокси</span></td>
+                        <td>Anthropic <span style="color:#a16207;font-size:0.75rem;">🔒 proxy</span></td>
                         <td><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></td>
                         <td><code class="inline-code">sk-ant-...</code></td>
                     </tr>
@@ -469,24 +469,24 @@ console.log(data.choices[0].message.content);</pre>
             </table>
 
             <div class="info-box warning">
-                <div class="info-box-title">⚠️ Безопасность</div>
-                <p>Никогда не храните API ключи в клиентском коде. Используйте переменные окружения или серверные прокси для production приложений.</p>
+                <div class="info-box-title">⚠️ Security</div>
+                <p>Never store API keys in client-side code. Use environment variables or server-side proxies for production applications.</p>
             </div>
 
-            <h3>Импорт и экспорт ключей</h3>
-            <p>В настройках (вкладка «Провайдеры») доступны кнопки для массового управления ключами:</p>
+            <h3>Import and Export Keys</h3>
+            <p>In the settings (Providers tab), you can find buttons for bulk key management:</p>
             <ul>
-                <li><strong>Импорт ключей (.txt)</strong> — загрузите файл с ключами, все провайдеры за раз</li>
-                <li><strong>Экспорт ключей</strong> — скачайте все ключи в файл <code class="inline-code">api-keys.txt</code></li>
-                <li><strong>Удалить все ключи</strong> — очистить все ключи одним кликом (с подтверждением)</li>
+                <li><strong>Import Keys (.txt)</strong> — upload a file with keys, all providers at once</li>
+                <li><strong>Export Keys</strong> — download all keys to a file <code class="inline-code">api-keys.txt</code></li>
+                <li><strong>Delete All Keys</strong> — clear all keys with one click (with confirmation)</li>
             </ul>
 
-            <h4>Формат файла для импорта</h4>
+            <h4>Import File Format</h4>
             <div class="card">
                 <div class="code-block-wrapper">
                     <button class="code-copy-btn" onclick="copySingleCode(this)">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Копировать
+                        Copy
                     </button>
                     <pre class="code-block">OPENAI - sk-your-key-here
 GROQ - gsk_your-key-here
@@ -498,20 +498,20 @@ HUGGING_FACE - hf_your-key-here
 OPENROUTER - sk-or-your-key-here</pre>
                 </div>
             </div>
-            <p>Правила:</p>
+            <p>Rules:</p>
             <ul>
-                <li>Каждый ключ на новой строке</li>
-                <li>Формат: <code class="inline-code">ПРОВАЙДЕР - ключ</code> (разделитель — пробел, дефис, пробел)</li>
-                <li>Порядок строк не важен</li>
-                <li>Не все ключи обязательны — можно указать только нужные</li>
-                <li>Строки, начинающиеся с <code class="inline-code">#</code>, игнорируются (комментарии)</li>
+                <li>Each key on a new line</li>
+                <li>Format: <code class="inline-code">PROVIDER - key</code> (separator — space, dash, space)</li>
+                <li>Line order does not matter</li>
+                <li>Not all keys are required — you can specify only the ones you need</li>
+                <li>Lines starting with <code class="inline-code">#</code> are ignored (comments)</li>
             </ul>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Название в файле</th>
-                        <th>Провайдер</th>
+                        <th>Name in File</th>
+                        <th>Provider</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -521,7 +521,7 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <tr><td><code class="inline-code">ANTHROPIC</code></td><td>Anthropic</td></tr>
                     <tr><td><code class="inline-code">DEEPSEEK</code></td><td>DeepSeek</td></tr>
                     <tr><td><code class="inline-code">MISTRAL</code></td><td>Mistral AI</td></tr>
-                    <tr><td><code class="inline-code">HUGGING_FACE</code> или <code class="inline-code">HUGGINGFACE</code></td><td>Hugging Face</td></tr>
+                    <tr><td><code class="inline-code">HUGGING_FACE</code> or <code class="inline-code">HUGGINGFACE</code></td><td>Hugging Face</td></tr>
                     <tr><td><code class="inline-code">OPENROUTER</code></td><td>OpenRouter</td></tr>
                 </tbody>
             </table>
@@ -530,7 +530,7 @@ OPENROUTER - sk-or-your-key-here</pre>
         <!-- Chat Completions -->
         <section id="chat-completions">
             <h2>💬 Chat Completions</h2>
-            <p>Создает ответ модели для заданного разговора.</p>
+            <p>Creates a model response for a given conversation.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -538,79 +538,79 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <span class="endpoint-path">/v1/chat/completions</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Параметры запроса</h4>
+                    <h4>Request Parameters</h4>
                     
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
-                        <span class="param-required">Обязательный</span>
-                        <div class="param-desc">ID модели для использования. Например: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
+                        <span class="param-required">Required</span>
+                        <div class="param-desc">ID of the model to use. Example: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">messages</span>
                         <span class="param-type">array</span>
-                        <span class="param-required">Обязательный</span>
-                        <div class="param-desc">Список сообщений, представляющих разговор. Каждый объект содержит <code class="inline-code">role</code> и <code class="inline-code">content</code>.</div>
+                        <span class="param-required">Required</span>
+                        <div class="param-desc">List of messages representing the conversation. Each object contains <code class="inline-code">role</code> and <code class="inline-code">content</code>.</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">temperature</span>
                         <span class="param-type">number</span>
-                        <span class="param-optional">Опциональный</span>
-                        <div class="param-desc">Температура выборки от 0 до 2. Более высокие значения делают ответы более случайными. По умолчанию: 1</div>
+                        <span class="param-optional">Optional</span>
+                        <div class="param-desc">Sampling temperature from 0 to 2. Higher values make responses more random. Default: 1</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">max_tokens</span>
                         <span class="param-type">integer</span>
-                        <span class="param-optional">Опциональный</span>
-                        <div class="param-desc">Максимальное количество токенов в ответе. По умолчанию: модель-зависимое</div>
+                        <span class="param-optional">Optional</span>
+                        <div class="param-desc">Maximum number of tokens in the response. Default: model-dependent</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">stream</span>
                         <span class="param-type">boolean</span>
-                        <span class="param-optional">Опциональный</span>
-                        <div class="param-desc">Включить потоковую передачу ответа. По умолчанию: false</div>
+                        <span class="param-optional">Optional</span>
+                        <div class="param-desc">Enable streaming response. Default: false</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">response_format</span>
                         <span class="param-type">object</span>
-                        <span class="param-optional">Опциональный</span>
-                        <div class="param-desc">Формат ответа. Используйте <code class="inline-code">{"type": "json_object"}</code> для JSON mode</div>
+                        <span class="param-optional">Optional</span>
+                        <div class="param-desc">Response format. Use <code class="inline-code">{"type": "json_object"}</code> for JSON mode</div>
                     </div>
                 </div>
             </div>
 
-            <h3>Структура сообщений</h3>
-            <p>Каждое сообщение в массиве <code class="inline-code">messages</code> содержит:</p>
+            <h3>Message Structure</h3>
+            <p>Each message in the <code class="inline-code">messages</code> array contains:</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Роль</th>
-                        <th>Описание</th>
+                        <th>Role</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">system</code></td>
-                        <td>Системный промпт, задающий поведение модели</td>
+                        <td>System prompt defining model behavior</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">user</code></td>
-                        <td>Сообщение от пользователя</td>
+                        <td>User message</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">assistant</code></td>
-                        <td>Предыдущий ответ модели (для контекста)</td>
+                        <td>Previous model response (for context)</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Пример ответа</h3>
+            <h3>Response Example</h3>
             <div class="response-example">
 {
   <span class="key">"id"</span>: <span class="string">"chatcmpl-abc123"</span>,
@@ -622,7 +622,7 @@ OPENROUTER - sk-or-your-key-here</pre>
       <span class="key">"index"</span>: <span class="number">0</span>,
       <span class="key">"message"</span>: {
         <span class="key">"role"</span>: <span class="string">"assistant"</span>,
-        <span class="key">"content"</span>: <span class="string">"Привет! Я языковая модель, разработанная OpenAI..."</span>
+        <span class="key">"content"</span>: <span class="string">"Hello! I am a language model developed by OpenAI..."</span>
       },
       <span class="key">"finish_reason"</span>: <span class="string">"stop"</span>
     }
@@ -638,7 +638,7 @@ OPENROUTER - sk-or-your-key-here</pre>
         <!-- List Models -->
         <section id="list-models">
             <h2>📋 List Models</h2>
-            <p>Возвращает список всех доступных моделей.</p>
+            <p>Returns a list of all available models.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -646,11 +646,11 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <span class="endpoint-path">/v1/models</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Не требует параметров. Возвращает список всех моделей, доступных для вашего API ключа.</p>
+                    <p>No parameters required. Returns a list of all models available for your API key.</p>
                 </div>
             </div>
 
-            <h3>Пример запроса</h3>
+            <h3>Request Example</h3>
             <div class="code-tabs" id="listModelsTabs">
                 <button class="code-tab active" onclick="switchTab('listModels', 'curl', this)">cURL</button>
                 <button class="code-tab" onclick="switchTab('listModels', 'python', this)">Python</button>
@@ -658,7 +658,7 @@ OPENROUTER - sk-or-your-key-here</pre>
             <div class="code-block-wrapper with-tabs">
                 <button class="code-copy-btn" onclick="copyCode('listModels')">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Копировать
+                    Copy
                 </button>
                 <pre class="code-block" id="listModels-curl">curl https://api.openai.com/v1/models \
   -H "Authorization: Bearer YOUR_API_KEY"</pre>
@@ -674,7 +674,7 @@ for model in models:
     print(model["id"])</pre>
             </div>
 
-            <h3>Пример ответа</h3>
+            <h3>Response Example</h3>
             <div class="response-example">
 {
   <span class="key">"object"</span>: <span class="string">"list"</span>,
@@ -698,7 +698,7 @@ for model in models:
         <!-- Retrieve Model -->
         <section id="retrieve-model">
             <h2>🔍 Retrieve Model</h2>
-            <p>Возвращает информацию о конкретной модели.</p>
+            <p>Returns information about a specific model.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -706,21 +706,21 @@ for model in models:
                     <span class="endpoint-path">/v1/models/{model}</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Параметры пути</h4>
+                    <h4>Path Parameters</h4>
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
-                        <span class="param-required">Обязательный</span>
-                        <div class="param-desc">ID модели. Например: <code class="inline-code">gpt-4</code></div>
+                        <span class="param-required">Required</span>
+                        <div class="param-desc">Model ID. Example: <code class="inline-code">gpt-4</code></div>
                     </div>
                 </div>
             </div>
 
-            <h3>Пример запроса</h3>
+            <h3>Request Example</h3>
             <div class="code-block-wrapper">
                 <button class="code-copy-btn" onclick="copySingleCode(this)">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Копировать
+                    Copy
                 </button>
                 <pre class="code-block">curl https://api.openai.com/v1/models/gpt-4 \
   -H "Authorization: Bearer YOUR_API_KEY"</pre>
@@ -730,15 +730,15 @@ for model in models:
         <!-- Streaming -->
         <section id="streaming">
             <h2>⚡ Streaming</h2>
-            <p>Потоковая передача позволяет получать ответ модели по мере его генерации, улучшая воспринимаемую скорость ответа.</p>
+            <p>Streaming allows you to receive the model's response as it is being generated, improving perceived response speed.</p>
             
             <div class="info-box info">
-                <div class="info-box-title">💡 Когда использовать streaming</div>
-                <p>Используйте streaming для длинных ответов или когда важно показать пользователю прогресс генерации в реальном времени.</p>
+                <div class="info-box-title">💡 When to use streaming</div>
+                <p>Use streaming for long responses or when it's important to show the user generation progress in real time.</p>
             </div>
 
-            <h3>Включение streaming</h3>
-            <p>Добавьте параметр <code class="inline-code">"stream": true</code> в запрос:</p>
+            <h3>Enabling Streaming</h3>
+            <p>Add the <code class="inline-code">"stream": true</code> parameter to the request:</p>
             
             <div class="code-tabs" id="streamingTabs">
                 <button class="code-tab active" onclick="switchTab('streaming', 'curl', this)">cURL</button>
@@ -748,14 +748,14 @@ for model in models:
             <div class="code-block-wrapper with-tabs">
                 <button class="code-copy-btn" onclick="copyCode('streaming')">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Копировать
+                    Copy
                 </button>
                 <pre class="code-block" id="streaming-curl">curl https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
     "model": "gpt-4",
-    "messages": [{"role": "user", "content": "Расскажи длинную историю"}],
+    "messages": [{"role": "user", "content": "Tell a long story"}],
     "stream": true
   }'</pre>
                 <pre class="code-block hidden" id="streaming-python">import requests
@@ -768,7 +768,7 @@ response = requests.post(
     },
     json={
         "model": "gpt-4",
-        "messages": [{"role": "user", "content": "Расскажи длинную историю"}],
+        "messages": [{"role": "user", "content": "Tell a long story"}],
         "stream": True
     },
     stream=True
@@ -790,7 +790,7 @@ for line in response.iter_lines():
   },
   body: JSON.stringify({
     model: "gpt-4",
-    messages: [{role: "user", content: "Расскажи длинную историю"}],
+    messages: [{role: "user", content: "Tell a long story"}],
     stream: true
   })
 });
@@ -814,12 +814,12 @@ while (true) {
 }</pre>
             </div>
 
-            <h3>Формат SSE ответа</h3>
-            <p>Каждый chunk приходит в формате Server-Sent Events:</p>
+            <h3>SSE Response Format</h3>
+            <p>Each chunk arrives in Server-Sent Events format:</p>
             <div class="code-block-wrapper">
-                <pre class="code-block">data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":"Привет"},"index":0}]}
+                <pre class="code-block">data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":"Hello"},"index":0}]}
 
-data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":" мир!"},"index":0}]}
+data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":" world!"},"index":0}]}
 
 data: [DONE]</pre>
             </div>
@@ -827,57 +827,57 @@ data: [DONE]</pre>
 
         <!-- Errors -->
         <section id="errors">
-            <h2>❌ Ошибки</h2>
-            <p>API использует стандартные HTTP коды ошибок. При возникновении ошибки тело ответа содержит детальное описание.</p>
+            <h2>❌ Errors</h2>
+            <p>The API uses standard HTTP error codes. When an error occurs, the response body contains a detailed description.</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Код</th>
-                        <th>Описание</th>
-                        <th>Решение</th>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Solution</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">400</code></td>
                         <td>Bad Request</td>
-                        <td>Проверьте формат запроса и параметры</td>
+                        <td>Check request format and parameters</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">401</code></td>
                         <td>Unauthorized</td>
-                        <td>Проверьте API ключ</td>
+                        <td>Check your API key</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">403</code></td>
                         <td>Forbidden</td>
-                        <td>Нет доступа к запрашиваемому ресурсу</td>
+                        <td>No access to the requested resource</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">404</code></td>
                         <td>Not Found</td>
-                        <td>Проверьте URL и ID модели</td>
+                        <td>Check the URL and model ID</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">429</code></td>
                         <td>Rate Limited</td>
-                        <td>Превышен лимит запросов. Подождите и повторите</td>
+                        <td>Request limit exceeded. Wait and retry</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">500</code></td>
                         <td>Server Error</td>
-                        <td>Ошибка на стороне сервера. Повторите позже</td>
+                        <td>Server-side error. Retry later</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">503</code></td>
                         <td>Service Unavailable</td>
-                        <td>Сервис временно недоступен</td>
+                        <td>Service temporarily unavailable</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Формат ошибки</h3>
+            <h3>Error Format</h3>
             <div class="response-example">
 {
   <span class="key">"error"</span>: {
@@ -888,57 +888,57 @@ data: [DONE]</pre>
   }
 }</div>
 
-            <h3>Retry логика</h3>
+            <h3>Retry Logic</h3>
             <div class="info-box success">
                 <div class="info-box-title">✅ Best Practice</div>
-                <p>При получении ошибки 429 (Rate Limit) или 5xx (Server Error), используйте exponential backoff: ждите 1 секунду, затем 2, 4, 8... Максимум 5 попыток.</p>
+                <p>When receiving a 429 (Rate Limit) or 5xx (Server Error), use exponential backoff: wait 1 second, then 2, 4, 8... Maximum 5 attempts.</p>
             </div>
         </section>
 
         <!-- Rate Limits -->
         <section id="rate-limits">
             <h2>⏱️ Rate Limits</h2>
-            <p>Лимиты запросов зависят от провайдера и вашего тарифного плана. Информация о лимитах передается в заголовках ответа.</p>
+            <p>Request limits depend on the provider and your pricing plan. Limit information is passed in response headers.</p>
             
-            <h3>Заголовки ответа</h3>
+            <h3>Response Headers</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Заголовок</th>
-                        <th>Описание</th>
+                        <th>Header</th>
+                        <th>Description</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-limit-requests</code></td>
-                        <td>Максимальное количество запросов в период</td>
+                        <td>Maximum number of requests per period</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-remaining-requests</code></td>
-                        <td>Оставшееся количество запросов</td>
+                        <td>Remaining number of requests</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-reset-requests</code></td>
-                        <td>Время сброса лимита (RFC 7231)</td>
+                        <td>Rate limit reset time (RFC 7231)</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-limit-tokens</code></td>
-                        <td>Максимальное количество токенов в период</td>
+                        <td>Maximum number of tokens per period</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-remaining-tokens</code></td>
-                        <td>Оставшееся количество токенов</td>
+                        <td>Remaining number of tokens</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Лимиты по провайдерам (бесплатные планы)</h3>
+            <h3>Provider Limits (Free Plans)</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Провайдер</th>
-                        <th>Запросов/мин</th>
-                        <th>Токенов/мин</th>
+                        <th>Provider</th>
+                        <th>Requests/min</th>
+                        <th>Tokens/min</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -975,7 +975,7 @@ data: [DONE]</pre>
                     <tr>
                         <td>Hugging Face</td>
                         <td>~10</td>
-                        <td>Зависит от модели</td>
+                        <td>Depends on model</td>
                     </tr>
                 </tbody>
             </table>
@@ -983,10 +983,10 @@ data: [DONE]</pre>
 
         <!-- Providers -->
         <section id="providers">
-            <h2>🔌 Провайдеры</h2>
-            <p>Multi-LLM поддерживает широкий спектр провайдеров. Все они используют единый формат API.</p>
+            <h2>🔌 Providers</h2>
+            <p>Multi-LLM supports a wide range of providers. All of them use a unified API format.</p>
             
-            <h3>Поддерживаемые провайдеры</h3>
+            <h3>Supported Providers</h3>
             <div class="provider-grid">
                 <div class="provider-chip">🤖 OpenAI</div>
                 <div class="provider-chip">🧠 Anthropic</div>
@@ -999,16 +999,16 @@ data: [DONE]</pre>
                 <div class="provider-chip">🖥️ LM Studio</div>
                 <div class="provider-chip">🔵 Meta (Llama)</div>
                 <div class="provider-chip">🟠 Alibaba (Qwen)</div>
-                <div class="provider-chip">🟡 Яндекс</div>
-                <div class="provider-chip">🟢 Сбер (GigaChat)</div>
+                <div class="provider-chip">🟡 Yandex</div>
+                <div class="provider-chip">🟢 Sber (GigaChat)</div>
                 <div class="provider-chip">🟣 Cohere</div>
             </div>
 
-            <h3>Базовые URL</h3>
+            <h3>Base URLs</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Провайдер</th>
+                        <th>Provider</th>
                         <th>Base URL</th>
                     </tr>
                 </thead>
@@ -1053,37 +1053,37 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box info">
-                <div class="info-box-title">💡 Локальные модели</div>
-                <p>Для использования локальных моделей через Ollama или LM Studio запустите соответствующий сервер и укажите его адрес в настройках.</p>
+                <div class="info-box-title">💡 Local Models</div>
+                <p>To use local models via Ollama or LM Studio, start the corresponding server and specify its address in the settings.</p>
             </div>
 
             <h3>🤗 Hugging Face Inference API</h3>
-            <p>Hugging Face предоставляет доступ к тысячам открытых моделей через единый облачный API. Формат запросов совместим с OpenAI API.</p>
+            <p>Hugging Face provides access to thousands of open models through a unified cloud API. The request format is compatible with the OpenAI API.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Пример запроса к HF</h4>
+                <h4 style="margin-top:0;">HF Request Example</h4>
                 <div class="code-block-wrapper">
                     <button class="code-copy-btn" onclick="copySingleCode(this)">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Копировать
+                        Copy
                     </button>
                     <pre class="code-block">curl https://router.huggingface.co/hf-inference/models/meta-llama/Llama-3.3-70B-Instruct/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer hf_YOUR_TOKEN" \
   -d '{
     "model": "meta-llama/Llama-3.3-70B-Instruct",
-    "messages": [{"role": "user", "content": "Привет!"}]
+    "messages": [{"role": "user", "content": "Hello!"}]
   }'</pre>
                 </div>
             </div>
 
-            <h4>Популярные модели на HF Hub</h4>
+            <h4>Popular Models on HF Hub</h4>
             <table>
                 <thead>
                     <tr>
-                        <th>Модель</th>
+                        <th>Model</th>
                         <th>ID</th>
-                        <th>Параметры</th>
+                        <th>Parameters</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1116,48 +1116,48 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box warning">
-                <div class="info-box-title">⚠️ Бесплатный тариф HF</div>
-                <p>Бесплатный Inference API имеет ограничения: крупные модели могут быть недоступны или работать медленно. Для стабильного использования рассмотрите <a href="https://huggingface.co/pricing" target="_blank">PRO-тариф</a> или Serverless Inference.</p>
+                <div class="info-box-title">⚠️ HF Free Tier</div>
+                <p>The free Inference API has limitations: large models may be unavailable or slow. For stable usage, consider the <a href="https://huggingface.co/pricing" target="_blank">PRO plan</a> or Serverless Inference.</p>
             </div>
         </section>
 
         <!-- OpenRouter -->
         <section id="openrouter">
             <h3>🔀 OpenRouter</h3>
-            <p>OpenRouter — агрегатор API, предоставляющий доступ к 300+ моделям от разных провайдеров через единый интерфейс, совместимый с OpenAI API. Один ключ — все модели.</p>
+            <p>OpenRouter is an API aggregator providing access to 300+ models from different providers through a single interface compatible with the OpenAI API. One key — all models.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Пример запроса к OpenRouter</h4>
+                <h4 style="margin-top:0;">OpenRouter Request Example</h4>
                 <div class="code-block-wrapper">
                     <button class="code-copy-btn" onclick="copySingleCode(this)">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Копировать
+                        Copy
                     </button>
                     <pre class="code-block">curl https://openrouter.ai/api/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-or-YOUR_TOKEN" \
   -d '{
     "model": "anthropic/claude-3.5-sonnet",
-    "messages": [{"role": "user", "content": "Привет!"}]
+    "messages": [{"role": "user", "content": "Hello!"}]
   }'</pre>
                 </div>
             </div>
 
-            <h4>Преимущества OpenRouter</h4>
+            <h4>OpenRouter Advantages</h4>
             <ul>
-                <li>Один API ключ для доступа к моделям от OpenAI, Anthropic, Google, Meta, Mistral и других</li>
-                <li>Автоматический fallback между провайдерами</li>
-                <li>Единый биллинг и отслеживание расходов</li>
-                <li>Бесплатные модели доступны без привязки карты</li>
+                <li>One API key for access to models from OpenAI, Anthropic, Google, Meta, Mistral and others</li>
+                <li>Automatic fallback between providers</li>
+                <li>Unified billing and expense tracking</li>
+                <li>Free models available without card binding</li>
             </ul>
 
-            <h4>Популярные модели на OpenRouter</h4>
+            <h4>Popular Models on OpenRouter</h4>
             <table>
                 <thead>
                     <tr>
-                        <th>Модель</th>
+                        <th>Model</th>
                         <th>ID</th>
-                        <th>Провайдер</th>
+                        <th>Provider</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1195,16 +1195,16 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box">
-                <div class="info-box-title">💡 Полный список моделей</div>
-                <p>Актуальный список из 300+ моделей доступен на <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. В приложении список загружается автоматически при проверке API ключа.</p>
+                <div class="info-box-title">💡 Full Model List</div>
+                <p>The current list of 300+ models is available at <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. In the app, the list is automatically loaded when the API key is verified.</p>
             </div>
         </section>
 
         <!-- Footer -->
         <div style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.875rem;">
-            <p>Multi-LLM API Документация v1.0</p>
+            <p>Multi-LLM API Documentation v1.0</p>
             <p style="margin-top: 0.5rem;">
-                <a href="LLM_Compare.html" style="color: var(--text-link);">← Вернуться к приложению</a>
+                <a href="LLM_Compare.html" style="color: var(--text-link);">← Back to Application</a>
             </p>
         </div>
         </div><!-- /main-inner -->
@@ -1233,11 +1233,11 @@ data: [DONE]</pre>
             if (theme === 'dark') {
                 light.classList.add('hidden');
                 dark.classList.remove('hidden');
-                text.textContent = 'Светлая';
+                text.textContent = 'Light';
             } else {
                 light.classList.remove('hidden');
                 dark.classList.add('hidden');
-                text.textContent = 'Тёмная';
+                text.textContent = 'Dark';
             }
         }
 
@@ -1310,10 +1310,10 @@ data: [DONE]</pre>
             
             navigator.clipboard.writeText(text).then(() => {
                 btn.classList.add('copied');
-                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скопировано!';
+                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
                 setTimeout(() => {
                     btn.classList.remove('copied');
-                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Копировать';
+                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy';
                 }, 2000);
             });
         }
@@ -1323,10 +1323,10 @@ data: [DONE]</pre>
             
             navigator.clipboard.writeText(text).then(() => {
                 btn.classList.add('copied');
-                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Скопировано!';
+                btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copied!';
                 setTimeout(() => {
                     btn.classList.remove('copied');
-                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Копировать';
+                    btn.innerHTML = '<svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg> Copy';
                 }, 2000);
             });
         }

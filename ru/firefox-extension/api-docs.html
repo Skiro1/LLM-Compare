@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>API Documentation – Multi-LLM</title>
+    <title>API Документация — Multi-LLM</title>
     <script src="lib/tailwindcss.js"></script>
     <script src="lib/marked.min.js"></script>
     <style>
@@ -214,41 +214,41 @@
     <header class="header">
         <div class="header-inner">
             <div class="breadcrumb">
-                <a href="LLM_Compare.html">🏠 Home</a>
+                <a href="LLM_Compare.html">🏠 Главная</a>
                 <span class="breadcrumb-sep">/</span>
-                <span>API Documentation</span>
+                <span>API Документация</span>
             </div>
             <div style="display:flex; align-items:center; gap:0.75rem;">
                 <span style="font-size:0.8rem; color:var(--text-muted);">v1.0</span>
                 <button class="theme-btn" id="themeToggle">
                     <svg id="themeIconLight" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg id="themeIconDark" width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24" class="hidden"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    <span id="themeText">Dark</span>
+                    <span id="themeText">Тёмная</span>
                 </button>
             </div>
         </div>
     </header>
 
     <!-- Sidebar Toggle (Mobile) -->
-    <button id="ext-el-1" class="sidebar-toggle" aria-label="Menu">
+    <button id="ext-el-1" class="sidebar-toggle" aria-label="Меню">
         <svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
     </button>
 
     <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-section">
-            <div class="sidebar-title">Getting Started</div>
+            <div class="sidebar-title">Начало работы</div>
             <a id="ext-el-2" href="#overview" class="sidebar-link active">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                Overview
+                Обзор
             </a>
             <a id="ext-el-3" href="#quickstart" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                Quick Start
+                Быстрый старт
             </a>
             <a id="ext-el-4" href="#authentication" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
-                Authentication
+                Аутентификация
             </a>
         </div>
 
@@ -269,14 +269,14 @@
         </div>
 
         <div class="sidebar-section">
-            <div class="sidebar-title">Additional</div>
+            <div class="sidebar-title">Дополнительно</div>
             <a id="ext-el-8" href="#streaming" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Streaming
             </a>
             <a id="ext-el-9" href="#errors" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                Errors
+                Ошибки
             </a>
             <a id="ext-el-10" href="#rate-limits" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -284,7 +284,7 @@
             </a>
             <a id="ext-el-11" href="#providers" class="sidebar-link">
                 <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                Providers
+                Провайдеры
             </a>
         </div>
     </aside>
@@ -294,49 +294,49 @@
       <div class="main-inner">
         <!-- Overview -->
         <section id="overview">
-            <h1>📡 API Documentation</h1>
-            <p>Welcome to the Multi-LLM API documentation. The API provides a single interface for working with different language models through a single query format compatible with the OpenAI API.</p>
+            <h1>📡 API Документация</h1>
+            <p>Добро пожаловать в документацию API Multi-LLM. API предоставляет единый интерфейс для работы с различными языковыми моделями через единый формат запросов, совместимый с OpenAI API.</p>
             
             <div class="info-box info">
-                <div class="info-box-title">💡 Unified format</div>
-                <p>All providers use a format compatible with the OpenAI API. This makes it easy to switch between models without changing the code.</p>
+                <div class="info-box-title">💡 Единый формат</div>
+                <p>Все провайдеры используют формат, совместимый с OpenAI API. Это позволяет легко переключаться между моделями без изменения кода.</p>
             </div>
 
-            <h3>Key features</h3>
+            <h3>Основные возможности</h3>
             <ul style="color: var(--text-secondary); padding-left: 1.5rem;">
-                <li>Access 20+ language models through a single API</li>
-                <li>Support for chat format with system prompts</li>
-                <li>Streaming responses</li>
-                <li>JSON mode for structured responses</li>
-                <li>Compatible with OpenAI SDK</li>
+                <li>Доступ к 20+ языковым моделям через единый API</li>
+                <li>Поддержка чат-формата с системными промптами</li>
+                <li>Потоковые ответы (streaming)</li>
+                <li>JSON mode для структурированных ответов</li>
+                <li>Совместимость с OpenAI SDK</li>
             </ul>
         </section>
 
         <!-- Quick Start -->
         <section id="quickstart">
-            <h2>⚡ Quick Start</h2>
-            <p>Start using the API in a few minutes. Choose your favorite language or tool:</p>
+            <h2>⚡ Быстрый старт</h2>
+            <p>Начните использовать API за несколько минут. Выберите ваш любимый язык или инструмент:</p>
             
             <div class="quick-cards">
                 <a href="#chat-completions" class="quick-card">
                     <div class="quick-card-icon">💬</div>
                     <div class="quick-card-title">Chat Completions</div>
-                    <div class="quick-card-desc">Send the first request to the model</div>
+                    <div class="quick-card-desc">Отправьте первый запрос к модели</div>
                 </a>
                 <a href="#authentication" class="quick-card">
                     <div class="quick-card-icon">🔑</div>
-                    <div class="quick-card-title">Get API key</div>
-                    <div class="quick-card-desc">Set up authentication</div>
+                    <div class="quick-card-title">Получить API ключ</div>
+                    <div class="quick-card-desc">Настройте аутентификацию</div>
                 </a>
                 <a href="#streaming" class="quick-card">
                     <div class="quick-card-icon">⚡</div>
                     <div class="quick-card-title">Streaming</div>
-                    <div class="quick-card-desc">Get responses in real time</div>
+                    <div class="quick-card-desc">Получайте ответы в реальном времени</div>
                 </a>
             </div>
 
-            <h3>Your first request</h3>
-            <p>Here is a minimal example of sending a message to a model:</p>
+            <h3>Ваш первый запрос</h3>
+            <p>Вот минимальный пример отправки сообщения модели:</p>
             
             <div class="code-tabs" id="firstRequestTabs">
                 <button id="ext-el-12" class="code-tab active">cURL</button>
@@ -347,7 +347,7 @@
                 <div class="code-lang" id="firstRequestLang">cURL</div>
                 <button id="ext-el-15" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Copy
+                    Копировать
                 </button>
                 <pre class="code-block" id="firstRequest-curl">curl https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
@@ -355,8 +355,8 @@
   -d '{
     "model": "gpt-4",
     "messages": [
-      {"role": "system", "content": "You are a helpful assistant."},
-      {"role": "user", "content": "Hello! Tell me about yourself."}
+      {"role": "system", "content": "Ты полезный ассистент."},
+      {"role": "user", "content": "Привет! Расскажи о себе."}
     ]
   }'</pre>
                 <pre class="code-block hidden" id="firstRequest-python">import requests
@@ -370,8 +370,8 @@ response = requests.post(
     json={
         "model": "gpt-4",
         "messages": [
-            {"role": "system", "content": "You are a helpful assistant."},
-            {"role": "user", "content": "Hello! Tell me about yourself."}
+            {"role": "system", "content": "Ты полезный ассистент."},
+            {"role": "user", "content": "Привет! Расскажи о себе."}
         ]
     }
 )
@@ -387,8 +387,8 @@ print(data["choices"][0]["message"]["content"])</pre>
   body: JSON.stringify({
     model: "gpt-4",
     messages: [
-      {role: "system", content: "You are a helpful assistant."},
-      {role: "user", content: "Hello! Tell me about yourself."}
+      {role: "system", content: "Ты полезный ассистент."},
+      {role: "user", content: "Привет! Расскажи о себе."}
     ]
   })
 });
@@ -400,8 +400,8 @@ console.log(data.choices[0].message.content);</pre>
 
         <!-- Authentication -->
         <section id="authentication">
-            <h2>🔑 Authentication</h2>
-            <p>All API requests require authentication via an API key. The key is passed in the <code class="inline-code">Authorization</code> header.</p>
+            <h2>🔑 Аутентификация</h2>
+            <p>Все запросы к API требуют аутентификации через API ключ. Ключ передается в заголовке <code class="inline-code">Authorization</code>.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -409,19 +409,19 @@ console.log(data.choices[0].message.content);</pre>
                     <span class="endpoint-path">Authorization: Bearer YOUR_API_KEY</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Replace <code class="inline-code">YOUR_API_KEY</code> with your actual API key from the provider.</p>
+                    <p>Замените <code class="inline-code">YOUR_API_KEY</code> на ваш реальный API ключ от провайдера.</p>
                 </div>
             </div>
 
-            <h3>Getting API keys</h3>
-            <p>Each provider has its own way to obtain an API key:</p>
+            <h3>Получение API ключей</h3>
+            <p>Каждый провайдер имеет свой способ получения API ключа:</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Provider</th>
-                        <th>Where to get the key</th>
-                        <th>Key format</th>
+                        <th>Провайдер</th>
+                        <th>Где получить ключ</th>
+                        <th>Формат ключа</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -431,7 +431,7 @@ console.log(data.choices[0].message.content);</pre>
                         <td><code class="inline-code">sk-...</code></td>
                     </tr>
                     <tr>
-                        <td>Anthropic <span style="color:#a16207;font-size:0.75rem;">🔒 proxy</span></td>
+                        <td>Anthropic <span style="color:#a16207;font-size:0.75rem;">🔒 прокси</span></td>
                         <td><a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a></td>
                         <td><code class="inline-code">sk-ant-...</code></td>
                     </tr>
@@ -469,24 +469,24 @@ console.log(data.choices[0].message.content);</pre>
             </table>
 
             <div class="info-box warning">
-                <div class="info-box-title">⚠️ Security</div>
-                <p>Never store API keys in client-side code. Use environment variables or server-side proxies for production applications.</p>
+                <div class="info-box-title">⚠️ Безопасность</div>
+                <p>Никогда не храните API ключи в клиентском коде. Используйте переменные окружения или серверные прокси для production приложений.</p>
             </div>
 
-            <h3>Import and export of keys</h3>
-            <p>In the settings (the "Providers" tab), buttons for bulk key management are available:</p>
+            <h3>Импорт и экспорт ключей</h3>
+            <p>В настройках (вкладка «Провайдеры») доступны кнопки для массового управления ключами:</p>
             <ul>
-                <li><strong>Import keys (.txt)</strong> — upload a file with keys, all providers at once</li>
-                <li><strong>Export keys</strong> — download all keys to a <code class="inline-code">api-keys.txt</code> file</li>
-                <li><strong>Delete all keys</strong> — clear all keys with one click (with confirmation)</li>
+                <li><strong>Импорт ключей (.txt)</strong> — загрузите файл с ключами, все провайдеры за раз</li>
+                <li><strong>Экспорт ключей</strong> — скачайте все ключи в файл <code class="inline-code">api-keys.txt</code></li>
+                <li><strong>Удалить все ключи</strong> — очистить все ключи одним кликом (с подтверждением)</li>
             </ul>
 
-            <h4>File format for import</h4>
+            <h4>Формат файла для импорта</h4>
             <div class="card">
                 <div class="code-block-wrapper">
                     <button id="ext-el-16" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Copy
+                        Копировать
                     </button>
                     <pre class="code-block">OPENAI - sk-your-key-here
 GROQ - gsk_your-key-here
@@ -498,20 +498,20 @@ HUGGING_FACE - hf_your-key-here
 OPENROUTER - sk-or-your-key-here</pre>
                 </div>
             </div>
-            <p>Rules:</p>
+            <p>Правила:</p>
             <ul>
-                <li>Each key on a new line</li>
-                <li>Format: <code class="inline-code">PROVIDER - key</code> (separator — space, hyphen, space)</li>
-                <li>The order of lines does not matter</li>
-                <li>Not all keys are required — you can specify only the ones you need</li>
-                <li>Lines starting with <code class="inline-code">#</code> are ignored (comments)</li>
+                <li>Каждый ключ на новой строке</li>
+                <li>Формат: <code class="inline-code">ПРОВАЙДЕР - ключ</code> (разделитель — пробел, дефис, пробел)</li>
+                <li>Порядок строк не важен</li>
+                <li>Не все ключи обязательны — можно указать только нужные</li>
+                <li>Строки, начинающиеся с <code class="inline-code">#</code>, игнорируются (комментарии)</li>
             </ul>
 
             <table>
                 <thead>
                     <tr>
-                        <th>Name in file</th>
-                        <th>Provider</th>
+                        <th>Название в файле</th>
+                        <th>Провайдер</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -521,7 +521,7 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <tr><td><code class="inline-code">ANTHROPIC</code></td><td>Anthropic</td></tr>
                     <tr><td><code class="inline-code">DEEPSEEK</code></td><td>DeepSeek</td></tr>
                     <tr><td><code class="inline-code">MISTRAL</code></td><td>Mistral AI</td></tr>
-                    <tr><td><code class="inline-code">HUGGING_FACE</code> or <code class="inline-code">HUGGINGFACE</code></td><td>Hugging Face</td></tr>
+                    <tr><td><code class="inline-code">HUGGING_FACE</code> или <code class="inline-code">HUGGINGFACE</code></td><td>Hugging Face</td></tr>
                     <tr><td><code class="inline-code">OPENROUTER</code></td><td>OpenRouter</td></tr>
                 </tbody>
             </table>
@@ -530,7 +530,7 @@ OPENROUTER - sk-or-your-key-here</pre>
         <!-- Chat Completions -->
         <section id="chat-completions">
             <h2>💬 Chat Completions</h2>
-            <p>Creates a model response for a given conversation.</p>
+            <p>Создает ответ модели для заданного разговора.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -538,79 +538,79 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <span class="endpoint-path">/v1/chat/completions</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Request parameters</h4>
+                    <h4>Параметры запроса</h4>
                     
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
-                        <span class="param-required">Required</span>
-                        <div class="param-desc">Model ID to use. For example: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
+                        <span class="param-required">Обязательный</span>
+                        <div class="param-desc">ID модели для использования. Например: <code class="inline-code">gpt-4</code>, <code class="inline-code">claude-3-opus</code>, <code class="inline-code">gemini-pro</code></div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">messages</span>
                         <span class="param-type">array</span>
-                        <span class="param-required">Required</span>
-                        <div class="param-desc">List of messages representing the conversation. Each object contains <code class="inline-code">role</code> and <code class="inline-code">content</code>.</div>
+                        <span class="param-required">Обязательный</span>
+                        <div class="param-desc">Список сообщений, представляющих разговор. Каждый объект содержит <code class="inline-code">role</code> и <code class="inline-code">content</code>.</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">temperature</span>
                         <span class="param-type">number</span>
-                        <span class="param-optional">Optional</span>
-                        <div class="param-desc">Sampling temperature from 0 to 2. Higher values make responses more random. Default: 1</div>
+                        <span class="param-optional">Опциональный</span>
+                        <div class="param-desc">Температура выборки от 0 до 2. Более высокие значения делают ответы более случайными. По умолчанию: 1</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">max_tokens</span>
                         <span class="param-type">integer</span>
-                        <span class="param-optional">Optional</span>
-                        <div class="param-desc">Maximum number of tokens in the response. Default: model-dependent</div>
+                        <span class="param-optional">Опциональный</span>
+                        <div class="param-desc">Максимальное количество токенов в ответе. По умолчанию: модель-зависимое</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">stream</span>
                         <span class="param-type">boolean</span>
-                        <span class="param-optional">Optional</span>
-                        <div class="param-desc">Enable response streaming. Default: false</div>
+                        <span class="param-optional">Опциональный</span>
+                        <div class="param-desc">Включить потоковую передачу ответа. По умолчанию: false</div>
                     </div>
                     
                     <div class="param">
                         <span class="param-name">response_format</span>
                         <span class="param-type">object</span>
-                        <span class="param-optional">Optional</span>
-                        <div class="param-desc">Response format. Use <code class="inline-code">{"type": "json_object"}</code> for JSON mode</div>
+                        <span class="param-optional">Опциональный</span>
+                        <div class="param-desc">Формат ответа. Используйте <code class="inline-code">{"type": "json_object"}</code> для JSON mode</div>
                     </div>
                 </div>
             </div>
 
-            <h3>Message structure</h3>
-            <p>Each message in the <code class="inline-code">messages</code> array contains:</p>
+            <h3>Структура сообщений</h3>
+            <p>Каждое сообщение в массиве <code class="inline-code">messages</code> содержит:</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Role</th>
-                        <th>Description</th>
+                        <th>Роль</th>
+                        <th>Описание</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">system</code></td>
-                        <td>System prompt that defines the model's behavior</td>
+                        <td>Системный промпт, задающий поведение модели</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">user</code></td>
-                        <td>Message from the user</td>
+                        <td>Сообщение от пользователя</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">assistant</code></td>
-                        <td>Previous model response (for context)</td>
+                        <td>Предыдущий ответ модели (для контекста)</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Response example</h3>
+            <h3>Пример ответа</h3>
             <div class="response-example">
 {
   <span class="key">"id"</span>: <span class="string">"chatcmpl-abc123"</span>,
@@ -622,7 +622,7 @@ OPENROUTER - sk-or-your-key-here</pre>
       <span class="key">"index"</span>: <span class="number">0</span>,
       <span class="key">"message"</span>: {
         <span class="key">"role"</span>: <span class="string">"assistant"</span>,
-        <span class="key">"content"</span>: <span class="string">"Hello! I am a language model developed by OpenAI..."</span>
+        <span class="key">"content"</span>: <span class="string">"Привет! Я языковая модель, разработанная OpenAI..."</span>
       },
       <span class="key">"finish_reason"</span>: <span class="string">"stop"</span>
     }
@@ -638,7 +638,7 @@ OPENROUTER - sk-or-your-key-here</pre>
         <!-- List Models -->
         <section id="list-models">
             <h2>📋 List Models</h2>
-            <p>Returns a list of all available models.</p>
+            <p>Возвращает список всех доступных моделей.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -646,11 +646,11 @@ OPENROUTER - sk-or-your-key-here</pre>
                     <span class="endpoint-path">/v1/models</span>
                 </div>
                 <div class="endpoint-body">
-                    <p>Does not require parameters. Returns a list of all models available for your API key.</p>
+                    <p>Не требует параметров. Возвращает список всех моделей, доступных для вашего API ключа.</p>
                 </div>
             </div>
 
-            <h3>Request example</h3>
+            <h3>Пример запроса</h3>
             <div class="code-tabs" id="listModelsTabs">
                 <button id="ext-el-17" class="code-tab active">cURL</button>
                 <button id="ext-el-18" class="code-tab">Python</button>
@@ -658,7 +658,7 @@ OPENROUTER - sk-or-your-key-here</pre>
             <div class="code-block-wrapper with-tabs">
                 <button id="ext-el-19" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Copy
+                    Копировать
                 </button>
                 <pre class="code-block" id="listModels-curl">curl https://api.openai.com/v1/models \
   -H "Authorization: Bearer YOUR_API_KEY"</pre>
@@ -674,7 +674,7 @@ for model in models:
     print(model["id"])</pre>
             </div>
 
-            <h3>Response example</h3>
+            <h3>Пример ответа</h3>
             <div class="response-example">
 {
   <span class="key">"object"</span>: <span class="string">"list"</span>,
@@ -698,7 +698,7 @@ for model in models:
         <!-- Retrieve Model -->
         <section id="retrieve-model">
             <h2>🔍 Retrieve Model</h2>
-            <p>Returns information about a specific model.</p>
+            <p>Возвращает информацию о конкретной модели.</p>
             
             <div class="endpoint">
                 <div class="endpoint-header">
@@ -706,21 +706,21 @@ for model in models:
                     <span class="endpoint-path">/v1/models/{model}</span>
                 </div>
                 <div class="endpoint-body">
-                    <h4>Path parameters</h4>
+                    <h4>Параметры пути</h4>
                     <div class="param">
                         <span class="param-name">model</span>
                         <span class="param-type">string</span>
-                        <span class="param-required">Required</span>
-                        <div class="param-desc">Model ID. For example: <code class="inline-code">gpt-4</code></div>
+                        <span class="param-required">Обязательный</span>
+                        <div class="param-desc">ID модели. Например: <code class="inline-code">gpt-4</code></div>
                     </div>
                 </div>
             </div>
 
-            <h3>Request example</h3>
+            <h3>Пример запроса</h3>
             <div class="code-block-wrapper">
                 <button id="ext-el-20" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Copy
+                    Копировать
                 </button>
                 <pre class="code-block">curl https://api.openai.com/v1/models/gpt-4 \
   -H "Authorization: Bearer YOUR_API_KEY"</pre>
@@ -730,15 +730,15 @@ for model in models:
         <!-- Streaming -->
         <section id="streaming">
             <h2>⚡ Streaming</h2>
-            <p>Streaming allows you to receive the model's response as it is generated, improving perceived response speed.</p>
+            <p>Потоковая передача позволяет получать ответ модели по мере его генерации, улучшая воспринимаемую скорость ответа.</p>
             
             <div class="info-box info">
-                <div class="info-box-title">💡 When to use streaming</div>
-                <p>Use streaming for long responses or when it's important to show the user the generation progress in real time.</p>
+                <div class="info-box-title">💡 Когда использовать streaming</div>
+                <p>Используйте streaming для длинных ответов или когда важно показать пользователю прогресс генерации в реальном времени.</p>
             </div>
 
-            <h3>Enabling streaming</h3>
-            <p>Add the <code class="inline-code">"stream": true</code> parameter to the request:</p>
+            <h3>Включение streaming</h3>
+            <p>Добавьте параметр <code class="inline-code">"stream": true</code> в запрос:</p>
             
             <div class="code-tabs" id="streamingTabs">
                 <button id="ext-el-21" class="code-tab active">cURL</button>
@@ -748,14 +748,14 @@ for model in models:
             <div class="code-block-wrapper with-tabs">
                 <button id="ext-el-24" class="code-copy-btn">
                     <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                    Copy
+                    Копировать
                 </button>
                 <pre class="code-block" id="streaming-curl">curl https://api.openai.com/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -d '{
     "model": "gpt-4",
-    "messages": [{"role": "user", "content": "Tell a long story"}],
+    "messages": [{"role": "user", "content": "Расскажи длинную историю"}],
     "stream": true
   }'</pre>
                 <pre class="code-block hidden" id="streaming-python">import requests
@@ -768,7 +768,7 @@ response = requests.post(
     },
     json={
         "model": "gpt-4",
-        "messages": [{"role": "user", "content": "Tell a long story"}],
+        "messages": [{"role": "user", "content": "Расскажи длинную историю"}],
         "stream": True
     },
     stream=True
@@ -790,7 +790,7 @@ for line in response.iter_lines():
   },
   body: JSON.stringify({
     model: "gpt-4",
-    messages: [{role: "user", content: "Tell a long story"}],
+    messages: [{role: "user", content: "Расскажи длинную историю"}],
     stream: true
   })
 });
@@ -814,12 +814,12 @@ while (true) {
 }</pre>
             </div>
 
-            <h3>SSE response format</h3>
-            <p>Each chunk comes in Server-Sent Events format:</p>
+            <h3>Формат SSE ответа</h3>
+            <p>Каждый chunk приходит в формате Server-Sent Events:</p>
             <div class="code-block-wrapper">
-                <pre class="code-block">data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":"Hello"},"index":0}]}
+                <pre class="code-block">data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":"Привет"},"index":0}]}
 
-data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":" world!"},"index":0}]}
+data: {"id":"chatcmpl-123","object":"chat.completion.chunk","choices":[{"delta":{"content":" мир!"},"index":0}]}
 
 data: [DONE]</pre>
             </div>
@@ -827,57 +827,57 @@ data: [DONE]</pre>
 
         <!-- Errors -->
         <section id="errors">
-            <h2>❌ Errors</h2>
-            <p>The API uses standard HTTP error codes. When an error occurs, the response body contains a detailed description.</p>
+            <h2>❌ Ошибки</h2>
+            <p>API использует стандартные HTTP коды ошибок. При возникновении ошибки тело ответа содержит детальное описание.</p>
             
             <table>
                 <thead>
                     <tr>
-                        <th>Code</th>
-                        <th>Description</th>
-                        <th>Solution</th>
+                        <th>Код</th>
+                        <th>Описание</th>
+                        <th>Решение</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">400</code></td>
                         <td>Bad Request</td>
-                        <td>Check the request format and parameters</td>
+                        <td>Проверьте формат запроса и параметры</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">401</code></td>
                         <td>Unauthorized</td>
-                        <td>Check the API key</td>
+                        <td>Проверьте API ключ</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">403</code></td>
                         <td>Forbidden</td>
-                        <td>No access to the requested resource</td>
+                        <td>Нет доступа к запрашиваемому ресурсу</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">404</code></td>
                         <td>Not Found</td>
-                        <td>Check the URL and model ID</td>
+                        <td>Проверьте URL и ID модели</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">429</code></td>
                         <td>Rate Limited</td>
-                        <td>Request limit exceeded. Wait and retry</td>
+                        <td>Превышен лимит запросов. Подождите и повторите</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">500</code></td>
                         <td>Server Error</td>
-                        <td>Server-side error. Try again later</td>
+                        <td>Ошибка на стороне сервера. Повторите позже</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">503</code></td>
                         <td>Service Unavailable</td>
-                        <td>Service temporarily unavailable</td>
+                        <td>Сервис временно недоступен</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Error format</h3>
+            <h3>Формат ошибки</h3>
             <div class="response-example">
 {
   <span class="key">"error"</span>: {
@@ -888,57 +888,57 @@ data: [DONE]</pre>
   }
 }</div>
 
-            <h3>Retry logic</h3>
+            <h3>Retry логика</h3>
             <div class="info-box success">
                 <div class="info-box-title">✅ Best Practice</div>
-                <p>When receiving a 429 (Rate Limit) or 5xx (Server Error) error, use exponential backoff: wait 1 second, then 2, 4, 8... Maximum 5 attempts.</p>
+                <p>При получении ошибки 429 (Rate Limit) или 5xx (Server Error), используйте exponential backoff: ждите 1 секунду, затем 2, 4, 8... Максимум 5 попыток.</p>
             </div>
         </section>
 
         <!-- Rate Limits -->
         <section id="rate-limits">
             <h2>⏱️ Rate Limits</h2>
-            <p>Request limits depend on the provider and your pricing plan. Limit information is passed in the response headers.</p>
+            <p>Лимиты запросов зависят от провайдера и вашего тарифного плана. Информация о лимитах передается в заголовках ответа.</p>
             
-            <h3>Response headers</h3>
+            <h3>Заголовки ответа</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Header</th>
-                        <th>Description</th>
+                        <th>Заголовок</th>
+                        <th>Описание</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-limit-requests</code></td>
-                        <td>Maximum number of requests per period</td>
+                        <td>Максимальное количество запросов в период</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-remaining-requests</code></td>
-                        <td>Remaining number of requests</td>
+                        <td>Оставшееся количество запросов</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-reset-requests</code></td>
-                        <td>Limit reset time (RFC 7231)</td>
+                        <td>Время сброса лимита (RFC 7231)</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-limit-tokens</code></td>
-                        <td>Maximum number of tokens per period</td>
+                        <td>Максимальное количество токенов в период</td>
                     </tr>
                     <tr>
                         <td><code class="inline-code">x-ratelimit-remaining-tokens</code></td>
-                        <td>Remaining number of tokens</td>
+                        <td>Оставшееся количество токенов</td>
                     </tr>
                 </tbody>
             </table>
 
-            <h3>Limits by provider (free plans)</h3>
+            <h3>Лимиты по провайдерам (бесплатные планы)</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Provider</th>
-                        <th>Requests/min</th>
-                        <th>Tokens/min</th>
+                        <th>Провайдер</th>
+                        <th>Запросов/мин</th>
+                        <th>Токенов/мин</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -975,7 +975,7 @@ data: [DONE]</pre>
                     <tr>
                         <td>Hugging Face</td>
                         <td>~10</td>
-                        <td>Depends on model</td>
+                        <td>Зависит от модели</td>
                     </tr>
                 </tbody>
             </table>
@@ -983,10 +983,10 @@ data: [DONE]</pre>
 
         <!-- Providers -->
         <section id="providers">
-            <h2>🔌 Providers</h2>
-            <p>Multi-LLM supports a wide range of providers. All of them use a unified API format.</p>
+            <h2>🔌 Провайдеры</h2>
+            <p>Multi-LLM поддерживает широкий спектр провайдеров. Все они используют единый формат API.</p>
             
-            <h3>Supported providers</h3>
+            <h3>Поддерживаемые провайдеры</h3>
             <div class="provider-grid">
                 <div class="provider-chip">🤖 OpenAI</div>
                 <div class="provider-chip">🧠 Anthropic</div>
@@ -1004,11 +1004,11 @@ data: [DONE]</pre>
                 <div class="provider-chip">🟣 Cohere</div>
             </div>
 
-            <h3>Base URLs</h3>
+            <h3>Базовые URL</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Provider</th>
+                        <th>Провайдер</th>
                         <th>Base URL</th>
                     </tr>
                 </thead>
@@ -1053,37 +1053,37 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box info">
-                <div class="info-box-title">💡 Local models</div>
-                <p>To use local models through Ollama or LM Studio, start the corresponding server and specify its address in the settings.</p>
+                <div class="info-box-title">💡 Локальные модели</div>
+                <p>Для использования локальных моделей через Ollama или LM Studio запустите соответствующий сервер и укажите его адрес в настройках.</p>
             </div>
 
             <h3>🤗 Hugging Face Inference API</h3>
-            <p>Hugging Face provides access to thousands of open models through a unified cloud API. The request format is compatible with the OpenAI API.</p>
+            <p>Hugging Face предоставляет доступ к тысячам открытых моделей через единый облачный API. Формат запросов совместим с OpenAI API.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Request example к HF</h4>
+                <h4 style="margin-top:0;">Пример запроса к HF</h4>
                 <div class="code-block-wrapper">
                     <button id="ext-el-25" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Copy
+                        Копировать
                     </button>
                     <pre class="code-block">curl https://router.huggingface.co/hf-inference/models/meta-llama/Llama-3.3-70B-Instruct/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer hf_YOUR_TOKEN" \
   -d '{
     "model": "meta-llama/Llama-3.3-70B-Instruct",
-    "messages": [{"role": "user", "content": "Hello!"}]
+    "messages": [{"role": "user", "content": "Привет!"}]
   }'</pre>
                 </div>
             </div>
 
-            <h4>Popular models on HF Hub</h4>
+            <h4>Популярные модели на HF Hub</h4>
             <table>
                 <thead>
                     <tr>
-                        <th>Model</th>
+                        <th>Модель</th>
                         <th>ID</th>
-                        <th>Parameters</th>
+                        <th>Параметры</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1116,48 +1116,48 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box warning">
-                <div class="info-box-title">⚠️ Free HF plan</div>
-                <p>The free Inference API has limitations: large models may be unavailable or work slowly. For stable use, consider the <a href="https://huggingface.co/pricing" target="_blank">PRO plan</a> or Serverless Inference.</p>
+                <div class="info-box-title">⚠️ Бесплатный тариф HF</div>
+                <p>Бесплатный Inference API имеет ограничения: крупные модели могут быть недоступны или работать медленно. Для стабильного использования рассмотрите <a href="https://huggingface.co/pricing" target="_blank">PRO-тариф</a> или Serverless Inference.</p>
             </div>
         </section>
 
         <!-- OpenRouter -->
         <section id="openrouter">
             <h3>🔀 OpenRouter</h3>
-            <p>OpenRouter is an API aggregator that provides access to 300+ models from different providers through a unified interface compatible with the OpenAI API. One key, all models.</p>
+            <p>OpenRouter — агрегатор API, предоставляющий доступ к 300+ моделям от разных провайдеров через единый интерфейс, совместимый с OpenAI API. Один ключ — все модели.</p>
 
             <div class="card">
-                <h4 style="margin-top:0;">Request example к OpenRouter</h4>
+                <h4 style="margin-top:0;">Пример запроса к OpenRouter</h4>
                 <div class="code-block-wrapper">
                     <button id="ext-el-26" class="code-copy-btn">
                         <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                        Copy
+                        Копировать
                     </button>
                     <pre class="code-block">curl https://openrouter.ai/api/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-or-YOUR_TOKEN" \
   -d '{
     "model": "anthropic/claude-3.5-sonnet",
-    "messages": [{"role": "user", "content": "Hello!"}]
+    "messages": [{"role": "user", "content": "Привет!"}]
   }'</pre>
                 </div>
             </div>
 
-            <h4>OpenRouter Benefits</h4>
+            <h4>Преимущества OpenRouter</h4>
             <ul>
-                <li>One API key to access models from OpenAI, Anthropic, Google, Meta, Mistral and others</li>
-                <li>Automatic fallback between providers</li>
-                <li>Unified billing and expense tracking</li>
-                <li>Free models available without card binding</li>
+                <li>Один API ключ для доступа к моделям от OpenAI, Anthropic, Google, Meta, Mistral и других</li>
+                <li>Автоматический fallback между провайдерами</li>
+                <li>Единый биллинг и отслеживание расходов</li>
+                <li>Бесплатные модели доступны без привязки карты</li>
             </ul>
 
-            <h4>Popular models on OpenRouter</h4>
+            <h4>Популярные модели на OpenRouter</h4>
             <table>
                 <thead>
                     <tr>
-                        <th>Model</th>
+                        <th>Модель</th>
                         <th>ID</th>
-                        <th>Provider</th>
+                        <th>Провайдер</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -1195,16 +1195,16 @@ data: [DONE]</pre>
             </table>
 
             <div class="info-box">
-                <div class="info-box-title">💡 Full list of models</div>
-                <p>The up-to-date list of 300+ models is available at <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. In the application, the list is loaded automatically when checking the API key.</p>
+                <div class="info-box-title">💡 Полный список моделей</div>
+                <p>Актуальный список из 300+ моделей доступен на <a href="https://openrouter.ai/models" target="_blank">openrouter.ai/models</a>. В приложении список загружается автоматически при проверке API ключа.</p>
             </div>
         </section>
 
         <!-- Footer -->
         <div style="margin-top: 4rem; padding: 2rem 0; border-top: 1px solid var(--border); text-align: center; color: var(--text-muted); font-size: 0.875rem;">
-            <p>Multi-LLM API Documentation v1.0</p>
+            <p>Multi-LLM API Документация v1.0</p>
             <p style="margin-top: 0.5rem;">
-                <a href="LLM_Compare.html" style="color: var(--text-link);">← Return to the application</a>
+                <a href="LLM_Compare.html" style="color: var(--text-link);">← Вернуться к приложению</a>
             </p>
         </div>
         </div><!-- /main-inner -->

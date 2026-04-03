@@ -1,39 +1,39 @@
 # LLM Compare
 
-Инструмент для сравнения ответов от разных AI-моделей и сборки итогового синтеза. Работает как в ручном режиме (через веб-чаты), так и через API.
+A simple tool for comparing responses from different AI chats and manually assembling the final synthesis without APIs and local models.
 
-## Что умеет
+## Features
 
-### Два режима работы
+### Two operating modes
 
-- **Ручной режим** — копируете промт, вставляете ответы из веб-чатов вручную
-- **API режим** — автоматическая отправка запросов к 10+ провайдерам через единый интерфейс
+- **Manual mode** — copy the prompt, paste responses from web chats manually
+- **API mode** — automatic sending of requests to 10+ providers through a unified interface
 
-### Поддерживаемые API-провайдеры
+### Supported API Providers
 
-| Провайдер | Тип | API ключ |
-|-----------|-----|----------|
-| LM Studio | Локальный | Не нужен |
-| Ollama | Локальный | Не нужен |
-| Custom сервер | Локальный/Свой | Опционально |
-| OpenAI | Облачный | `sk-...` |
-| DeepSeek | Облачный | `sk-...` |
-| Anthropic | Облачный | `sk-ant-...` (через прокси) |
-| Google (Gemini) | Облачный | Google AI Studio |
-| Groq Cloud | Облачный | `gsk_...` |
-| Mistral AI | Облачный | Mistral Console |
-| Hugging Face | Облачный | `hf_...` |
-| OpenRouter | Облачный | `sk-or-...` |
+| Provider | Type | API Key |
+|----------|------|---------|
+| LM Studio | Local | Not required |
+| Ollama | Local | Not required |
+| Custom server | Local/Own | Optional |
+| OpenAI | Cloud | `sk-...` |
+| DeepSeek | Cloud | `sk-...` |
+| Anthropic | Cloud | `sk-ant-...` (via proxy) |
+| Google (Gemini) | Cloud | Google AI Studio |
+| Groq Cloud | Cloud | `gsk_...` |
+| Mistral AI | Cloud | Mistral Console |
+| Hugging Face | Cloud | `hf_...` |
+| OpenRouter | Cloud | `sk-or-...` |
 
-API-ключи и выбранные модели сохраняются **отдельно для каждого провайдера**. При переключении провайдера автоматически подставляются его сохранённые настройки — не нужно вводить ключ заново.
+API keys and selected models are saved **separately for each provider**. When switching providers, their saved settings are automatically applied — no need to re-enter the key.
 
-### Управление API ключами
+### API Key Management
 
-- **Импорт ключей** — загрузите `.txt` файл с ключами, все провайдеры за раз
-- **Экспорт ключей** — скачайте все сохранённые ключи в `.txt` файл
-- **Удалить все ключи** — очистить все сохранённые ключи одним кликом
+- **Import keys** — upload a `.txt` file with keys, all providers at once
+- **Export keys** — download all saved keys as a `.txt` file
+- **Delete all keys** — clear all saved keys with one click
 
-Формат файла для импорта (`ПРОВАЙДЕР - ключ`, порядок не важен):
+Import file format (`PROVIDER - key`, order doesn't matter):
 ```
 OPENAI - sk-your-key-here
 GROQ - gsk_your-key-here
@@ -47,235 +47,235 @@ OPENROUTER - sk-or-your-key-here
 
 ### Workflow
 
-1. **Запрос** — ввод исходной задачи
-2. **Улучшение** — уточнение промта через AI (вручную или через API)
-3. **Модели** — отправка в разные AI-чаты (вручную или автоматически через API)
-4. **Синтез** — агрегация лучших частей ответов
-5. **Результат** — финальный текст, сравнение и JSON-экспорт
+1. **Request** — enter the initial task
+2. **Enhancement** — refine the prompt via AI (manually or through API)
+3. **Models** — send to different AI chats (manually or automatically via API)
+4. **Synthesis** — aggregate the best parts of responses
+5. **Result** — final text, comparison, and JSON export
 
-### Интерфейс
+### Interface
 
-- Кнопки `Скопировать и открыть...` для быстрых переходов в веб-чаты
-- Поля для ввода ссылок на чаты прямо на этапе «Модели»
-- Индивидуальные системные промты для отдельных моделей
-- Звёздная оценка ответов (1–5) с учётом в синтезе
-- Вкладка `Сравнение` — side-by-side просмотр всех ответов
-- Вкладка `JSON` — структурированный экспорт
-- Вкладка `Чат` — история переписки с AI при использовании API
+- `Copy and open...` buttons for quick navigation to web chats
+- Fields for entering chat links directly at the "Models" step
+- Individual system prompts for specific models
+- Star rating of responses (1–5) considered in synthesis
+- `Comparison` tab — side-by-side view of all responses
+- `JSON` tab — structured export
+- `Chat` tab — conversation history with AI when using API
 
-### Настройки и управление
+### Settings and Management
 
-- Проверка API ключей для облачных провайдеров
-- Импорт/экспорт ключей из `.txt` файла
-- Удаление всех ключей одним кликом
-- Редактирование списка моделей
-- Настройка системных промтов для улучшения и агрегации
-- Готовые шаблоны запросов
-- Переключение светлой/тёмной темы
-- Отключение уведомлений
+- API key validation for cloud providers
+- Import/export keys from `.txt` file
+- Delete all keys with one click
+- Edit model list
+- Configure system prompts for enhancement and aggregation
+- Ready-made request templates
+- Light/dark theme switching
+- Disable notifications
 
-### История и данные
+### History and Data
 
-- История сессий и продолжение начатых чатов
-- Локальный автосейв в браузере
-- Импорт и экспорт истории
+- Session history and continuation of started chats
+- Local auto-save in browser
+- Import and export history
 
-## Готовые шаблоны
+## Ready-made Templates
 
-- `Глубокий разбор`
-- `Пошаговый план`
-- `Сравнение вариантов`
-- `Код и отладка`
-- `Краткая выжимка`
-- `Факт vs мнение`
+- `Deep analysis`
+- `Step-by-step plan`
+- `Option comparison`
+- `Code and debugging`
+- `Brief summary`
+- `Fact vs opinion`
 
-## Как запустить
+## How to Run
 
-### Вариант 1. Просто открыть файл
+### Option 1. Just open the file
 
-Откройте [LLM_Compare.html](LLM_Compare.html) в браузере. Работает для большинства провайдеров (кроме Anthropic).
+Open [LLM_Compare.html](LLM_Compare.html) in a browser. Works for most providers (except Anthropic).
 
-### Вариант 2. Через прокси-сервер (рекомендуется)
+### Option 2. Via proxy server (recommended)
 
-Запускает и приложение, и прокси для обхода CORS. Без этого Anthropic API не будет работать из браузера.
+Runs both the app and proxy for CORS bypass. Without this, Anthropic API won't work from the browser.
 
 ```powershell
 node proxy-server.js
 ```
 
-Откройте: `http://localhost:3000`
+Open: `http://localhost:3000`
 
-Прокси также serve статические файлы — отдельно запускать `http.server` не нужно.
+The proxy also serves static files — no need to run `http.server` separately.
 
-### Вариант 3. Через Python-сервер (без Anthropic)
+### Option 3. Via Python server (without Anthropic)
 
 ```powershell
 py -m http.server 8000
 ```
 
-Откройте: `http://localhost:8000/LLM_Compare.html`
+Open: `http://localhost:8000/LLM_Compare.html`
 
-## Расширения для браузера
+## Browser Extensions
 
-Проект включает расширения для **Chrome** и **Firefox** с дополнительными функциями:
+The project includes extensions for **Chrome** and **Firefox** with additional features:
 
-- Поля для ввода ссылок на чаты прямо на этапе «Модели»
-- Автоматическое сохранение URL чатов
-- Локальный автосейв данных
+- Fields for entering chat links directly at the "Models" step
+- Automatic saving of chat URLs
+- Local auto-save of data
 
-### Установка расширения
+### Installing the Extension
 
 #### Chrome
-1. Откройте `chrome://extensions/`
-2. Включите «Режим разработчика»
-3. Нажмите «Загрузить распакованное расширение»
-4. Выберите папку `chrome-extension/`
+1. Open `chrome://extensions/`
+2. Enable **"Developer mode"** (toggle in the top right corner)
+3. Click **"Load unpacked extension"**
+4. Select the `chrome-extension/` folder from the project
 
 #### Firefox
-1. Откройте `about:debugging#/runtime/this-firefox`
-2. Нажмите «Загрузить временное дополнение»
-3. Выберите файл `firefox-extension/manifest.json`
+1. Open `about:debugging#/runtime/this-firefox`
+2. Click **"Load Temporary Add-on"**
+3. Select the `firefox-extension/manifest.json` file
 
-Подробности — в [chrome-extension/README.md](chrome-extension/README.md) и [firefox-extension/README.md](firefox-extension/README.md).
+For details, see [chrome-extension/README.md](chrome-extension/README.md) and [firefox-extension/README.md](firefox-extension/README.md).
 
-## Настройка API провайдеров
+## API Provider Setup
 
-### Локальные провайдеры (LM Studio / Ollama)
+### Local Providers (LM Studio / Ollama)
 
-1. Запустите LM Studio или Ollama на своём компьютере
-2. В настройках выберите провайдера
-3. Укажите адрес сервера (по умолчанию `http://localhost:1234` для LM Studio, `http://localhost:11434` для Ollama)
-4. Нажмите `Проверить` для загрузки списка моделей
+1. Launch LM Studio or Ollama on your computer
+2. In settings, select the provider
+3. Enter the server address (default `http://localhost:1234` for LM Studio, `http://localhost:11434` for Ollama)
+4. Click `Check` to load the model list
 
-### Облачные провайдеры (OpenAI, Google, Mistral, DeepSeek, Groq)
+### Cloud Providers (OpenAI, Google, Mistral, DeepSeek, Groq)
 
-1. В настройках выберите провайдера
-2. Введите API ключ
-3. Нажмите `Проверить ключ` для валидации
-4. Выберите модель из списка
+1. In settings, select the provider
+2. Enter the API key
+3. Click `Check Key` for validation
+4. Select a model from the list
 
-### Anthropic (требуется прокси)
+### Anthropic (requires proxy)
 
-Anthropic API не поддерживает прямые запросы из браузера (CORS). Для работы нужен прокси-сервер.
+Anthropic API doesn't support direct requests from the browser (CORS). A proxy server is required.
 
-1. Запустите прокси: `node proxy-server.js`
-2. Откройте `http://localhost:3000`
-3. В настройках выберите «Anthropic» (адрес сервера уже настроен на `http://localhost:3000`)
-4. Введите API ключ с [console.anthropic.com](https://console.anthropic.com)
-5. Нажмите `Проверить ключ`
-6. Выберите модель из списка
+1. Start the proxy: `node proxy-server.js`
+2. Open `http://localhost:3000`
+3. In settings, select "Anthropic" (server address is already set to `http://localhost:3000`)
+4. Enter the API key from [console.anthropic.com](https://console.anthropic.com)
+5. Click `Check Key`
+6. Select a model from the list
 
 ### Hugging Face
 
-1. Получите ключ на [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
-2. В настройках выберите «Hugging Face»
-3. Вставьте ключ (начинается с `hf_`)
-4. Нажмите `Проверить ключ`
-5. Укажите ID модели вручную, например: `meta-llama/Llama-3.3-70B-Instruct`
+1. Get a key at [huggingface.co/settings/tokens](https://huggingface.co/settings/tokens)
+2. In settings, select "Hugging Face"
+3. Paste the key (starts with `hf_`)
+4. Click `Check Key`
+5. Enter the model ID manually, e.g.: `meta-llama/Llama-3.3-70B-Instruct`
 
 ### OpenRouter
 
-1. Получите ключ на [openrouter.ai/keys](https://openrouter.ai/keys)
-2. В настройках выберите «OpenRouter»
-3. Вставьте ключ (начинается с `sk-or-`)
-4. Нажмите `Проверить ключ`
-5. Укажите ID модели вручную, например: `anthropic/claude-3.5-sonnet`
+1. Get a key at [openrouter.ai/keys](https://openrouter.ai/keys)
+2. In settings, select "OpenRouter"
+3. Paste the key (starts with `sk-or-`)
+4. Click `Check Key`
+5. Enter the model ID manually, e.g.: `anthropic/claude-3.5-sonnet`
 
-> API-ключи хранятся только в вашем браузере и привязаны к каждому провайдеру отдельно.
+> API keys are stored only in your browser and are tied to each provider separately.
 
-## Быстрый старт с импортом ключей
+## Quick Start with Key Import
 
-Если у вас уже есть API ключи для нескольких провайдеров:
+If you already have API keys for multiple providers:
 
-1. Создайте файл `api-keys.txt` в формате:
+1. Create an `api-keys.txt` file in the format:
 ```
 OPENAI - sk-your-key
 GROQ - gsk_your-key
 ANTHROPIC - sk-ant-your-key
 ```
-2. В настройках → Провайдеры нажмите «Импорт ключей (.txt)»
-3. Все ключи загрузятся автоматически
-4. Переключайтесь между провайдерами — ключи подставятся сами
+2. In Settings → Providers, click "Import Keys (.txt)"
+3. All keys will be loaded automatically
+4. Switch between providers — keys will be applied automatically
 
-## Переключение между провайдерами
+## Switching Between Providers
 
-При переключении провайдера в настройках:
-- API-ключ и выбранная модель **сохраняются** для текущего провайдера
-- Для нового провайдера **подставляются** его ранее сохранённые настройки
-- Каждый провайдер хранит свой ключ, модель и адрес сервера независимо
+When switching providers in settings:
+- The API key and selected model are **saved** for the current provider
+- For the new provider, its previously saved settings are **applied**
+- Each provider stores its key, model, and server address independently
 
-Это позволяет быстро переключаться между провайдерами без повторного ввода ключей.
+This allows quick switching between providers without re-entering keys.
 
-## Как пользоваться (ручной режим)
+## How to Use (Manual Mode)
 
-1. На шаге `Запрос` введите исходную задачу
-2. На шаге `Улучшение` скопируйте системный промт и промт, отправьте в AI-чат, вставьте результат
-3. На шаге `Модели` используйте кнопки перехода в чаты или отправьте через API
-4. Поставьте звёздную оценку ответам
-5. На шаге `Синтез` получите агрегирующий промт
-6. На шаге `Результат` проверьте финальный текст, сравнение и JSON
+1. At the `Request` step, enter the initial task
+2. At the `Enhancement` step, copy the system prompt and prompt, send to AI chat, paste the result
+3. At the `Models` step, use the navigation buttons to chats or send via API
+4. Rate responses with stars
+5. At the `Synthesis` step, get the aggregating prompt
+6. At the `Result` step, check the final text, comparison, and JSON
 
-## Настройки
+## Settings
 
-В `Настройки` доступны:
-- **Общие** — параметры приложения
-- **Модели** — выбор провайдера, API ключ, список моделей
-- **Промты** — системные промты для улучшения и агрегации
-- **Шаблоны** — готовые шаблоны запросов
-- **Провайдеры** — выбор провайдера, импорт/экспорт ключей, управление API
-- **Журнал** — лог работы приложения
+In `Settings`, you can access:
+- **General** — application parameters
+- **Models** — provider selection, API key, model list
+- **Prompts** — system prompts for enhancement and aggregation
+- **Templates** — ready-made request templates
+- **Providers** — provider selection, import/export keys, API management
+- **Log** — application operation log
 
-## Документация API
+## API Documentation
 
-Все провайдеры используют формат, совместимый с OpenAI API. Подробности по эндпоинтам, параметрам и стримингу — в [api-docs.html](api-docs.html).
+All providers use a format compatible with OpenAI API. Details on endpoints, parameters, and streaming — in [api-docs.html](api-docs.html).
 
-## Структура проекта
+## Project Structure
 
 ```
 LLM_Compare/
-├── LLM_Compare.html          # Основной интерфейс приложения
-├── proxy-server.js           # Прокси-сервер для обхода CORS (Anthropic) + статика
-├── api-docs.html             # Документация по API провайдерам
-├── README.md                 # Описание проекта
-├── .gitignore                # Исключения для Git
-├── chrome-extension/         # Расширение для Chrome (MV3)
+├── LLM_Compare.html          # Main application interface
+├── proxy-server.js           # Proxy server for CORS bypass (Anthropic) + static files
+├── api-docs.html             # API provider documentation
+├── README.md                 # Project description
+├── .gitignore                # Git exclusions
+├── chrome-extension/         # Chrome extension (MV3)
 │   ├── manifest.json
 │   ├── background.js
 │   ├── LLM_Compare.html
 │   ├── app.js
 │   └── README.md
-├── firefox-extension/        # Расширение для Firefox (MV2)
+├── firefox-extension/        # Firefox extension (MV2)
 │   ├── manifest.json
 │   ├── background.js
 │   ├── LLM_Compare.html
 │   ├── app.js
 │   └── README.md
-└── standalone/               # Автономная версия (если есть)
+└── standalone/               # Standalone version (if available)
 ```
 
-## Технические детали
+## Technical Details
 
-- Один HTML-файл, не требует сборки
-- Для Anthropic API требуется `node proxy-server.js` (обход CORS)
-- Данные хранятся в `localStorage` браузера (API-ключи привязаны к провайдеру)
-- API запросы идут напрямую из браузера (CORS зависит от провайдера)
-- Интерфейс адаптирован под мобильные устройства и планшеты
-- Поддержка светлой и тёмной темы
-- Markdown рендеринг ответов через [marked.js](https://marked.js.org)
-- Стилизация через [Tailwind CSS](https://tailwindcss.com) (CDN)
+- Single HTML file, no build required
+- For Anthropic API, `node proxy-server.js` is required (CORS bypass)
+- Data is stored in browser `localStorage` (API keys are tied to providers)
+- API requests go directly from the browser (CORS depends on the provider)
+- Interface adapted for mobile devices and tablets
+- Light and dark theme support
+- Markdown rendering of responses via [marked.js](https://marked.js.org)
+- Styling via [Tailwind CSS](https://tailwindcss.com) (CDN)
 
-## Ограничения
+## Limitations
 
-- Anthropic API требует прокси-сервер (`node proxy-server.js`)
-- Некоторые облачные API могут блокировать запросы из браузера из-за CORS
-- Бесплатные тарифы провайдеров имеют лимиты на количество запросов
-- Некоторые браузеры ограничивают pop-up окна
-- Данные теряются при очистке localStorage браузера
+- Anthropic API requires a proxy server (`node proxy-server.js`)
+- Some cloud APIs may block browser requests due to CORS
+- Free provider tiers have request limits
+- Some browsers restrict pop-up windows
+- Data is lost when clearing browser localStorage
 
-## Для кого это
+## Who Is This For
 
-- Сравнивать ответы разных AI-моделей в одном месте
-- Собирать лучший итоговый ответ из нескольких источников
-- Работать через API или вручную — на выбор
-- Вести историю сессий и продолжать старые чаты
-- Держать весь workflow в одном локальном файле
+- Compare responses from different AI models in one place
+- Build the best final response from multiple sources
+- Work via API or manually — your choice
+- Maintain session history and continue old chats
+- Keep the entire workflow in one local file

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multi-LLM + Synthesis</title>
+    <title>Multi-LLM + Синтез</title>
     <script src="lib/tailwindcss.js"></script>
     <script src="lib/marked.min.js"></script>
     <style>
@@ -172,11 +172,11 @@
         .md-content h2 { font-size: 1.25em; font-weight: 600; margin: 1em 0 0.5em; }
         .md-content h3 { font-size: 1.1em; font-weight: 600; margin: 0.75em 0 0.5em; }
         .md-content p { margin: 0.75em 0; }
-        .md-content ul, .md-content ol { margin: 0.5em 0; padding-left: 1.8em; }
-        .md-content ul { list-style-type: disc; }
-        .md-content ol { list-style-type: decimal; }
+        .md-content ul, .md-content ol { margin: 0.5em 0; padding-left: 1.8em; list-style: none; }
+        .md-content ul { list-style-type: none; }
+        .md-content ol { list-style-type: none; }
         .md-content li { margin: 0.3em 0; line-height: 1.6; }
-        .md-content li::marker { color: var(--text-secondary); }
+        .md-content li::marker { display: none; }
         .md-content code { background: var(--bg-code-inline); padding: 0.15em 0.4em; border-radius: 0.25em; font-size: 0.9em; font-family: 'Consolas', 'Monaco', monospace; color: var(--text); }
         .md-content pre { background: var(--bg-md-pre); color: var(--text-placeholder); padding: 1.2rem; border-radius: 0.6rem; overflow-x: auto; margin: 1em 0; }
         .md-content pre code { background: transparent; padding: 0; color: inherit; font-size: 0.9rem; }
@@ -308,7 +308,7 @@
             .card-header-actions { flex-direction: column; align-items: stretch !important; gap: 0.5rem !important; }
             .card-header-actions .btn { width: 100%; justify-content: center; }
 
-            /* Step action rows (Back / Next) */
+            /* Step action rows (Назад / Далее) */
             .step-actions { flex-wrap: wrap; gap: 0.5rem; }
             .step-actions .btn { flex: 1; min-width: 120px; justify-content: center; }
 
@@ -1294,19 +1294,19 @@
     <!-- Auto-save indicator -->
     <div id="autosaveIndicator" class="autosave-indicator">
         <div class="autosave-dot"></div>
-        <span id="autosaveText">Saved</span>
+        <span id="autosaveText">Сохранено</span>
     </div>
     <div class="max-w-5xl mx-auto px-5 py-8">
         <!-- Header -->
         <div class="header-wrap flex mb-5">
             <div class="header-btn-group">
-                <a href="api-docs.html" target="_blank" class="btn btn-outline btn-sm" title="API Documentation">
+                <a href="api-docs.html" target="_blank" class="btn btn-outline btn-sm" title="API Документация">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
                     <span class="hidden sm:inline">API</span>
                 </a>
-                <button id="ext-el-1" class="btn btn-outline btn-sm" title="Request History">
+                <button id="ext-el-1" class="btn btn-outline btn-sm" title="История запросов">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span class="hidden sm:inline">History</span>
+                    <span class="hidden sm:inline">История</span>
                 </button>
             </div>
             <div class="header-title flex-1 text-center px-2">
@@ -1314,18 +1314,18 @@
                     <svg class="w-6 h-6 sm:w-8 sm:h-8 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                     </svg>
-                    <h1 class="text-2xl sm:text-3xl font-bold">Multi-LLM + Synthesis</h1>
+                    <h1 class="text-2xl sm:text-3xl font-bold">Multi-LLM + Синтез</h1>
                 </div>
-                <p class="text-zinc-500 text-sm hidden sm:block">Manual mode: copy prompts → paste responses → get results</p>
+                <p class="text-zinc-500 text-sm hidden sm:block">Ручной режим: копируйте промты → вставляйте ответы → получайте результат</p>
             </div>
             <div class="header-btn-group">
-                <button class="btn btn-outline btn-sm" id="themeToggle" title="Toggle theme">
+                <button class="btn btn-outline btn-sm" id="themeToggle" title="Переключить тему">
                     <svg id="themeIconLight" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg id="themeIconDark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
-                <button id="ext-el-2" class="btn btn-outline btn-sm" title="Settings">
+                <button id="ext-el-2" class="btn btn-outline btn-sm" title="Настройки">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                    <span class="hidden sm:inline">Settings</span>
+                    <span class="hidden sm:inline">Настройки</span>
                 </button>
             </div>
         </div>
@@ -1334,27 +1334,27 @@
         <div class="step-nav-wrap flex items-center justify-center gap-2 mb-6">
             <button id="ext-el-3" class="step-btn active px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                <span>Request</span>
+                <span>Запрос</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-4" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                <span>Enhancement</span>
+                <span>Улучшение</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-5" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                <span>Models</span>
+                <span>Модели</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-6" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                <span>Synthesis</span>
+                <span>Синтез</span>
             </button>
             <span class="arrow step-nav-arrows">→</span>
             <button id="ext-el-7" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-                <span>Result</span>
+                <span>Результат</span>
             </button>
         </div>
 
@@ -1365,16 +1365,16 @@
                 <div class="chat-history-head">
                     <div class="flex items-center gap-2">
                         <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                        <span class="font-medium text-sm text-zinc-700" id="chatHistoryTitle">Chat History</span>
+                        <span class="font-medium text-sm text-zinc-700" id="chatHistoryTitle">История чата</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <button id="ext-el-8" class="btn btn-outline btn-sm text-xs" title="Open in large window">
+                        <button id="ext-el-8" class="btn btn-outline btn-sm text-xs" title="Открыть в большом окне">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"/></svg>
-                            Expand
+                            Развернуть
                         </button>
                         <button id="ext-el-9" class="btn btn-outline btn-sm text-xs">
                             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            New Chat
+                            Новый чат
                         </button>
                     </div>
                 </div>
@@ -1383,14 +1383,14 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                    <span id="step1Title">Step 1: Your Raw Request</span>
+                    <span id="step1Title">Шаг 1: Ваш сырой запрос</span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Enter your original question or task</p>
-                <textarea id="rawPrompt" class="textarea" placeholder="For example: How does quantum entanglement work?"></textarea>
+                <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Введите ваш исходный вопрос или задачу</p>
+                <textarea id="rawPrompt" class="textarea" placeholder="Например: Как работает квантовая запутанность?"></textarea>
                 <div class="step-actions flex justify-between items-center mt-4">
                     <span id="modelsCount" class="text-base text-zinc-500"></span>
                     <button id="ext-el-10" class="btn btn-primary">
-                        Next: Enhancement
+                        Далее: Улучшение
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
@@ -1404,11 +1404,11 @@
                     <div>
                         <h2 class="text-xl font-semibold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            System Prompt for Enhancement
+                            Системный промт для улучшения
                         </h2>
-                        <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
+                        <p class="text-zinc-500 text-base">1. Скопируйте этот системный промт</p>
                     </div>
-                    <button id="copy-enhancer-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy system prompt" aria-label="Copy system prompt">
+                    <button id="copy-enhancer-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать системный промт" aria-label="Скопировать системный промт">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1418,10 +1418,10 @@
             <div class="card">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Prompt to Send</h2>
-                        <p class="text-zinc-500 text-base">2. Copy and send together with the system prompt</p>
+                        <h2 class="text-xl font-semibold">Промт для отправки</h2>
+                        <p class="text-zinc-500 text-base">2. Скопируйте и отправьте вместе с системным промтом</p>
                     </div>
-                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy enhancement prompt" aria-label="Copy enhancement prompt">
+                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать промт для улучшения" aria-label="Скопировать промт для улучшения">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1434,13 +1434,13 @@
                     <div class="flex items-center gap-2">
                         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                         <div>
-                            <span class="text-sm font-medium" style="color:#6366f1;">Send to Provider</span>
-                            <div class="text-xs text-zinc-500 mt-0.5" id="lms-enhancer-model-hint"><span id="lms-enhancer-provider-label">Local AI</span> · <span id="lms-enhancer-model-name">—</span></div>
+                            <span class="text-sm font-medium" style="color:#6366f1;">Отправить в провайдера</span>
+                            <div class="text-xs text-zinc-500 mt-0.5" id="lms-enhancer-model-hint"><span id="lms-enhancer-provider-label">Локальный ИИ</span> · <span id="lms-enhancer-model-name">—</span></div>
                         </div>
                     </div>
                     <button id="lms-send-enhancer-btn" class="btn btn-ai btn-sm">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        Send to AI
+                        Отправить в ИИ
                     </button>
                 </div>
                 <div id="lms-enhancer-status" class="mt-2 text-xs hidden"></div>
@@ -1452,13 +1452,13 @@
                     <div class="flex items-center gap-2">
                         <span class="text-lg">🤗</span>
                         <div>
-                            <span class="text-sm font-medium" style="color:#eab308;">Send to Hugging Face</span>
+                            <span class="text-sm font-medium" style="color:#eab308;">Отправить в Hugging Face</span>
                             <div class="text-xs text-zinc-500 mt-0.5" id="hf-enhancer-model-hint">Inference API · <span id="hf-enhancer-model-name">—</span></div>
                         </div>
                     </div>
                     <button id="hf-send-enhancer-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        Send to HF
+                        Отправить в HF
                     </button>
                 </div>
                 <div id="hf-enhancer-status" class="mt-2 text-xs hidden"></div>
@@ -1467,18 +1467,18 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
-                    3. Paste the Improved Prompt
+                    3. Вставьте улучшенный промт
                     <span id="lms-enhancer-filled-badge" class="ai-result-badge hidden">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                        Filled by AI
+                        Заполнено ИИ
                     </span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4">Paste the AI response here (improved prompt)</p>
-                <textarea id="improvedPrompt" class="textarea" placeholder="Paste the improved prompt here..."></textarea>
+                <p class="text-zinc-500 text-sm mb-4">Вставьте сюда ответ от ИИ (улучшенный промт)</p>
+                <textarea id="improvedPrompt" class="textarea" placeholder="Вставьте улучшенный промт сюда..."></textarea>
                 <div class="step-actions flex justify-between mt-4">
-                    <button id="ext-el-11" class="btn btn-outline">Back</button>
+                    <button id="ext-el-11" class="btn btn-outline">Назад</button>
                     <button id="ext-el-12" class="btn btn-primary">
-                        Next: Models
+                        Далее: Модели
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
@@ -1490,10 +1490,10 @@
             <div class="card card-primary">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Improved Prompt for Sending to Models</h2>
-                        <p class="text-zinc-500 text-base">Send this prompt to each model below</p>
+                        <h2 class="text-xl font-semibold">Улучшенный промт для отправки в модели</h2>
+                        <p class="text-zinc-500 text-base">Отправьте этот промт в каждую модель ниже</p>
                     </div>
-                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy improved prompt" aria-label="Copy improved prompt">
+                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать улучшенный промт" aria-label="Скопировать улучшенный промт">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1504,9 +1504,9 @@
             <div id="modelCardsContainer"></div>
 
             <div class="step-actions flex justify-between mt-4">
-                <button id="ext-el-13" class="btn btn-outline">Back</button>
+                <button id="ext-el-13" class="btn btn-outline">Назад</button>
                 <button id="ext-el-14" class="btn btn-primary">
-                    Next: Synthesis
+                    Далее: Синтез
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                 </button>
             </div>
@@ -1519,11 +1519,11 @@
                     <div>
                         <h2 class="text-xl font-semibold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
-                            System Prompt for Aggregation
+                            Системный промт для агрегации
                         </h2>
-                        <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
+                        <p class="text-zinc-500 text-base">1. Скопируйте этот системный промт</p>
                     </div>
-                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy system prompt for aggregation" aria-label="Copy system prompt for aggregation">
+                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать системный промт для агрегации" aria-label="Скопировать системный промт для агрегации">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1533,10 +1533,10 @@
             <div class="card">
                 <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
                     <div>
-                        <h2 class="text-xl font-semibold">Prompt with Model Responses</h2>
-                        <p class="text-zinc-500 text-base">2. Copy and send together with the system prompt</p>
+                        <h2 class="text-xl font-semibold">Промт с ответами моделей</h2>
+                        <p class="text-zinc-500 text-base">2. Скопируйте и отправьте вместе с системным промтом</p>
                     </div>
-                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy aggregation prompt" aria-label="Copy aggregation prompt">
+                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать промт для агрегации" aria-label="Скопировать промт для агрегации">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                     </button>
                 </div>
@@ -1546,13 +1546,13 @@
             <div class="card">
                 <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
                     <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                    3. Paste the Synthesized Response
+                    3. Вставьте синтезированный ответ
                     <span id="lms-aggregator-filled-badge" class="ai-result-badge hidden">
                         <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
-                        Filled by AI
+                        Заполнено ИИ
                     </span>
                 </h2>
-                <p class="text-zinc-500 text-sm mb-4">Paste the final aggregated response here</p>
+                <p class="text-zinc-500 text-sm mb-4">Вставьте сюда финальный агрегированный ответ</p>
 
                 <!-- LM Studio button for synthesis -->
                 <div id="lms-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
@@ -1560,13 +1560,13 @@
                         <div class="flex items-center gap-2">
                             <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
                             <div>
-                                <span class="text-sm font-medium" style="color:#6366f1;">Send to Provider</span>
-                                <div class="text-xs text-zinc-500 mt-0.5"><span id="lms-aggregator-provider-label">Local AI</span> · <span id="lms-aggregator-model-name">—</span></div>
+                                <span class="text-sm font-medium" style="color:#6366f1;">Отправить в провайдера</span>
+                                <div class="text-xs text-zinc-500 mt-0.5"><span id="lms-aggregator-provider-label">Локальный ИИ</span> · <span id="lms-aggregator-model-name">—</span></div>
                             </div>
                         </div>
                         <button id="lms-send-aggregator-btn" class="btn btn-ai btn-sm">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            Send to AI
+                            Отправить в ИИ
                         </button>
                     </div>
                     <div id="lms-aggregator-status" class="mt-2 text-xs hidden"></div>
@@ -1578,23 +1578,23 @@
                         <div class="flex items-center gap-2">
                             <span class="text-lg">🤗</span>
                             <div>
-                                <span class="text-sm font-medium" style="color:#eab308;">Send to Hugging Face</span>
+                                <span class="text-sm font-medium" style="color:#eab308;">Отправить в Hugging Face</span>
                                 <div class="text-xs text-zinc-500 mt-0.5">Inference API · <span id="hf-aggregator-model-name">—</span></div>
                             </div>
                         </div>
                         <button id="hf-send-aggregator-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                            Send to HF
+                            Отправить в HF
                         </button>
                     </div>
                     <div id="hf-aggregator-status" class="mt-2 text-xs hidden"></div>
                 </div>
 
-                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Paste the synthesized response..."></textarea></textarea>
+                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Вставьте синтезированный ответ..."></textarea></textarea>
                 <div class="step-actions flex justify-between mt-4">
-                    <button id="ext-el-15" class="btn btn-outline">Back</button>
+                    <button id="ext-el-15" class="btn btn-outline">Назад</button>
                     <button id="ext-el-16" class="btn btn-primary">
-                        Next: Result
+                        Далее: Результат
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                     </button>
                 </div>
@@ -1605,8 +1605,8 @@
         <div id="step-5" class="step-content">
             <!-- Tabs -->
             <div class="result-tabs-bar flex border-b border-zinc-200 mb-4 overflow-x-auto">
-                <button id="ext-el-17" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-zinc-900 text-zinc-900">Final Answer</button>
-                <button id="ext-el-18" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900">Comparison</button>
+                <button id="ext-el-17" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-zinc-900 text-zinc-900">Финальный ответ</button>
+                <button id="ext-el-18" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900">Сравнение</button>
                 <button id="ext-el-19" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900">JSON</button>
             </div>
 
@@ -1616,10 +1616,10 @@
                     <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
                         <h2 class="text-xl font-semibold flex items-center gap-2">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
-                            Synthesized Response
+                            Синтезированный ответ
                         </h2>
                         <div class="flex gap-2">
-                            <button id="copy-final" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy final answer" aria-label="Copy final answer">
+                            <button id="copy-final" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать финальный ответ" aria-label="Скопировать финальный ответ">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             </button>
                         </div>
@@ -1632,9 +1632,9 @@
             <div id="result-comparison" class="result-tab hidden">
                 <div class="card">
                     <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
-                        <h2 class="text-xl font-semibold">Comparison of Model Responses</h2>
+                        <h2 class="text-xl font-semibold">Сравнение ответов моделей</h2>
                         <div class="flex items-center gap-2">
-                            <span class="text-sm text-zinc-500">Average Rating: <strong id="avgRatingDisplay">0</strong>/5</span>
+                            <span class="text-sm text-zinc-500">Средняя оценка: <strong id="avgRatingDisplay">0</strong>/5</span>
                         </div>
                     </div>
                     <div class="comparison-grid" id="comparisonGrid"></div>
@@ -1645,9 +1645,9 @@
             <div id="result-json" class="result-tab hidden">
                 <div class="card">
                     <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
-                        <h2 class="text-xl font-semibold">Final JSON</h2>
+                        <h2 class="text-xl font-semibold">Итоговый JSON</h2>
                         <div class="flex gap-2">
-                            <button id="copy-json" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy JSON" aria-label="Copy JSON">
+                            <button id="copy-json" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать JSON" aria-label="Скопировать JSON">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                             </button>
                         </div>
@@ -1657,15 +1657,15 @@
             </div>
 
             <div class="step-actions flex justify-between mt-4">
-                <button id="ext-el-20" class="btn btn-outline">Back</button>
+                <button id="ext-el-20" class="btn btn-outline">Назад</button>
                 <div class="flex gap-2">
                     <button id="ext-el-21" class="btn btn-outline">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                        Continue Chat
+                        Продолжить чат
                     </button>
                     <button id="ext-el-22" class="btn btn-primary">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                        New Request
+                        Новый запрос
                     </button>
                 </div>
             </div>
@@ -1676,7 +1676,7 @@
     <div id="settingsModal" class="modal-overlay hidden">
         <div class="modal">
             <div class="modal-header">
-                <h2 class="text-xl font-semibold">Settings</h2>
+                <h2 class="text-xl font-semibold">Настройки</h2>
                 <button id="ext-el-23" class="text-zinc-400 hover:text-zinc-600">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -1684,33 +1684,33 @@
             
             <!-- Settings Tabs -->
             <div class="flex border-b border-zinc-200 px-6 pt-4 overflow-x-auto" style="scrollbar-width:none;">
-                <button id="ext-el-24" class="settings-tab active">General</button>
-                <button id="ext-el-25" class="settings-tab">Models</button>
-                <button id="ext-el-26" class="settings-tab">Prompts</button>
-                <button id="ext-el-27" class="settings-tab">Templates</button>
-                <button id="ext-el-28" class="settings-tab">Providers</button>
-                <button class="settings-tab" id="settings-tab-logs">Logs<span id="log-error-badge" class="log-count-badge hidden">0</span></button>
+                <button id="ext-el-24" class="settings-tab active">Общие</button>
+                <button id="ext-el-25" class="settings-tab">Модели</button>
+                <button id="ext-el-26" class="settings-tab">Промты</button>
+                <button id="ext-el-27" class="settings-tab">Шаблоны</button>
+                <button id="ext-el-28" class="settings-tab">Провайдеры</button>
+                <button class="settings-tab" id="settings-tab-logs">Логи<span id="log-error-badge" class="log-count-badge hidden">0</span></button>
             </div>
 
             <!-- General Tab -->
             <div id="settings-general" class="tab-pane active">
                 <div class="modal-body space-y-6">
                     <div class="card" style="margin:0; padding:1.25rem;">
-                        <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Task Profile</label>
+                        <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Профиль задачи</label>
                         <select id="taskProfileSelect" class="input"></select>
-                        <p class="text-xs text-zinc-500 mt-2">Profile changes system prompts for enhancement and synthesis. If you manually change the prompts, the profile will automatically become "Custom".</p>
+                        <p class="text-xs text-zinc-500 mt-2">Профиль меняет системные промты для улучшения и синтеза. Если вы вручную измените промты, профиль автоматически станет `Свой`.</p>
                         <div class="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3">
-                            <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Active Profile</div>
-                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Universal</div>
-                            <p id="taskProfileDescription" class="text-xs text-zinc-500 mt-1">Balanced mode for most tasks.</p>
+                            <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Активный профиль</div>
+                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Универсальный</div>
+                            <p id="taskProfileDescription" class="text-xs text-zinc-500 mt-1">Сбалансированный режим для большинства задач.</p>
                         </div>
                     </div>
                     <div class="card" style="margin:0; padding:1.25rem;">
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="notificationsEnabledToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">System Notifications</div>
-                                <p class="text-xs text-zinc-500 mt-1">Show auto-save indicator and non-blocking warnings.</p>
+                                <div class="text-sm font-medium">Системные уведомления</div>
+                                <p class="text-xs text-zinc-500 mt-1">Показывать индикатор автосохранения и неблокирующие предупреждения.</p>
                             </div>
                         </label>
                     </div>
@@ -1718,8 +1718,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="useRatingsInSynthesisToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">Consider Ratings in Synthesis</div>
-                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregating prompt as a soft preference signal. If no rating is specified, it is considered a neutral case, not a negative.</p>
+                                <div class="text-sm font-medium">Учитывать оценки в синтезе</div>
+                                <p class="text-xs text-zinc-500 mt-1">Передавать оценки пользователя в агрегирующий промт как мягкий сигнал предпочтения. Если оценка не указана, это считается нейтральным случаем, а не минусом.</p>
                             </div>
                         </label>
                     </div>
@@ -1732,44 +1732,44 @@
                     <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
                         <span class="text-sm text-zinc-500 whitespace-nowrap" id="modelsListCount"></span>
                         <div class="flex gap-2 flex-wrap">
-                            <button id="ext-el-29" class="btn btn-outline btn-sm" title="Restore Defaults">
+                            <button id="ext-el-29" class="btn btn-outline btn-sm" title="Восстановить умолчания">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
-                                Restore Defaults
+                                Вернуть умолчания
                             </button>
-                            <button class="btn btn-danger btn-sm" title="Delete Selected" id="deleteSelectedBtn" disabled>
+                            <button class="btn btn-danger btn-sm" title="Удалить выбранные" id="deleteSelectedBtn" disabled>
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                Delete Selected
+                                Удалить выбранные
                             </button>
-                            <button id="ext-el-30" class="btn btn-danger btn-sm" title="Delete All">
+                            <button id="ext-el-30" class="btn btn-danger btn-sm" title="Удалить все">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
-                                Delete All
+                                Удалить все
                             </button>
                         </div>
                     </div>
                     <div id="modelsList"></div>
                     
                     <div class="mt-4 pt-4 border-t border-zinc-200">
-                        <h3 class="text-sm font-medium mb-3">Add Model</h3>
+                        <h3 class="text-sm font-medium mb-3">Добавить модель</h3>
                         <div class="space-y-3">
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">Name</label>
+                                <label class="block text-sm text-zinc-600 mb-1">Название</label>
                                 <input type="text" id="newModelName" class="input" placeholder="GPT">
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">Provider</label>
+                                <label class="block text-sm text-zinc-600 mb-1">Провайдер</label>
                                 <input type="text" id="newModelProvider" class="input" placeholder="OpenAI">
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">System Prompt (optional)</label>
-                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Leave empty to use the common prompt"></textarea>
+                                <label class="block text-sm text-zinc-600 mb-1">Системный промт (опционально)</label>
+                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Оставьте пустым для использования общего промта"></textarea>
                             </div>
                             <div>
-                                <label class="block text-sm text-zinc-600 mb-1">Chat Link (optional)</label>
+                                <label class="block text-sm text-zinc-600 mb-1">Ссылка на чат (опционально)</label>
                                 <input type="url" id="newModelChatUrl" class="input" placeholder="https://example.com/chat">
                             </div>
                             <button id="ext-el-31" class="btn btn-primary w-full">
                                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                                Add Model
+                                Добавить модель
                             </button>
                         </div>
                     </div>
@@ -1781,15 +1781,15 @@
                 <div class="modal-body space-y-6">
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Prompt for Enhancement</label>
-                            <button id="ext-el-32" class="text-xs text-blue-600 hover:underline">Reset</button>
+                            <label class="block text-sm font-medium">Промт для улучшения</label>
+                            <button id="ext-el-32" class="text-xs text-blue-600 hover:underline">Сбросить</button>
                         </div>
                         <textarea id="settingsEnhancerPrompt" class="textarea" style="min-height: 150px;"></textarea>
                     </div>
                     <div>
                         <div class="flex items-center justify-between mb-2">
-                            <label class="block text-sm font-medium">Prompt for Aggregation</label>
-                            <button id="ext-el-33" class="text-xs text-blue-600 hover:underline">Reset</button>
+                            <label class="block text-sm font-medium">Промт для агрегации</label>
+                            <button id="ext-el-33" class="text-xs text-blue-600 hover:underline">Сбросить</button>
                         </div>
                         <textarea id="settingsAggregatorPrompt" class="textarea" style="min-height: 150px;"></textarea>
                     </div>
@@ -1800,18 +1800,18 @@
             <div id="settings-templates" class="tab-pane">
                 <div class="modal-body space-y-6">
                     <div>
-                        <h3 class="text-sm font-medium mb-3">Saved Prompt Templates</h3>
-                        <p class="text-xs text-zinc-500 mb-4">Templates can be used as starting points for new queries</p>
+                        <h3 class="text-sm font-medium mb-3">Сохранённые шаблоны промтов</h3>
+                        <p class="text-xs text-zinc-500 mb-4">Шаблоны можно использовать как начальные точки для новых запросов</p>
                         <div id="templatesList"></div>
                         <button id="ext-el-34" class="btn btn-outline btn-sm w-full mt-3">
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                            Add Template
+                            Добавить шаблон
                         </button>
                     </div>
                 </div>
             </div>
 
-            <!-- Providers Tab -->
+            <!-- Провайдеры Tab -->
             <div id="settings-lmstudio" class="tab-pane">
                 <div class="modal-body space-y-4">
 
@@ -1820,8 +1820,8 @@
                         <label class="flex items-start gap-3 cursor-pointer">
                             <input type="checkbox" id="lmsEnabledToggle" class="mt-1">
                             <div>
-                                <div class="text-sm font-medium">Connect Provider for Automatic Processing</div>
-                                <p class="text-xs text-zinc-500 mt-1">The "Send to AI" button will appear on synthesis and prompt enhancement steps. If disabled, everything remains in manual mode.</p>
+                                <div class="text-sm font-medium">Подключить провайдера для автоматической обработки</div>
+                                <p class="text-xs text-zinc-500 mt-1">Кнопка «Отправить в ИИ» появится на шагах синтеза и улучшения промта. Если выключено — всё остаётся в ручном режиме.</p>
                             </div>
                         </label>
                     </div>
@@ -1830,28 +1830,28 @@
 
                         <!-- Provider selector -->
                         <div class="card" style="margin:0; padding:1.25rem;">
-                            <label class="block text-sm font-medium mb-3">Provider</label>
+                            <label class="block text-sm font-medium mb-3">Провайдер</label>
 
-                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">🖥️ Local</div>
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">🖥️ Локальные</div>
                             <div class="grid gap-2 mb-4" style="grid-template-columns: repeat(3,1fr);">
                                 <label id="lms-provider-card-lmstudio" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🖥️</div>
                                     <div class="text-xs font-semibold">LM Studio</div>
-                                    <div class="text-xs text-zinc-400 mt-0.5">port 1234</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">порт 1234</div>
                                 </label>
                                 <label id="lms-provider-card-ollama" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🦙</div>
                                     <div class="text-xs font-semibold">Ollama</div>
-                                    <div class="text-xs text-zinc-400 mt-0.5">port 11434</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">порт 11434</div>
                                 </label>
                                 <label id="lms-provider-card-custom" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">⚙️</div>
-                                    <div class="text-xs font-semibold">Other</div>
+                                    <div class="text-xs font-semibold">Другой</div>
                                     <div class="text-xs text-zinc-400 mt-0.5">OpenAI API</div>
                                 </label>
                             </div>
 
-                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">☁️ Cloud</div>
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">☁️ Облачные</div>
                             <div class="grid gap-2" style="grid-template-columns: repeat(3,1fr);">
                                 <label id="lms-provider-card-openai" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🤖</div>
@@ -1871,7 +1871,7 @@
                                 <label id="lms-provider-card-anthropic" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🧠</div>
                                     <div class="text-xs font-semibold">Anthropic</div>
-                                    <div class="text-xs text-zinc-400 mt-0.5">Claude 🔒 proxy</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Claude 🔒 прокси</div>
                                 </label>
                                 <label id="lms-provider-card-google" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🌟</div>
@@ -1891,7 +1891,7 @@
                                 <label id="lms-provider-card-openrouter" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
                                     <div class="text-lg mb-1">🔀</div>
                                     <div class="text-xs font-semibold">OpenRouter</div>
-                                    <div class="text-xs text-zinc-400 mt-0.5">Manual Input</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Ручной ввод</div>
                                 </label>
                             </div>
 
@@ -1904,48 +1904,48 @@
                             <div class="flex flex-wrap gap-2">
                                 <button id="ext-el-35" class="btn btn-outline btn-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/></svg>
-                                    Import Keys (.txt)
+                                    Импорт ключей (.txt)
                                 </button>
                                 <input type="file" id="keyImportInput" accept=".txt" style="display:none">
                                 <button id="ext-el-36" class="btn btn-outline btn-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                    Export Keys
+                                    Экспорт ключей
                                 </button>
                                 <button id="ext-el-37" class="btn btn-danger btn-sm">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    Delete All Keys
+                                    Удалить все ключи
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2">.txt format: <code>PROVIDER - key</code> (each key on a new line, order doesn't matter)</p>
+                            <p class="text-xs text-zinc-500 mt-2">Формат .txt: <code>ПРОВАЙДЕР - ключ</code> (каждый ключ с новой строки, порядок не важен)</p>
                         </div>
 
                         <!-- API Key (cloud only) -->
                         <div class="card" id="lms-apikey-card" style="margin:0; padding:1.25rem; display:none;">
-                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API Key</label>
+                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API ключ</label>
                             <div class="relative">
                                 <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…">
-                                <button id="ext-el-38" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Show/Hide">
+                                <button id="ext-el-38" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Показать/скрыть">
                                     <svg id="eye-icon-closed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/></svg>
                                     <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">The key is stored only in the browser.</p>
+                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">Ключ хранится только в браузере.</p>
                         </div>
 
                         <!-- Server URL (local / custom only) -->
                         <div class="card" id="lms-url-card" style="margin:0; padding:1.25rem;">
                             <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
-                                <label class="block text-sm font-medium" id="lms-url-label">Server Address</label>
+                                <label class="block text-sm font-medium" id="lms-url-label">Адрес сервера</label>
                                 <span id="lms-connection-status" class="lms-status disconnected">
                                     <span class="lms-status-dot"></span>
-                                    <span id="lms-status-text">Not Connected</span>
+                                    <span id="lms-status-text">Не подключено</span>
                                 </span>
                             </div>
                             <div class="flex gap-2">
                                 <input type="text" id="lmsUrlInput" class="input flex-1" placeholder="http://localhost:1234">
                                 <button class="btn btn-outline btn-sm" id="lms-test-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Check
+                                    Проверить
                                 </button>
                             </div>
                             <p id="lms-server-hint" class="text-xs text-zinc-500 mt-2"></p>
@@ -1956,53 +1956,53 @@
                             <div class="flex items-center justify-between flex-wrap gap-2">
                                 <span id="lms-connection-status-cloud" class="lms-status disconnected">
                                     <span class="lms-status-dot"></span>
-                                    <span id="lms-status-text-cloud">Not Checked</span>
+                                    <span id="lms-status-text-cloud">Не проверено</span>
                                 </span>
                                 <button class="btn btn-outline btn-sm" id="lms-test-cloud-btn">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                                    Check Key
+                                    Проверить ключ
                                 </button>
                             </div>
-                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter the API key and click "Check Key" to load the list of models.</p>
+                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Введите API ключ и нажмите «Проверить ключ» для загрузки списка моделей.</p>
                         </div>
 
                         <!-- Model selection (dropdown for list providers) -->
                         <div class="card" id="lms-model-select-card" style="margin:0; padding:1.25rem;">
                             <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
-                                <label class="block text-sm font-medium">Model</label>
+                                <label class="block text-sm font-medium">Модель</label>
                                 <button class="btn btn-outline btn-sm text-xs" id="lms-refresh-btn">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
-                                    Refresh
+                                    Обновить
                                 </button>
                             </div>
                             <select id="lmsModelSelect" class="input">
-                                <option value="">— Select a provider and check the connection —</option>
+                                <option value="">— Выберите провайдера и проверьте подключение —</option>
                             </select>
-                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Select a model from the list.</p>
+                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Выберите модель из списка.</p>
                         </div>
 
                         <!-- Model input (manual for providers like Hugging Face) -->
                         <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
-                            <label class="block text-sm font-medium mb-2">Model</label>
+                            <label class="block text-sm font-medium mb-2">Модель</label>
                             <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct">
-                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Specify the model ID manually.</p>
+                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Укажите ID модели вручную.</p>
                         </div>
 
                         <!-- Usage mode -->
                         <div class="card" style="margin:0; padding:1.25rem;">
-                            <label class="block text-sm font-medium mb-3">Use For</label>
+                            <label class="block text-sm font-medium mb-3">Использовать для</label>
                             <div class="space-y-2.5">
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="both" id="lmsUseBoth" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Everything at Once</div><div class="text-xs text-zinc-500">Prompt Enhancement + Response Synthesis</div></div>
+                                    <div><div class="text-sm font-medium">Всего сразу</div><div class="text-xs text-zinc-500">Улучшение промта + синтез ответов</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="prompt" id="lmsUsePrompt" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Prompt Enhancement Only</div><div class="text-xs text-zinc-500">Step 2: Clarifying Your Query</div></div>
+                                    <div><div class="text-sm font-medium">Только улучшение промта</div><div class="text-xs text-zinc-500">Шаг 2: уточнение вашего запроса</div></div>
                                 </label>
                                 <label class="flex items-center gap-2.5 cursor-pointer">
                                     <input type="radio" name="lmsUseFor" value="synthesis" id="lmsUseSynthesis" class="accent-indigo-500">
-                                    <div><div class="text-sm font-medium">Response Synthesis Only</div><div class="text-xs text-zinc-500">Step 4: Aggregating All Model Responses</div></div>
+                                    <div><div class="text-sm font-medium">Только синтез ответов</div><div class="text-xs text-zinc-500">Шаг 4: агрегация ответов всех моделей</div></div>
                                 </label>
                             </div>
                         </div>
@@ -2012,9 +2012,9 @@
                             <div class="flex items-start gap-2">
                                 <span class="text-lg">📡</span>
                                 <div>
-                                    <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">API Documentation</div>
-                                    <p class="text-xs text-zinc-500 mt-1">All providers use a format compatible with the OpenAI API. Details on endpoints, parameters, streaming, and rate limits are in the documentation.</p>
-                                    <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Open API Documentation →</a>
+                                    <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">Документация API</div>
+                                    <p class="text-xs text-zinc-500 mt-1">Все провайдеры используют формат, совместимый с OpenAI API. Подробности по эндпоинтам, параметрам, стримингу и rate limits — в документации.</p>
+                                    <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Открыть документацию API →</a>
                                 </div>
                             </div>
                         </div>
@@ -2031,38 +2031,38 @@
                             <label class="flex items-center gap-2.5 cursor-pointer">
                                 <input type="checkbox" id="loggingEnabledToggle">
                                 <div>
-                                    <div class="text-sm font-medium">Save Logs</div>
-                                    <p class="text-xs text-zinc-500 mt-0.5">When disabled, new entries are not saved.</p>
+                                    <div class="text-sm font-medium">Сохранять логи</div>
+                                    <p class="text-xs text-zinc-500 mt-0.5">При отключении новые записи не сохраняются.</p>
                                 </div>
                             </label>
                             <div class="flex gap-2">
                                 <button id="ext-el-39" class="btn btn-outline btn-sm text-xs">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-                                    Export
+                                    Экспорт
                                 </button>
                                 <button id="ext-el-40" class="btn btn-danger btn-sm text-xs">
                                     <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-                                    Clear Logs
+                                    Очистить логи
                                 </button>
                             </div>
                         </div>
                         <div class="flex gap-3 text-xs text-zinc-500 flex-wrap" id="log-stats">
-                            <span>Total: <strong id="log-stat-total">0</strong></span>
-                            <span style="color:#ef4444;">Errors: <strong id="log-stat-errors">0</strong></span>
-                            <span style="color:#d97706;">Warnings: <strong id="log-stat-warns">0</strong></span>
+                            <span>Всего: <strong id="log-stat-total">0</strong></span>
+                            <span style="color:#ef4444;">Ошибок: <strong id="log-stat-errors">0</strong></span>
+                            <span style="color:#d97706;">Предупреждений: <strong id="log-stat-warns">0</strong></span>
                         </div>
                     </div>
                     <div class="flex gap-2 flex-wrap">
-                        <button id="ext-el-41" class="btn btn-outline btn-sm text-xs log-filter-btn active" data-filter="all">All</button>
-                        <button id="ext-el-42" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="error">Errors</button>
-                        <button id="ext-el-43" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="warn">Warnings</button>
-                        <button id="ext-el-44" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="info">Info</button>
-                        <button id="ext-el-45" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="success">Success</button>
+                        <button id="ext-el-41" class="btn btn-outline btn-sm text-xs log-filter-btn active" data-filter="all">Все</button>
+                        <button id="ext-el-42" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="error">Ошибки</button>
+                        <button id="ext-el-43" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="warn">Предупреждения</button>
+                        <button id="ext-el-44" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="info">Инфо</button>
+                        <button id="ext-el-45" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="success">Успех</button>
                     </div>
                     <div class="logs-container" id="logsContainer">
                         <div class="logs-empty" id="logsEmpty">
                             <svg class="w-8 h-8 mx-auto mb-2 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-                            <p>Logs are empty</p>
+                            <p>Логи пусты</p>
                         </div>
                         <div id="logsList"></div>
                     </div>
@@ -2070,8 +2070,8 @@
             </div>
 
             <div class="modal-footer">
-                <button id="ext-el-46" class="btn btn-outline">Close</button>
-                <button id="ext-el-47" class="btn btn-primary">Save</button>
+                <button id="ext-el-46" class="btn btn-outline">Закрыть</button>
+                <button id="ext-el-47" class="btn btn-primary">Сохранить</button>
             </div>
         </div>
     </div>
@@ -2081,8 +2081,8 @@
         <div class="modal" style="max-width:600px;">
             <div class="modal-header">
                 <div>
-                    <h2 class="text-xl font-semibold">Continue Chat</h2>
-                    <p class="text-sm text-zinc-500 mt-0.5">Insert links to existing chats so the AI remembers the context. You can leave them empty — new chats will open.</p>
+                    <h2 class="text-xl font-semibold">Продолжить чат</h2>
+                    <p class="text-sm text-zinc-500 mt-0.5">Вставьте ссылки на существующие чаты, чтобы ИИ помнил контекст. Можно оставить пустыми — откроются новые чаты.</p>
                 </div>
                 <button id="ext-el-48" class="text-zinc-400 hover:text-zinc-600 ml-4">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -2092,10 +2092,10 @@
                 <div id="continueUrlList"></div>
             </div>
             <div class="modal-footer">
-                <button id="ext-el-49" class="btn btn-outline">Cancel</button>
+                <button id="ext-el-49" class="btn btn-outline">Отмена</button>
                 <button id="ext-el-50" class="btn btn-primary">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                    Continue
+                    Продолжить
                 </button>
             </div>
         </div>
@@ -2109,16 +2109,16 @@
             <div class="history-header">
                 <div class="flex items-center gap-2">
                     <svg class="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <h2 class="text-lg font-semibold">Request History</h2>
+                    <h2 class="text-lg font-semibold">История запросов</h2>
                 </div>
                 <div class="flex items-center gap-2">
-                    <button id="ext-el-51" class="btn btn-outline btn-sm" title="Export History">
+                    <button id="ext-el-51" class="btn btn-outline btn-sm" title="Экспорт истории">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
                     </button>
-                    <button id="ext-el-52" class="btn btn-outline btn-sm" title="Import History">
+                    <button id="ext-el-52" class="btn btn-outline btn-sm" title="Импорт истории">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
                     </button>
-                    <button id="ext-el-53" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Clear History">
+                    <button id="ext-el-53" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Очистить историю">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                     </button>
                     <button id="ext-el-54" class="text-zinc-400 hover:text-zinc-600">
@@ -2130,14 +2130,14 @@
             <div class="px-4 py-2 border-b border-[var(--border)]">
                 <div class="relative">
                     <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    <input type="text" id="historySearch" class="input pl-9 text-sm" placeholder="Search history...">
+                    <input type="text" id="historySearch" class="input pl-9 text-sm" placeholder="Поиск по истории...">
                 </div>
             </div>
             <div class="history-body" id="historyList">
                 <div class="history-empty">
                 <svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <p>History is empty</p>
-                <p class="text-xs mt-1">Completed sessions will appear here</p>
+                <p>История пуста</p>
+                <p class="text-xs mt-1">Завершённые сессии появятся здесь</p>
             </div>
         </div>
     </div>
@@ -2148,10 +2148,10 @@
     <div id="chatFullscreenOverlay" class="chat-fullscreen-overlay">
         <div class="chat-fullscreen-modal">
             <div class="chat-fullscreen-head">
-                <span class="font-semibold text-base" id="chatFullscreenTitle">Chat</span>
+                <span class="font-semibold text-base" id="chatFullscreenTitle">Чат</span>
                 <button id="ext-el-55" class="btn btn-outline btn-sm">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-                    Close
+                    Закрыть
                 </button>
             </div>
             <div class="chat-fullscreen-body" id="chatFullscreenBody"></div>
