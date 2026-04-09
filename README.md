@@ -95,7 +95,7 @@ OPENROUTER - sk-or-your-key-here
 
 ### Option 1. Open File Directly
 
-Open [LLM_Compare.html](LLM_Compare.html) in a browser. Works for most providers (except Anthropic).
+Open [index.html](index.html) in a browser. Works for most providers (except Anthropic).
 
 ### Option 2. Via Proxy Server (Recommended)
 
@@ -115,7 +115,7 @@ The proxy also serves static files — no need to run `http.server` separately.
 py -m http.server 8000
 ```
 
-Open: `http://localhost:8000/LLM_Compare.html`
+Open: `http://localhost:8000/index.html`
 
 ## Browser Extensions
 
@@ -235,36 +235,61 @@ All providers use a format compatible with OpenAI API. Details on endpoints, par
 
 ```
 LLM_Compare/
-├── LLM_Compare.html          # Main application interface
+├── index.html                # Main application interface (modular)
 ├── proxy-server.js           # Proxy server for CORS bypass (Anthropic) + static files
 ├── api-docs.html             # API provider documentation
 ├── README.md                 # Project description
 ├── .gitignore                # Git exclusions
+├── css/
+│   └── styles.css            # All application styles
+├── js/
+│   ├── constants.js          # Default prompts, models, templates
+│   ├── state.js              # Application state variables
+│   └── modules/
+│       ├── logging.js        # Logging system
+│       ├── providers.js      # LM Studio + cloud providers
+│       ├── huggingface.js    # Hugging Face integration
+│       ├── autosave.js       # Auto-save and notifications
+│       ├── ratings.js        # Star rating system
+│       ├── comparison.js     # Side-by-side comparison
+│       ├── theme.js          # Theme toggle
+│       ├── init.js           # Initialization and keyboard shortcuts
+│       └── app.js            # Main application logic
 ├── chrome-extension/         # Chrome extension (MV3)
 │   ├── manifest.json
 │   ├── background.js
-│   ├── LLM_Compare.html
+│   ├── index.html
 │   ├── app.js
+│   ├── css/styles.css
 │   └── README.md
 ├── firefox-extension/        # Firefox extension (MV2)
 │   ├── manifest.json
 │   ├── background.js
-│   ├── LLM_Compare.html
+│   ├── index.html
 │   ├── app.js
+│   ├── css/styles.css
 │   └── README.md
-└── standalone/               # Standalone version (if exists)
+└── ru/                       # Russian localization
+    ├── index.html
+    ├── README.md
+    ├── CHANGELOG.md
+    ├── css/
+    ├── js/
+    ├── chrome-extension/
+    └── firefox-extension/
 ```
 
 ## Technical Details
 
-- Single HTML file, no build required
+- **Modular architecture** — CSS and JS separated into 12 files
+- **No build required** — Files loaded directly in browser
 - Anthropic API requires `node proxy-server.js` (CORS bypass)
 - Data stored in browser `localStorage` (API keys tied to provider)
 - API requests sent directly from browser (CORS depends on provider)
 - Interface adapted for mobile devices and tablets
 - Light and dark theme support
 - Markdown rendering via [marked.js](https://marked.js.org)
-- Styled with [Tailwind CSS](https://tailwindcss.com) (CDN)
+- Styled with [Tailwind CSS](https://tailwindcss.com) (CDN in main app, local in extensions)
 
 ## Limitations
 

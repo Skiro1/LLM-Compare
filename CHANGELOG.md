@@ -53,11 +53,20 @@
 ### Priority 1 — Critical (Next Release v1.2.0)
 
 #### Code Architecture
-- [ ] **Split monolithic HTML file** — Separate `LLM_Compare.html` into modules:
-  - `src/components/` — UI components (modals, cards, tabs)
-  - `src/services/` — API services (providers, streaming, error handling)
-  - `src/utils/` — Helper functions (copy, storage, validation)
-  - `src/state/` — State management (models, prompts, history)
+- [x] **Split monolithic HTML file** — `LLM_Compare.html` separated into modules via Cheerio:
+  - `css/styles.css` — All styles extracted from `<style>`
+  - `js/constants.js` — Default prompts, models, templates
+  - `js/state.js` — Application state variables
+  - `js/modules/logging.js` — Logging system
+  - `js/modules/providers.js` — LM Studio + cloud providers
+  - `js/modules/huggingface.js` — Hugging Face integration
+  - `js/modules/autosave.js` — Auto-save and notifications
+  - `js/modules/ratings.js` — Star rating system
+  - `js/modules/comparison.js` — Side-by-side comparison
+  - `js/modules/theme.js` — Theme toggle
+  - `js/modules/init.js` — Initialization and keyboard shortcuts
+  - `js/modules/app.js` — Main application logic
+  - Applied to all 6 locations: root, `ru/`, `chrome-extension/`, `firefox-extension/`, `ru/chrome-extension/`, `ru/firefox-extension/`
 - [ ] **Add build system** — Use Vite or Webpack for bundling
 - [ ] **Remove CDN Tailwind** — Migrate to Tailwind CLI or PostCSS plugin
 
@@ -134,6 +143,15 @@
 ---
 
 ## Version History
+
+### v1.2.0 — Modular Architecture Refactor
+- ✅ Split monolithic `LLM_Compare.html` into 11 JS modules + CSS
+- ✅ Cheerio-based automated split script
+- ✅ All JS files pass `node --check` syntax validation
+- ✅ Applied to all 6 locations (root, ru/, extensions)
+- ✅ Star History badge added to README
+- ✅ Removed temporary files and cleanup scripts
+- ✅ `.gitignore` updated
 
 ### v1.1.0 (Current) — Translation & Bug Fixes
 - ✅ Full English translation of all project files

@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-LLM + Synthesis</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body style="background: linear-gradient(to bottom, var(--bg-gradient-from), var(--bg-gradient-to)); min-height: 100vh;">
+    <!-- Auto-save indicator -->
+    <div id="autosaveIndicator" class="autosave-indicator">
+        <div class="autosave-dot"></div>
+        <span id="autosaveText">Сохранено</span>
+    </div>
+    <div class="max-w-5xl mx-auto px-5 py-8">
+        <!-- Header -->
+        <div class="header-wrap flex mb-5">
+            <div class="header-btn-group">
+                <a href="api-docs.html" target="_blank" class="btn btn-outline btn-sm" title="API Документация">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <span class="hidden sm:inline">API</span>
+                </a>
+                <button onclick="openHistory()" class="btn btn-outline btn-sm" title="История запросов">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="hidden sm:inline">История</span>
+                </button>
+            </div>
+            <div class="header-title flex-1 text-center px-2">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    <h1 class="text-2xl sm:text-3xl font-bold">Multi-LLM + Синтез</h1>
+                </div>
+                <p class="text-zinc-500 text-sm hidden sm:block">Ручной режим: копируйте промты → вставляйте ответы → получайте результат</p>
+            </div>
+            <div class="header-btn-group">
+                <button onclick="toggleTheme()" class="btn btn-outline btn-sm" id="themeToggle" title="Переключить тему">
+                    <svg id="themeIconLight" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg id="themeIconDark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <button onclick="openSettings()" class="btn btn-outline btn-sm" title="Настройки">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="hidden sm:inline">Настройки</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step Navigation -->
+        <div class="step-nav-wrap flex items-center justify-center gap-2 mb-6">
+            <button class="step-btn active px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(1)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                <span>Запрос</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(2)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <span>Улучшение</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(3)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span>Модели</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(4)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                <span>Синтез</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2" onclick="setStep(5)">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span>Результат</span>
+            </button>
+        </div>
+
+        <!-- Step 1: Raw Prompt -->
+        <div id="step-1" class="step-content active">
+            <!-- In-thread chat history (shown when continuing) -->
+            <div id="chatHistoryWrap" class="chat-history-wrap hidden">
+                <div class="chat-history-head">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <span class="font-medium text-sm text-zinc-700" id="chatHistoryTitle">История чата</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button onclick="openChatFullscreen()" class="btn btn-outline btn-sm text-xs" title="Открыть в большом окне">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            Развернуть
+                        </button>
+                        <button onclick="resetAll()" class="btn btn-outline btn-sm text-xs">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Новый чат
+                        </button>
+                    </div>
+                </div>
+                <div class="chat-history-body" id="chatHistoryBody"></div>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <span id="step1Title">Шаг 1: Ваш сырой запрос</span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Введите ваш исходный вопрос или задачу</p>
+                <textarea id="rawPrompt" class="textarea" placeholder="Например: Как работает квантовая запутанность?" oninput="autoSave()"></textarea>
+                <div class="step-actions flex justify-between items-center mt-4">
+                    <span id="modelsCount" class="text-base text-zinc-500"></span>
+                    <button class="btn btn-primary" onclick="setStep(2)">
+                        Далее: Улучшение
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Improve Prompt -->
+        <div id="step-2" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Системный промт для улучшения
+                        </h2>
+                        <p class="text-zinc-500 text-base">1. Скопируйте этот системный промт</p>
+                    </div>
+                    <button id="copy-enhancer-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать системный промт" aria-label="Скопировать системный промт" onclick="copyText('ENHANCER_SYSTEM', 'copy-enhancer-sys')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="enhancerSystemDisplay"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Промт для отправки</h2>
+                        <p class="text-zinc-500 text-base">2. Скопируйте и отправьте вместе с системным промтом</p>
+                    </div>
+                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать промт для улучшения" aria-label="Скопировать промт для улучшения" onclick="copyText(generateEnhancerUserPrompt(), 'copy-enhancer-user')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block" id="enhancerUserPrompt"></div>
+            </div>
+
+            <!-- LM Studio button for prompt improvement -->
+            <div id="lms-enhancer-panel" class="card hidden" style="border-color: rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        <div>
+                            <span class="text-sm font-medium" style="color:#6366f1;">Отправить в провайдера</span>
+                            <div class="text-xs text-zinc-500 mt-0.5" id="lms-enhancer-model-hint"><span id="lms-enhancer-provider-label">Локальный ИИ</span> · <span id="lms-enhancer-model-name">—</span></div>
+                        </div>
+                    </div>
+                    <button id="lms-send-enhancer-btn" class="btn btn-ai btn-sm" onclick="sendEnhancerToLmStudio()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Отправить в ИИ
+                    </button>
+                </div>
+                <div id="lms-enhancer-status" class="mt-2 text-xs hidden"></div>
+            </div>
+
+            <!-- Hugging Face button for prompt improvement -->
+            <div id="hf-enhancer-panel" class="card hidden" style="border-color: rgba(250,204,21,0.35); background: rgba(250,204,21,0.04);">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">🤗</span>
+                        <div>
+                            <span class="text-sm font-medium" style="color:#eab308;">Отправить в Hugging Face</span>
+                            <div class="text-xs text-zinc-500 mt-0.5" id="hf-enhancer-model-hint">Inference API · <span id="hf-enhancer-model-name">—</span></div>
+                        </div>
+                    </div>
+                    <button id="hf-send-enhancer-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);" onclick="sendEnhancerToHf()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Отправить в HF
+                    </button>
+                </div>
+                <div id="hf-enhancer-status" class="mt-2 text-xs hidden"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    3. Вставьте улучшенный промт
+                    <span id="lms-enhancer-filled-badge" class="ai-result-badge hidden">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        Заполнено ИИ
+                    </span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4">Вставьте сюда ответ от ИИ (улучшенный промт)</p>
+                <textarea id="improvedPrompt" class="textarea" placeholder="Вставьте улучшенный промт сюда..." oninput="autoSave()"></textarea>
+                <div class="step-actions flex justify-between mt-4">
+                    <button class="btn btn-outline" onclick="setStep(1)">Назад</button>
+                    <button class="btn btn-primary" onclick="setStep(3)">
+                        Далее: Модели
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Model Answers -->
+        <div id="step-3" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Улучшенный промт для отправки в модели</h2>
+                        <p class="text-zinc-500 text-base">Отправьте этот промт в каждую модель ниже</p>
+                    </div>
+                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать улучшенный промт" aria-label="Скопировать улучшенный промт" onclick="copyText(document.getElementById('improvedPrompt').value, 'copy-improved')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="improvedPromptDisplay"></div>
+            </div>
+
+            <!-- Dynamic Model Cards Container -->
+            <div id="modelCardsContainer"></div>
+
+            <div class="step-actions flex justify-between mt-4">
+                <button class="btn btn-outline" onclick="setStep(2)">Назад</button>
+                <button class="btn btn-primary" onclick="setStep(4)">
+                    Далее: Синтез
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Synthesis -->
+        <div id="step-4" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            Системный промт для агрегации
+                        </h2>
+                        <p class="text-zinc-500 text-base">1. Скопируйте этот системный промт</p>
+                    </div>
+                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать системный промт для агрегации" aria-label="Скопировать системный промт для агрегации" onclick="copyText('AGGREGATOR_SYSTEM', 'copy-aggregator-sys')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="aggregatorSystemDisplay"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Промт с ответами моделей</h2>
+                        <p class="text-zinc-500 text-base">2. Скопируйте и отправьте вместе с системным промтом</p>
+                    </div>
+                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать промт для агрегации" aria-label="Скопировать промт для агрегации" onclick="copyText(generateAggregatorPrompt(), 'copy-aggregator-user')">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block" id="aggregatorPromptDisplay"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    3. Вставьте синтезированный ответ
+                    <span id="lms-aggregator-filled-badge" class="ai-result-badge hidden">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        Заполнено ИИ
+                    </span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4">Вставьте сюда финальный агрегированный ответ</p>
+
+                <!-- LM Studio button for synthesis -->
+                <div id="lms-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <div>
+                                <span class="text-sm font-medium" style="color:#6366f1;">Отправить в провайдера</span>
+                                <div class="text-xs text-zinc-500 mt-0.5"><span id="lms-aggregator-provider-label">Локальный ИИ</span> · <span id="lms-aggregator-model-name">—</span></div>
+                            </div>
+                        </div>
+                        <button id="lms-send-aggregator-btn" class="btn btn-ai btn-sm" onclick="sendAggregatorToLmStudio()">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Отправить в ИИ
+                        </button>
+                    </div>
+                    <div id="lms-aggregator-status" class="mt-2 text-xs hidden"></div>
+                </div>
+
+                <!-- Hugging Face button for synthesis -->
+                <div id="hf-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(250,204,21,0.35); background: rgba(250,204,21,0.04);">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg">🤗</span>
+                            <div>
+                                <span class="text-sm font-medium" style="color:#eab308;">Отправить в Hugging Face</span>
+                                <div class="text-xs text-zinc-500 mt-0.5">Inference API · <span id="hf-aggregator-model-name">—</span></div>
+                            </div>
+                        </div>
+                        <button id="hf-send-aggregator-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);" onclick="sendAggregatorToHf()">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Отправить в HF
+                        </button>
+                    </div>
+                    <div id="hf-aggregator-status" class="mt-2 text-xs hidden"></div>
+                </div>
+
+                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Вставьте синтезированный ответ..." oninput="autoSave()"></textarea>
+                <div class="step-actions flex justify-between mt-4">
+                    <button class="btn btn-outline" onclick="setStep(3)">Назад</button>
+                    <button class="btn btn-primary" onclick="setStep(5)">
+                        Далее: Результат
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Result -->
+        <div id="step-5" class="step-content">
+            <!-- Tabs -->
+            <div class="result-tabs-bar flex border-b border-zinc-200 mb-4 overflow-x-auto">
+                <button class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-zinc-900 text-zinc-900" onclick="setResultTab('final', event)">Финальный ответ</button>
+                <button class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900" onclick="setResultTab('comparison', event)">Сравнение</button>
+                <button class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900" onclick="setResultTab('json', event)">JSON</button>
+            </div>
+
+            <!-- Final Answer Tab -->
+            <div id="result-final" class="result-tab">
+                <div class="card card-primary">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            Синтезированный ответ
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="copy-final" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать финальный ответ" aria-label="Скопировать финальный ответ" onclick="copyText(document.getElementById('finalAnswer').value, 'copy-final')">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="finalAnswerDisplay"></div>
+                </div>
+            </div>
+
+            <!-- Comparison Tab -->
+            <div id="result-comparison" class="result-tab hidden">
+                <div class="card">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold">Сравнение ответов моделей</h2>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-zinc-500">Средняя оценка: <strong id="avgRatingDisplay">0</strong>/5</span>
+                        </div>
+                    </div>
+                    <div class="comparison-grid" id="comparisonGrid"></div>
+                </div>
+            </div>
+
+            <!-- JSON Tab -->
+            <div id="result-json" class="result-tab hidden">
+                <div class="card">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold">Итоговый JSON</h2>
+                        <div class="flex gap-2">
+                            <button id="copy-json" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Скопировать JSON" aria-label="Скопировать JSON" onclick="copyText(generateResultJSON(), 'copy-json')">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <pre class="code-block scrollable" id="resultJSONDisplay" style="max-height: 400px;"></pre>
+                </div>
+            </div>
+
+            <div class="step-actions flex justify-between mt-4">
+                <button class="btn btn-outline" onclick="setStep(4)">Назад</button>
+                <div class="flex gap-2">
+                    <button class="btn btn-outline" onclick="openContinueModal()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        Продолжить чат
+                    </button>
+                    <button class="btn btn-primary" onclick="resetAll()">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        Новый запрос
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="text-xl font-semibold">Настройки</h2>
+                <button onclick="closeSettings()" class="text-zinc-400 hover:text-zinc-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <!-- Settings Tabs -->
+            <div class="flex border-b border-zinc-200 px-6 pt-4 overflow-x-auto" style="scrollbar-width:none;">
+                <button class="settings-tab active" onclick="setSettingsTab('general')">Общие</button>
+                <button class="settings-tab" onclick="setSettingsTab('models')">Модели</button>
+                <button class="settings-tab" onclick="setSettingsTab('prompts')">Промты</button>
+                <button class="settings-tab" onclick="setSettingsTab('templates')">Шаблоны</button>
+                <button class="settings-tab" onclick="setSettingsTab('lmstudio')">Провайдеры</button>
+                <button class="settings-tab" onclick="setSettingsTab('logs')" id="settings-tab-logs">Логи<span id="log-error-badge" class="log-count-badge hidden">0</span></button>
+            </div>
+
+            <!-- General Tab -->
+            <div id="settings-general" class="tab-pane active">
+                <div class="modal-body space-y-6">
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Профиль задачи</label>
+                        <select id="taskProfileSelect" class="input" onchange="handleTaskProfileChange(this.value)"></select>
+                        <p class="text-xs text-zinc-500 mt-2">Профиль меняет системные промты для улучшения и синтеза. Если вы вручную измените промты, профиль автоматически станет `Свой`.</p>
+                        <div class="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3">
+                            <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Активный профиль</div>
+                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Универсальный</div>
+                            <p id="taskProfileDescription" class="text-xs text-zinc-500 mt-1">Сбалансированный режим для большинства задач.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="notificationsEnabledToggle" class="mt-1">
+                            <div>
+                                <div class="text-sm font-medium">Системные уведомления</div>
+                                <p class="text-xs text-zinc-500 mt-1">Показывать индикатор автосохранения и неблокирующие предупреждения.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="useRatingsInSynthesisToggle" class="mt-1">
+                            <div>
+                                <div class="text-sm font-medium">Учитывать оценки в синтезе</div>
+                                <p class="text-xs text-zinc-500 mt-1">Передавать оценки пользователя в агрегирующий промт как мягкий сигнал предпочтения. Если оценка не указана, это считается нейтральным случаем, а не минусом.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Models Tab -->
+            <div id="settings-models" class="tab-pane">
+                <div class="modal-body">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="text-sm text-zinc-500 whitespace-nowrap" id="modelsListCount"></span>
+                        <div class="flex gap-2 flex-wrap">
+                            <button onclick="restoreDefaultModels()" class="btn btn-outline btn-sm" title="Восстановить умолчания">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Вернуть умолчания
+                            </button>
+                            <button onclick="deleteSelectedModels()" class="btn btn-danger btn-sm" title="Удалить выбранные" id="deleteSelectedBtn" disabled="">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Удалить выбранные
+                            </button>
+                            <button onclick="deleteAllModels()" class="btn btn-danger btn-sm" title="Удалить все">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Удалить все
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modelsList"></div>
+                    
+                    <div class="mt-4 pt-4 border-t border-zinc-200">
+                        <h3 class="text-sm font-medium mb-3">Добавить модель</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Название</label>
+                                <input type="text" id="newModelName" class="input" placeholder="GPT">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Провайдер</label>
+                                <input type="text" id="newModelProvider" class="input" placeholder="OpenAI">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Системный промт (опционально)</label>
+                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Оставьте пустым для использования общего промта"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Ссылка на чат (опционально)</label>
+                                <input type="url" id="newModelChatUrl" class="input" placeholder="https://example.com/chat">
+                            </div>
+                            <button onclick="addModel()" class="btn btn-primary w-full">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Добавить модель
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prompts Tab -->
+            <div id="settings-prompts" class="tab-pane">
+                <div class="modal-body space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-medium">Промт для улучшения</label>
+                            <button onclick="resetEnhancerPrompt()" class="text-xs text-blue-600 hover:underline">Сбросить</button>
+                        </div>
+                        <textarea id="settingsEnhancerPrompt" class="textarea" style="min-height: 150px;" oninput="syncTaskProfileFromPromptEditors()"></textarea>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-medium">Промт для агрегации</label>
+                            <button onclick="resetAggregatorPrompt()" class="text-xs text-blue-600 hover:underline">Сбросить</button>
+                        </div>
+                        <textarea id="settingsAggregatorPrompt" class="textarea" style="min-height: 150px;" oninput="syncTaskProfileFromPromptEditors()"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Templates Tab -->
+            <div id="settings-templates" class="tab-pane">
+                <div class="modal-body space-y-6">
+                    <div>
+                        <h3 class="text-sm font-medium mb-3">Сохранённые шаблоны промтов</h3>
+                        <p class="text-xs text-zinc-500 mb-4">Шаблоны можно использовать как начальные точки для новых запросов</p>
+                        <div id="templatesList"></div>
+                        <button onclick="addTemplate()" class="btn btn-outline btn-sm w-full mt-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Добавить шаблон
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Провайдеры Tab -->
+            <div id="settings-lmstudio" class="tab-pane">
+                <div class="modal-body space-y-4">
+
+                    <!-- Enable toggle -->
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="lmsEnabledToggle" class="mt-1" onchange="onLmsToggleChange()">
+                            <div>
+                                <div class="text-sm font-medium">Подключить провайдера для автоматической обработки</div>
+                                <p class="text-xs text-zinc-500 mt-1">Кнопка «Отправить в ИИ» появится на шагах синтеза и улучшения промта. Если выключено — всё остаётся в ручном режиме.</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="lms-config-section" class="space-y-4">
+
+                        <!-- Provider selector -->
+                        <div class="card" style="margin:0; padding:1.25rem;">
+                            <label class="block text-sm font-medium mb-3">Провайдер</label>
+
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">🖥️ Локальные</div>
+                            <div class="grid gap-2 mb-4" style="grid-template-columns: repeat(3,1fr);">
+                                <label id="lms-provider-card-lmstudio" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('lmstudio')">
+                                    <div class="text-lg mb-1">🖥️</div>
+                                    <div class="text-xs font-semibold">LM Studio</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">порт 1234</div>
+                                </label>
+                                <label id="lms-provider-card-ollama" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('ollama')">
+                                    <div class="text-lg mb-1">🦙</div>
+                                    <div class="text-xs font-semibold">Ollama</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">порт 11434</div>
+                                </label>
+                                <label id="lms-provider-card-custom" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('custom')">
+                                    <div class="text-lg mb-1">⚙️</div>
+                                    <div class="text-xs font-semibold">Другой</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">OpenAI API</div>
+                                </label>
+                            </div>
+
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">☁️ Облачные</div>
+                            <div class="grid gap-2" style="grid-template-columns: repeat(3,1fr);">
+                                <label id="lms-provider-card-openai" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('openai')">
+                                    <div class="text-lg mb-1">🤖</div>
+                                    <div class="text-xs font-semibold">OpenAI</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">GPT</div>
+                                </label>
+                                <label id="lms-provider-card-deepseek" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('deepseek')">
+                                    <div class="text-lg mb-1">🔮</div>
+                                    <div class="text-xs font-semibold">DeepSeek</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">V3.2</div>
+                                </label>
+                                <label id="lms-provider-card-mistral" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('mistral')">
+                                    <div class="text-lg mb-1">🌀</div>
+                                    <div class="text-xs font-semibold">Mistral AI</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Large 3</div>
+                                </label>
+                                <label id="lms-provider-card-anthropic" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('anthropic')">
+                                    <div class="text-lg mb-1">🧠</div>
+                                    <div class="text-xs font-semibold">Anthropic</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Claude 🔒 прокси</div>
+                                </label>
+                                <label id="lms-provider-card-google" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('google')">
+                                    <div class="text-lg mb-1">🌟</div>
+                                    <div class="text-xs font-semibold">Google</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Gemini</div>
+                                </label>
+                                <label id="lms-provider-card-groq" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('groq')">
+                                    <div class="text-lg mb-1">⚡</div>
+                                    <div class="text-xs font-semibold">Groq Cloud</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">LPU</div>
+                                </label>
+                                <label id="lms-provider-card-huggingface" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('huggingface')">
+                                    <div class="text-lg mb-1">🤗</div>
+                                    <div class="text-xs font-semibold">Hugging Face</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Inference API</div>
+                                </label>
+                                <label id="lms-provider-card-openrouter" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all" onclick="selectLmsProvider('openrouter')">
+                                    <div class="text-lg mb-1">🔀</div>
+                                    <div class="text-xs font-semibold">OpenRouter</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Ручной ввод</div>
+                                </label>
+                            </div>
+
+                            <input type="hidden" id="lmsProviderInput" value="lmstudio">
+                            <p id="lms-provider-hint" class="text-xs text-zinc-500 mt-3"></p>
+                        </div>
+
+                        <!-- Import / Clear all keys -->
+                        <div class="card" style="margin:0; padding:1rem;">
+                            <div class="flex flex-wrap gap-2">
+                                <button onclick="document.getElementById('keyImportInput').click()" class="btn btn-outline btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    Импорт ключей (.txt)
+                                </button>
+                                <input type="file" id="keyImportInput" accept=".txt" style="display:none" onchange="importKeysFromFile(event)">
+                                <button onclick="exportKeysToFile()" class="btn btn-outline btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Экспорт ключей
+                                </button>
+                                <button onclick="clearAllApiKeys()" class="btn btn-danger btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Удалить все ключи
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-2">Формат .txt: <code>ПРОВАЙДЕР - ключ</code> (каждый ключ с новой строки, порядок не важен)</p>
+                        </div>
+
+                        <!-- API Key (cloud only) -->
+                        <div class="card" id="lms-apikey-card" style="margin:0; padding:1.25rem; display:none;">
+                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API ключ</label>
+                            <div class="relative">
+                                <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…" oninput="saveCurrentProviderCredentials()">
+                                <button type="button" onclick="toggleApiKeyVisibility()" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Показать/скрыть">
+                                    <svg id="eye-icon-closed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                    <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">Ключ хранится только в браузере.</p>
+                        </div>
+
+                        <!-- Server URL (local / custom only) -->
+                        <div class="card" id="lms-url-card" style="margin:0; padding:1.25rem;">
+                            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                                <label class="block text-sm font-medium" id="lms-url-label">Адрес сервера</label>
+                                <span id="lms-connection-status" class="lms-status disconnected">
+                                    <span class="lms-status-dot"></span>
+                                    <span id="lms-status-text">Не подключено</span>
+                                </span>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="lmsUrlInput" class="input flex-1" placeholder="http://localhost:1234">
+                                <button class="btn btn-outline btn-sm" onclick="testLmsConnection()" id="lms-test-btn">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Проверить
+                                </button>
+                            </div>
+                            <p id="lms-server-hint" class="text-xs text-zinc-500 mt-2"></p>
+                        </div>
+
+                        <!-- Cloud connect button (cloud providers) -->
+                        <div class="card" id="lms-cloud-check-card" style="margin:0; padding:1.25rem; display:none;">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span id="lms-connection-status-cloud" class="lms-status disconnected">
+                                    <span class="lms-status-dot"></span>
+                                    <span id="lms-status-text-cloud">Не проверено</span>
+                                </span>
+                                <button class="btn btn-outline btn-sm" onclick="testLmsConnection()" id="lms-test-cloud-btn">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Проверить ключ
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Введите API ключ и нажмите «Проверить ключ» для загрузки списка моделей.</p>
+                        </div>
+
+                        <!-- Model selection (dropdown for list providers) -->
+                        <div class="card" id="lms-model-select-card" style="margin:0; padding:1.25rem;">
+                            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                                <label class="block text-sm font-medium">Модель</label>
+                                <button class="btn btn-outline btn-sm text-xs" onclick="refreshLmsModels()" id="lms-refresh-btn">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    Обновить
+                                </button>
+                            </div>
+                            <select id="lmsModelSelect" class="input" onchange="saveCurrentProviderCredentials()">
+                                <option value="">— Выберите провайдера и проверьте подключение —</option>
+                            </select>
+                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Выберите модель из списка.</p>
+                        </div>
+
+                        <!-- Model input (manual for providers like Hugging Face) -->
+                        <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
+                            <label class="block text-sm font-medium mb-2">Модель</label>
+                            <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct" oninput="saveCurrentProviderCredentials()">
+                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Укажите ID модели вручную.</p>
+                        </div>
+
+                        <!-- Usage mode -->
+                        <div class="card" style="margin:0; padding:1.25rem;">
+                            <label class="block text-sm font-medium mb-3">Использовать для</label>
+                            <div class="space-y-2.5">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="both" id="lmsUseBoth" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Всего сразу</div><div class="text-xs text-zinc-500">Улучшение промта + синтез ответов</div></div>
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="prompt" id="lmsUsePrompt" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Только улучшение промта</div><div class="text-xs text-zinc-500">Шаг 2: уточнение вашего запроса</div></div>
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="synthesis" id="lmsUseSynthesis" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Только синтез ответов</div><div class="text-xs text-zinc-500">Шаг 4: агрегация ответов всех моделей</div></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- API docs link — general, visible for all providers -->
+                        <div class="card" style="margin:0; padding:1.25rem; background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.2);">
+                            <div class="flex items-start gap-2">
+                                <span class="text-lg">📡</span>
+                                <div>
+                                    <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">Документация API</div>
+                                    <p class="text-xs text-zinc-500 mt-1">Все провайдеры используют формат, совместимый с OpenAI API. Подробности по эндпоинтам, параметрам, стримингу и rate limits — в документации.</p>
+                                    <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Открыть документацию API →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logs Tab -->
+            <div id="settings-logs" class="tab-pane">
+                <div class="modal-body space-y-4">
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
+                            <label class="flex items-center gap-2.5 cursor-pointer">
+                                <input type="checkbox" id="loggingEnabledToggle" onchange="onLoggingToggleChange()">
+                                <div>
+                                    <div class="text-sm font-medium">Сохранять логи</div>
+                                    <p class="text-xs text-zinc-500 mt-0.5">При отключении новые записи не сохраняются.</p>
+                                </div>
+                            </label>
+                            <div class="flex gap-2">
+                                <button class="btn btn-outline btn-sm text-xs" onclick="exportLogs()">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Экспорт
+                                </button>
+                                <button class="btn btn-danger btn-sm text-xs" onclick="clearLogs()">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Очистить логи
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 text-xs text-zinc-500 flex-wrap" id="log-stats">
+                            <span>Всего: <strong id="log-stat-total">0</strong></span>
+                            <span style="color:#ef4444;">Ошибок: <strong id="log-stat-errors">0</strong></span>
+                            <span style="color:#d97706;">Предупреждений: <strong id="log-stat-warns">0</strong></span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <button class="btn btn-outline btn-sm text-xs log-filter-btn active" data-filter="all" onclick="setLogFilter('all', this)">Все</button>
+                        <button class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="error" onclick="setLogFilter('error', this)">Ошибки</button>
+                        <button class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="warn" onclick="setLogFilter('warn', this)">Предупреждения</button>
+                        <button class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="info" onclick="setLogFilter('info', this)">Инфо</button>
+                        <button class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="success" onclick="setLogFilter('success', this)">Успех</button>
+                    </div>
+                    <div class="logs-container" id="logsContainer">
+                        <div class="logs-empty" id="logsEmpty">
+                            <svg class="w-8 h-8 mx-auto mb-2 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <p>Логи пусты</p>
+                        </div>
+                        <div id="logsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button onclick="closeSettings()" class="btn btn-outline">Закрыть</button>
+                <button onclick="saveSettings()" class="btn btn-primary">Сохранить</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue Chat Modal -->
+    <div id="continueModal" class="modal-overlay hidden">
+        <div class="modal" style="max-width:600px;">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-semibold">Продолжить чат</h2>
+                    <p class="text-sm text-zinc-500 mt-0.5">Вставьте ссылки на существующие чаты, чтобы ИИ помнил контекст. Можно оставить пустыми — откроются новые чаты.</p>
+                </div>
+                <button onclick="closeContinueModal()" class="text-zinc-400 hover:text-zinc-600 ml-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:55vh;">
+                <div id="continueUrlList"></div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="closeContinueModal()">Отмена</button>
+                <button class="btn btn-primary" onclick="submitContinue()">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    Продолжить
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Overlay -->
+    <div id="historyOverlay" class="history-overlay" onclick="closeHistory()"></div>
+
+        <!-- History Panel -->
+        <div id="historyPanel" class="history-panel">
+            <div class="history-header">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="text-lg font-semibold">История запросов</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button onclick="exportHistory()" class="btn btn-outline btn-sm" title="Экспорт истории">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>
+                    <button onclick="importHistory()" class="btn btn-outline btn-sm" title="Импорт истории">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    </button>
+                    <button onclick="clearHistory()" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Очистить историю">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                    <button onclick="closeHistory()" class="text-zinc-400 hover:text-zinc-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Search -->
+            <div class="px-4 py-2 border-b border-[var(--border)]">
+                <div class="relative">
+                    <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="historySearch" class="input pl-9 text-sm" placeholder="Поиск по истории..." oninput="filterHistory()">
+                </div>
+            </div>
+            <div class="history-body" id="historyList">
+                <div class="history-empty">
+                <svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p>История пуста</p>
+                <p class="text-xs mt-1">Завершённые сессии появятся здесь</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Chat fullscreen modal -->
+    <div id="chatFullscreenOverlay" class="chat-fullscreen-overlay" onclick="if(event.target===this)closeChatFullscreen()">
+        <div class="chat-fullscreen-modal">
+            <div class="chat-fullscreen-head">
+                <span class="font-semibold text-base" id="chatFullscreenTitle">Чат</span>
+                <button onclick="closeChatFullscreen()" class="btn btn-outline btn-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    Закрыть
+                </button>
+            </div>
+            <div class="chat-fullscreen-body" id="chatFullscreenBody"></div>
+        </div>
+    </div>
+
+
+</body>
+
+    <!-- Application Scripts -->
+    <script src="js/constants.js"></script>
+    <script src="js/state.js"></script>
+    <script src="js/modules/logging.js"></script>
+    <script src="js/modules/providers.js"></script>
+    <script src="js/modules/huggingface.js"></script>
+    <script src="js/modules/autosave.js"></script>
+    <script src="js/modules/ratings.js"></script>
+    <script src="js/modules/comparison.js"></script>
+    <script src="js/modules/theme.js"></script>
+    <script src="js/modules/init.js"></script>
+    <script src="js/modules/app.js"></script>
+</body>
+</html>

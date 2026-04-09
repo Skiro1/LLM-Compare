@@ -1,0 +1,879 @@
+<!DOCTYPE html><html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-LLM + Synthesis</title>
+    <script src="lib/tailwindcss.js"></script>
+    <script src="lib/marked.min.js"></script>
+    
+<link rel="stylesheet" href="css/styles.css"></head>
+<body style="background: linear-gradient(to bottom, var(--bg-gradient-from), var(--bg-gradient-to)); min-height: 100vh;">
+    <!-- Auto-save indicator -->
+    <div id="autosaveIndicator" class="autosave-indicator">
+        <div class="autosave-dot"></div>
+        <span id="autosaveText">Saved</span>
+    </div>
+    <div class="max-w-5xl mx-auto px-5 py-8">
+        <!-- Header -->
+        <div class="header-wrap flex mb-5">
+            <div class="header-btn-group">
+                <a href="api-docs.html" target="_blank" class="btn btn-outline btn-sm" title="API Documentation">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    <span class="hidden sm:inline">API</span>
+                </a>
+                <button id="ext-el-1" class="btn btn-outline btn-sm" title="Request History">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span class="hidden sm:inline">History</span>
+                </button>
+            </div>
+            <div class="header-title flex-1 text-center px-2">
+                <div class="flex items-center justify-center gap-2 mb-1">
+                    <svg class="w-6 h-6 sm:w-8 sm:h-8 text-zinc-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                    <h1 class="text-2xl sm:text-3xl font-bold">Multi-LLM + Synthesis</h1>
+                </div>
+                <p class="text-zinc-500 text-sm hidden sm:block">Manual mode: copy prompts → paste responses → get results</p>
+            </div>
+            <div class="header-btn-group">
+                <button class="btn btn-outline btn-sm" id="themeToggle" title="Toggle theme">
+                    <svg id="themeIconLight" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg id="themeIconDark" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <button id="ext-el-2" class="btn btn-outline btn-sm" title="Settings">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    <span class="hidden sm:inline">Settings</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step Navigation -->
+        <div class="step-nav-wrap flex items-center justify-center gap-2 mb-6">
+            <button id="ext-el-3" class="step-btn active px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                <span>Request</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button id="ext-el-4" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                <span>Improve</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button id="ext-el-5" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                <span>Models</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button id="ext-el-6" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                <span>Synthesis</span>
+            </button>
+            <span class="arrow step-nav-arrows">→</span>
+            <button id="ext-el-7" class="step-btn px-4 py-2.5 rounded-lg text-sm flex items-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                <span>Result</span>
+            </button>
+        </div>
+
+        <!-- Step 1: Raw Prompt -->
+        <div id="step-1" class="step-content active">
+            <!-- In-thread chat history (shown when continuing) -->
+            <div id="chatHistoryWrap" class="chat-history-wrap hidden">
+                <div class="chat-history-head">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        <span class="font-medium text-sm text-zinc-700" id="chatHistoryTitle">Chat History</span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <button id="ext-el-8" class="btn btn-outline btn-sm text-xs" title="Open in large window">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"></path></svg>
+                            Expand
+                        </button>
+                        <button id="ext-el-9" class="btn btn-outline btn-sm text-xs">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            New Chat
+                        </button>
+                    </div>
+                </div>
+                <div class="chat-history-body" id="chatHistoryBody"></div>
+            </div>
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                    <span id="step1Title">Step 1: Your Raw Request</span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4" id="step1Hint">Enter your original question or task</p>
+                <textarea id="rawPrompt" class="textarea" placeholder="For example: How does quantum entanglement work?"></textarea>
+                <div class="step-actions flex justify-between items-center mt-4">
+                    <span id="modelsCount" class="text-base text-zinc-500"></span>
+                    <button id="ext-el-10" class="btn btn-primary">
+                        Next: Improve
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Improve Prompt -->
+        <div id="step-2" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            System Prompt for Improvement
+                        </h2>
+                        <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
+                    </div>
+                    <button id="copy-enhancer-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy system prompt" aria-label="Copy system prompt">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="enhancerSystemDisplay"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Prompt to Send</h2>
+                        <p class="text-zinc-500 text-base">2. Copy and send with the system prompt</p>
+                    </div>
+                    <button id="copy-enhancer-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy prompt for improvement" aria-label="Copy prompt for improvement">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block" id="enhancerUserPrompt"></div>
+            </div>
+
+            <!-- LM Studio button for prompt improvement -->
+            <div id="lms-enhancer-panel" class="card hidden" style="border-color: rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-2">
+                        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        <div>
+                            <span class="text-sm font-medium" style="color:#6366f1;">Send to Provider</span>
+                            <div class="text-xs text-zinc-500 mt-0.5" id="lms-enhancer-model-hint"><span id="lms-enhancer-provider-label">Local AI</span> · <span id="lms-enhancer-model-name">—</span></div>
+                        </div>
+                    </div>
+                    <button id="lms-send-enhancer-btn" class="btn btn-ai btn-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Send to AI
+                    </button>
+                </div>
+                <div id="lms-enhancer-status" class="mt-2 text-xs hidden"></div>
+            </div>
+
+            <!-- Hugging Face button for prompt improvement -->
+            <div id="hf-enhancer-panel" class="card hidden" style="border-color: rgba(250,204,21,0.35); background: rgba(250,204,21,0.04);">
+                <div class="flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-2">
+                        <span class="text-lg">🤗</span>
+                        <div>
+                            <span class="text-sm font-medium" style="color:#eab308;">Send to Hugging Face</span>
+                            <div class="text-xs text-zinc-500 mt-0.5" id="hf-enhancer-model-hint">Inference API · <span id="hf-enhancer-model-name">—</span></div>
+                        </div>
+                    </div>
+                    <button id="hf-send-enhancer-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Send to HF
+                    </button>
+                </div>
+                <div id="hf-enhancer-status" class="mt-2 text-xs hidden"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    3. Paste the improved prompt
+                    <span id="lms-enhancer-filled-badge" class="ai-result-badge hidden">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        Filled by AI
+                    </span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4">Paste the AI response here (improved prompt)</p>
+                <textarea id="improvedPrompt" class="textarea" placeholder="Paste the improved prompt here..."></textarea>
+                <div class="step-actions flex justify-between mt-4">
+                    <button id="ext-el-11" class="btn btn-outline">Back</button>
+                    <button id="ext-el-12" class="btn btn-primary">
+                        Next: Models
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Model Answers -->
+        <div id="step-3" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Improved Prompt for Models</h2>
+                        <p class="text-zinc-500 text-base">Send this prompt to each model below</p>
+                    </div>
+                    <button id="copy-improved" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy improved prompt" aria-label="Copy improved prompt">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="improvedPromptDisplay"></div>
+            </div>
+
+            <!-- Dynamic Model Cards Container -->
+            <div id="modelCardsContainer"></div>
+
+            <div class="step-actions flex justify-between mt-4">
+                <button id="ext-el-13" class="btn btn-outline">Back</button>
+                <button id="ext-el-14" class="btn btn-primary">
+                    Next: Synthesis
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Step 4: Synthesis -->
+        <div id="step-4" class="step-content">
+            <div class="card card-primary">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            System Prompt for Aggregation
+                        </h2>
+                        <p class="text-zinc-500 text-base">1. Copy this system prompt</p>
+                    </div>
+                    <button id="copy-aggregator-sys" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy aggregation system prompt" aria-label="Copy aggregation system prompt">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block scrollable" id="aggregatorSystemDisplay"></div>
+            </div>
+
+            <div class="card">
+                <div class="card-top flex items-start justify-between mb-3 gap-2 flex-wrap">
+                    <div>
+                        <h2 class="text-xl font-semibold">Prompt with Model Answers</h2>
+                        <p class="text-zinc-500 text-base">2. Copy and send with the system prompt</p>
+                    </div>
+                    <button id="copy-aggregator-user" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy aggregation prompt" aria-label="Copy aggregation prompt">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                    </button>
+                </div>
+                <div class="code-block" id="aggregatorPromptDisplay"></div>
+            </div>
+
+            <div class="card">
+                <h2 class="text-xl font-semibold mb-1 flex items-center gap-2">
+                    <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                    3. Paste the synthesized response
+                    <span id="lms-aggregator-filled-badge" class="ai-result-badge hidden">
+                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                        Filled by AI
+                    </span>
+                </h2>
+                <p class="text-zinc-500 text-sm mb-4">Paste the final aggregated answer here</p>
+
+                <!-- LM Studio button for synthesis -->
+                <div id="lms-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(99,102,241,0.35); background: rgba(99,102,241,0.04);">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="color:#6366f1;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            <div>
+                                <span class="text-sm font-medium" style="color:#6366f1;">Send to Provider</span>
+                                <div class="text-xs text-zinc-500 mt-0.5"><span id="lms-aggregator-provider-label">Local AI</span> · <span id="lms-aggregator-model-name">—</span></div>
+                            </div>
+                        </div>
+                        <button id="lms-send-aggregator-btn" class="btn btn-ai btn-sm">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Send to AI
+                        </button>
+                    </div>
+                    <div id="lms-aggregator-status" class="mt-2 text-xs hidden"></div>
+                </div>
+
+                <!-- Hugging Face button for synthesis -->
+                <div id="hf-aggregator-panel" class="mb-4 p-3 rounded-lg hidden" style="border: 1px solid rgba(250,204,21,0.35); background: rgba(250,204,21,0.04);">
+                    <div class="flex items-center justify-between flex-wrap gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="text-lg">🤗</span>
+                            <div>
+                                <span class="text-sm font-medium" style="color:#eab308;">Send to Hugging Face</span>
+                                <div class="text-xs text-zinc-500 mt-0.5">Inference API · <span id="hf-aggregator-model-name">—</span></div>
+                            </div>
+                        </div>
+                        <button id="hf-send-aggregator-btn" class="btn btn-ai btn-sm" style="background: linear-gradient(135deg, #eab308 0%, #f59e0b 100%);">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                            Send to HF
+                        </button>
+                    </div>
+                    <div id="hf-aggregator-status" class="mt-2 text-xs hidden"></div>
+                </div>
+
+                <textarea id="finalAnswer" class="textarea" style="min-height: 180px;" placeholder="Paste synthesized answer..."></textarea>
+                <div class="step-actions flex justify-between mt-4">
+                    <button id="ext-el-15" class="btn btn-outline">Back</button>
+                    <button id="ext-el-16" class="btn btn-primary">
+                        Next: Result
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: Result -->
+        <div id="step-5" class="step-content">
+            <!-- Tabs -->
+            <div class="result-tabs-bar flex border-b border-zinc-200 mb-4 overflow-x-auto">
+                <button id="ext-el-17" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-zinc-900 text-zinc-900">Final Answer</button>
+                <button id="ext-el-18" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900">Comparison</button>
+                <button id="ext-el-19" class="tab-btn px-5 py-3 text-base font-medium border-b-2 border-transparent text-zinc-500 hover:text-zinc-900">JSON</button>
+            </div>
+
+            <!-- Final Answer Tab -->
+            <div id="result-final" class="result-tab">
+                <div class="card card-primary">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold flex items-center gap-2">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path></svg>
+                            Synthesized Answer
+                        </h2>
+                        <div class="flex gap-2">
+                            <button id="copy-final" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy final answer" aria-label="Copy final answer">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="finalAnswerDisplay"></div>
+                </div>
+            </div>
+
+            <!-- Comparison Tab -->
+            <div id="result-comparison" class="result-tab hidden">
+                <div class="card">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold">Model Answers Comparison</h2>
+                        <div class="flex items-center gap-2">
+                            <span class="text-sm text-zinc-500">Average rating: <strong id="avgRatingDisplay">0</strong>/5</span>
+                        </div>
+                    </div>
+                    <div class="comparison-grid" id="comparisonGrid"></div>
+                </div>
+            </div>
+
+            <!-- JSON Tab -->
+            <div id="result-json" class="result-tab hidden">
+                <div class="card">
+                    <div class="card-top flex items-center justify-between mb-3 gap-2 flex-wrap">
+                        <h2 class="text-xl font-semibold">Result JSON</h2>
+                        <div class="flex gap-2">
+                            <button id="copy-json" class="btn btn-copy btn-icon" data-icon-size="w-4 h-4" title="Copy JSON" aria-label="Copy JSON">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                    <pre class="code-block scrollable" id="resultJSONDisplay" style="max-height: 400px;"></pre>
+                </div>
+            </div>
+
+            <div class="step-actions flex justify-between mt-4">
+                <button id="ext-el-20" class="btn btn-outline">Back</button>
+                <div class="flex gap-2">
+                    <button id="ext-el-21" class="btn btn-outline">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                        Continue Chat
+                    </button>
+                    <button id="ext-el-22" class="btn btn-primary">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                        New Request
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="text-xl font-semibold">Settings</h2>
+                <button id="ext-el-23" class="text-zinc-400 hover:text-zinc-600">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+
+            <!-- Settings Tabs -->
+            <div class="flex border-b border-zinc-200 px-6 pt-4 overflow-x-auto" style="scrollbar-width:none;">
+                <button id="ext-el-24" class="settings-tab active">General</button>
+                <button id="ext-el-25" class="settings-tab">Models</button>
+                <button id="ext-el-26" class="settings-tab">Prompts</button>
+                <button id="ext-el-27" class="settings-tab">Templates</button>
+                <button id="ext-el-28" class="settings-tab">Providers</button>
+                <button class="settings-tab" id="settings-tab-logs">Logs<span id="log-error-badge" class="log-count-badge hidden">0</span></button>
+            </div>
+
+            <!-- General Tab -->
+            <div id="settings-general" class="tab-pane active">
+                <div class="modal-body space-y-6">
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label for="taskProfileSelect" class="block text-sm font-medium mb-2">Task Profile</label>
+                        <select id="taskProfileSelect" class="input"></select>
+                        <p class="text-xs text-zinc-500 mt-2">The profile changes system prompts for improvement and synthesis. If you manually modify the prompts, the profile will automatically become `Custom`.</p>
+                        <div class="mt-3 rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-3">
+                            <div class="text-xs uppercase tracking-wide text-zinc-500 mb-1">Active Profile</div>
+                            <div id="taskProfileName" class="text-sm font-medium text-zinc-900">Universal</div>
+                            <p id="taskProfileDescription" class="text-xs text-zinc-500 mt-1">Balanced mode for most tasks.</p>
+                        </div>
+                    </div>
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="notificationsEnabledToggle" class="mt-1">
+                            <div>
+                                <div class="text-sm font-medium">System Notifications</div>
+                                <p class="text-xs text-zinc-500 mt-1">Show autosave indicator and non-blocking warnings.</p>
+                            </div>
+                        </label>
+                    </div>
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="useRatingsInSynthesisToggle" class="mt-1">
+                            <div>
+                                <div class="text-sm font-medium">Use Ratings in Synthesis</div>
+                                <p class="text-xs text-zinc-500 mt-1">Pass user ratings to the aggregation prompt as a soft preference signal. If no rating is given, it's treated as neutral, not a negative.</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Models Tab -->
+            <div id="settings-models" class="tab-pane">
+                <div class="modal-body">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="text-sm text-zinc-500 whitespace-nowrap" id="modelsListCount"></span>
+                        <div class="flex gap-2 flex-wrap">
+                            <button id="ext-el-29" class="btn btn-outline btn-sm" title="Restore defaults">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                Restore Defaults
+                            </button>
+                            <button class="btn btn-danger btn-sm" title="Delete selected" id="deleteSelectedBtn" disabled="">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Delete Selected
+                            </button>
+                            <button id="ext-el-30" class="btn btn-danger btn-sm" title="Delete all">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                Delete All
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modelsList"></div>
+                    
+                    <div class="mt-4 pt-4 border-t border-zinc-200">
+                        <h3 class="text-sm font-medium mb-3">Add Model</h3>
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Name</label>
+                                <input type="text" id="newModelName" class="input" placeholder="GPT">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Provider</label>
+                                <input type="text" id="newModelProvider" class="input" placeholder="OpenAI">
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">System Prompt (optional)</label>
+                                <textarea id="newModelSystemPrompt" class="input" rows="3" placeholder="Leave empty to use the general prompt"></textarea>
+                            </div>
+                            <div>
+                                <label class="block text-sm text-zinc-600 mb-1">Chat URL (optional)</label>
+                                <input type="url" id="newModelChatUrl" class="input" placeholder="https://example.com/chat">
+                            </div>
+                            <button id="ext-el-31" class="btn btn-primary w-full">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                                Add Model
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Prompts Tab -->
+            <div id="settings-prompts" class="tab-pane">
+                <div class="modal-body space-y-6">
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-medium">Improvement Prompt</label>
+                            <button id="ext-el-32" class="text-xs text-blue-600 hover:underline">Reset</button>
+                        </div>
+                        <textarea id="settingsEnhancerPrompt" class="textarea" style="min-height: 150px;"></textarea>
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-2">
+                            <label class="block text-sm font-medium">Aggregation Prompt</label>
+                            <button id="ext-el-33" class="text-xs text-blue-600 hover:underline">Reset</button>
+                        </div>
+                        <textarea id="settingsAggregatorPrompt" class="textarea" style="min-height: 150px;"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Templates Tab -->
+            <div id="settings-templates" class="tab-pane">
+                <div class="modal-body space-y-6">
+                    <div>
+                        <h3 class="text-sm font-medium mb-3">Saved Prompt Templates</h3>
+                        <p class="text-xs text-zinc-500 mb-4">Templates can be used as starting points for new requests</p>
+                        <div id="templatesList"></div>
+                        <button id="ext-el-34" class="btn btn-outline btn-sm w-full mt-3">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
+                            Add Template
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Providers Tab -->
+            <div id="settings-lmstudio" class="tab-pane">
+                <div class="modal-body space-y-4">
+
+                    <!-- Enable toggle -->
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <label class="flex items-start gap-3 cursor-pointer">
+                            <input type="checkbox" id="lmsEnabledToggle" class="mt-1">
+                            <div>
+                                <div class="text-sm font-medium">Connect Provider for Automatic Processing</div>
+                                <p class="text-xs text-zinc-500 mt-1">The "Send to AI" button will appear on synthesis and prompt improvement steps. If disabled, everything stays in manual mode.</p>
+                            </div>
+                        </label>
+                    </div>
+
+                    <div id="lms-config-section" class="space-y-4">
+
+                        <!-- Provider selector -->
+                        <div class="card" style="margin:0; padding:1.25rem;">
+                            <label class="block text-sm font-medium mb-3">Provider</label>
+
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">Local</div>
+                            <div class="grid gap-2 mb-4" style="grid-template-columns: repeat(3,1fr);">
+                                <label id="lms-provider-card-lmstudio" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🖥️</div>
+                                    <div class="text-xs font-semibold">LM Studio</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">port 1234</div>
+                                </label>
+                                <label id="lms-provider-card-ollama" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🦙</div>
+                                    <div class="text-xs font-semibold">Ollama</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">port 11434</div>
+                                </label>
+                                <label id="lms-provider-card-custom" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">⚙️</div>
+                                    <div class="text-xs font-semibold">Other</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">OpenAI API</div>
+                                </label>
+                            </div>
+
+                            <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color:var(--text-muted);">Cloud</div>
+                            <div class="grid gap-2" style="grid-template-columns: repeat(3,1fr);">
+                                <label id="lms-provider-card-openai" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🤖</div>
+                                    <div class="text-xs font-semibold">OpenAI</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">GPT</div>
+                                </label>
+                                <label id="lms-provider-card-deepseek" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🔮</div>
+                                    <div class="text-xs font-semibold">DeepSeek</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">V3.2</div>
+                                </label>
+                                <label id="lms-provider-card-mistral" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🌀</div>
+                                    <div class="text-xs font-semibold">Mistral AI</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Large 3</div>
+                                </label>
+                                <label id="lms-provider-card-anthropic" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🧠</div>
+                                    <div class="text-xs font-semibold">Anthropic</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Claude 🔒 proxy</div>
+                                </label>
+                                <label id="lms-provider-card-google" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🌟</div>
+                                    <div class="text-xs font-semibold">Google</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Gemini</div>
+                                </label>
+                                <label id="lms-provider-card-groq" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">⚡</div>
+                                    <div class="text-xs font-semibold">Groq Cloud</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">LPU</div>
+                                </label>
+                                <label id="lms-provider-card-huggingface" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🤗</div>
+                                    <div class="text-xs font-semibold">Hugging Face</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Inference API</div>
+                                </label>
+                                <label id="lms-provider-card-openrouter" class="lms-provider-card cursor-pointer rounded-lg border-2 p-3 text-center transition-all">
+                                    <div class="text-lg mb-1">🔀</div>
+                                    <div class="text-xs font-semibold">OpenRouter</div>
+                                    <div class="text-xs text-zinc-400 mt-0.5">Manual input</div>
+                                </label>
+                            </div>
+
+                            <input type="hidden" id="lmsProviderInput" value="lmstudio">
+                            <p id="lms-provider-hint" class="text-xs text-zinc-500 mt-3"></p>
+                        </div>
+
+                        <!-- Import / Clear all keys -->
+                        <div class="card" style="margin:0; padding:1rem;">
+                            <div class="flex flex-wrap gap-2">
+                                <button id="ext-el-35" class="btn btn-outline btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                                    Import Keys (.txt)
+                                </button>
+                                <input type="file" id="keyImportInput" accept=".txt" style="display:none">
+                                <button id="ext-el-36" class="btn btn-outline btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Export Keys
+                                </button>
+                                <button id="ext-el-37" class="btn btn-danger btn-sm">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Delete All Keys
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-2">.txt format: <code>PROVIDER - key</code> (one key per line, order doesn't matter)</p>
+                        </div>
+
+                        <!-- API Key (cloud only) -->
+                        <div class="card" id="lms-apikey-card" style="margin:0; padding:1.25rem; display:none;">
+                            <label class="block text-sm font-medium mb-2" id="lms-apikey-label">API Key</label>
+                            <div class="relative">
+                                <input type="password" id="lmsApiKeyInput" class="input pr-10" placeholder="sk-…">
+                                <button id="ext-el-38" type="button" class="absolute right-2 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-600 p-1" title="Show/Hide">
+                                    <svg id="eye-icon-closed" class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path></svg>
+                                    <svg id="eye-icon-open" class="w-4 h-4 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-1.5" id="lms-apikey-hint">Key is stored only in your browser.</p>
+                        </div>
+
+                        <!-- Server URL (local / custom only) -->
+                        <div class="card" id="lms-url-card" style="margin:0; padding:1.25rem;">
+                            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                                <label class="block text-sm font-medium" id="lms-url-label">Server URL</label>
+                                <span id="lms-connection-status" class="lms-status disconnected">
+                                    <span class="lms-status-dot"></span>
+                                    <span id="lms-status-text">Not connected</span>
+                                </span>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="lmsUrlInput" class="input flex-1" placeholder="http://localhost:1234">
+                                <button class="btn btn-outline btn-sm" id="lms-test-btn">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Check
+                                </button>
+                            </div>
+                            <p id="lms-server-hint" class="text-xs text-zinc-500 mt-2"></p>
+                        </div>
+
+                        <!-- Cloud connect button (cloud providers) -->
+                        <div class="card" id="lms-cloud-check-card" style="margin:0; padding:1.25rem; display:none;">
+                            <div class="flex items-center justify-between flex-wrap gap-2">
+                                <span id="lms-connection-status-cloud" class="lms-status disconnected">
+                                    <span class="lms-status-dot"></span>
+                                    <span id="lms-status-text-cloud">Not verified</span>
+                                </span>
+                                <button class="btn btn-outline btn-sm" id="lms-test-cloud-btn">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                                    Verify Key
+                                </button>
+                            </div>
+                            <p class="text-xs text-zinc-500 mt-2" id="lms-cloud-hint">Enter an API key and click "Verify Key" to load the model list.</p>
+                        </div>
+
+                        <!-- Model selection (dropdown for list providers) -->
+                        <div class="card" id="lms-model-select-card" style="margin:0; padding:1.25rem;">
+                            <div class="flex items-center justify-between mb-2 flex-wrap gap-2">
+                                <label class="block text-sm font-medium">Model</label>
+                                <button class="btn btn-outline btn-sm text-xs" id="lms-refresh-btn">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path></svg>
+                                    Refresh
+                                </button>
+                            </div>
+                            <select id="lmsModelSelect" class="input">
+                                <option value="">— Select a provider and verify connection —</option>
+                            </select>
+                            <p id="lms-model-hint" class="text-xs text-zinc-500 mt-2">Select a model from the list.</p>
+                        </div>
+
+                        <!-- Model input (manual for providers like Hugging Face) -->
+                        <div class="card" id="lms-model-manual-card" style="margin:0; padding:1.25rem; display:none;">
+                            <label class="block text-sm font-medium mb-2">Model</label>
+                            <input type="text" id="lmsModelManualInput" class="input" placeholder="meta-llama/Llama-3.3-70B-Instruct">
+                            <p id="lms-model-manual-hint" class="text-xs text-zinc-500 mt-2">Enter the model ID manually.</p>
+                        </div>
+
+                        <!-- Usage mode -->
+                        <div class="card" style="margin:0; padding:1.25rem;">
+                            <label class="block text-sm font-medium mb-3">Use for</label>
+                            <div class="space-y-2.5">
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="both" id="lmsUseBoth" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Both</div><div class="text-xs text-zinc-500">Prompt improvement + answer synthesis</div></div>
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="prompt" id="lmsUsePrompt" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Prompt Improvement Only</div><div class="text-xs text-zinc-500">Step 2: refining your request</div></div>
+                                </label>
+                                <label class="flex items-center gap-2.5 cursor-pointer">
+                                    <input type="radio" name="lmsUseFor" value="synthesis" id="lmsUseSynthesis" class="accent-indigo-500">
+                                    <div><div class="text-sm font-medium">Answer Synthesis Only</div><div class="text-xs text-zinc-500">Step 4: aggregating all model answers</div></div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- API docs link — general, visible for all providers -->
+                        <div class="card" style="margin:0; padding:1.25rem; background: rgba(59,130,246,0.04); border-color: rgba(59,130,246,0.2);">
+                            <div class="flex items-start gap-2">
+                                <span class="text-lg">📡</span>
+                                <div>
+                                    <div class="text-sm font-medium" style="color:var(--accent, #3b82f6);">API Documentation</div>
+                                    <p class="text-xs text-zinc-500 mt-1">All providers use an OpenAI API-compatible format. Details on endpoints, parameters, streaming, and rate limits are in the documentation.</p>
+                                    <a href="api-docs.html" target="_blank" class="text-xs text-blue-500 hover:underline mt-1 inline-block">Open API Documentation →</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Logs Tab -->
+            <div id="settings-logs" class="tab-pane">
+                <div class="modal-body space-y-4">
+                    <div class="card" style="margin:0; padding:1.25rem;">
+                        <div class="flex items-center justify-between flex-wrap gap-3 mb-3">
+                            <label class="flex items-center gap-2.5 cursor-pointer">
+                                <input type="checkbox" id="loggingEnabledToggle">
+                                <div>
+                                    <div class="text-sm font-medium">Save Logs</div>
+                                    <p class="text-xs text-zinc-500 mt-0.5">When disabled, new entries are not saved.</p>
+                                </div>
+                            </label>
+                            <div class="flex gap-2">
+                                <button id="ext-el-39" class="btn btn-outline btn-sm text-xs">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                    Export
+                                </button>
+                                <button id="ext-el-40" class="btn btn-danger btn-sm text-xs">
+                                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Clear Logs
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 text-xs text-zinc-500 flex-wrap" id="log-stats">
+                            <span>Total: <strong id="log-stat-total">0</strong></span>
+                            <span style="color:#ef4444;">Errors: <strong id="log-stat-errors">0</strong></span>
+                            <span style="color:#d97706;">Warnings: <strong id="log-stat-warns">0</strong></span>
+                        </div>
+                    </div>
+                    <div class="flex gap-2 flex-wrap">
+                        <button id="ext-el-41" class="btn btn-outline btn-sm text-xs log-filter-btn active" data-filter="all">All</button>
+                        <button id="ext-el-42" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="error">Errors</button>
+                        <button id="ext-el-43" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="warn">Warnings</button>
+                        <button id="ext-el-44" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="info">Info</button>
+                        <button id="ext-el-45" class="btn btn-outline btn-sm text-xs log-filter-btn" data-filter="success">Success</button>
+                    </div>
+                    <div class="logs-container" id="logsContainer">
+                        <div class="logs-empty" id="logsEmpty">
+                            <svg class="w-8 h-8 mx-auto mb-2 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                            <p>No logs</p>
+                        </div>
+                        <div id="logsList"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="ext-el-46" class="btn btn-outline">Close</button>
+                <button id="ext-el-47" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Continue Chat Modal -->
+    <div id="continueModal" class="modal-overlay hidden">
+        <div class="modal" style="max-width:600px;">
+            <div class="modal-header">
+                <div>
+                    <h2 class="text-xl font-semibold">Continue Chat</h2>
+                    <p class="text-sm text-zinc-500 mt-0.5">Paste links to existing chats so the AI remembers the context. Leave empty to open new chats.</p>
+                </div>
+                <button id="ext-el-48" class="text-zinc-400 hover:text-zinc-600 ml-4">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="modal-body" style="max-height:55vh;">
+                <div id="continueUrlList"></div>
+            </div>
+            <div class="modal-footer">
+                <button id="ext-el-49" class="btn btn-outline">Cancel</button>
+                <button id="ext-el-50" class="btn btn-primary">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History Overlay -->
+    <div id="historyOverlay" class="history-overlay"></div>
+
+        <!-- History Panel -->
+        <div id="historyPanel" class="history-panel">
+            <div class="history-header">
+                <div class="flex items-center gap-2">
+                    <svg class="w-5 h-5 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <h2 class="text-lg font-semibold">Request History</h2>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button id="ext-el-51" class="btn btn-outline btn-sm" title="Export History">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                    </button>
+                    <button id="ext-el-52" class="btn btn-outline btn-sm" title="Import History">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                    </button>
+                    <button id="ext-el-53" class="btn btn-outline btn-sm text-red-500 border-red-200 hover:bg-red-50" title="Clear History">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                    </button>
+                    <button id="ext-el-54" class="text-zinc-400 hover:text-zinc-600">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+            </div>
+            <!-- Search -->
+            <div class="px-4 py-2 border-b border-[var(--border)]">
+                <div class="relative">
+                    <svg class="w-4 h-4 absolute left-3 top-1/2 transform -translate-y-1/2 text-[var(--text-muted)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    <input type="text" id="historySearch" class="input pl-9 text-sm" placeholder="Search history...">
+                </div>
+            </div>
+            <div class="history-body" id="historyList">
+                <div class="history-empty">
+                <svg class="w-10 h-10 mx-auto mb-3 text-zinc-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                <p>History is empty</p>
+                <p class="text-xs mt-1">Completed sessions will appear here</p>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <!-- Chat fullscreen modal -->
+    <div id="chatFullscreenOverlay" class="chat-fullscreen-overlay">
+        <div class="chat-fullscreen-modal">
+            <div class="chat-fullscreen-head">
+                <span class="font-semibold text-base" id="chatFullscreenTitle">Chat</span>
+                <button id="ext-el-55" class="btn btn-outline btn-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    Close
+                </button>
+            </div>
+            <div class="chat-fullscreen-body" id="chatFullscreenBody"></div>
+        </div>
+    </div>
+<script src="app.js"></script>
+
+
+</body></html>

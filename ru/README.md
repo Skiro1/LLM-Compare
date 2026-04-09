@@ -95,7 +95,7 @@ OPENROUTER - sk-or-your-key-here
 
 ### Вариант 1. Просто открыть файл
 
-Откройте [LLM_Compare.html](LLM_Compare.html) в браузере. Работает для большинства провайдеров (кроме Anthropic).
+Откройте [index.html](index.html) в браузере. Работает для большинства провайдеров (кроме Anthropic).
 
 ### Вариант 2. Через прокси-сервер (рекомендуется)
 
@@ -115,7 +115,7 @@ node proxy-server.js
 py -m http.server 8000
 ```
 
-Откройте: `http://localhost:8000/LLM_Compare.html`
+Откройте: `http://localhost:8000/index.html`
 
 ## Расширения для браузера
 
@@ -235,36 +235,61 @@ ANTHROPIC - sk-ant-your-key
 
 ```
 LLM_Compare/
-├── LLM_Compare.html          # Основной интерфейс приложения
+├── index.html                # Главный интерфейс приложения (модульный)
 ├── proxy-server.js           # Прокси-сервер для обхода CORS (Anthropic) + статика
 ├── api-docs.html             # Документация по API провайдерам
 ├── README.md                 # Описание проекта
 ├── .gitignore                # Исключения для Git
+├── css/
+│   └── styles.css            # Все стили приложения
+├── js/
+│   ├── constants.js          # Стандартные промты, модели, шаблоны
+│   ├── state.js              # Переменные состояния приложения
+│   └── modules/
+│       ├── logging.js        # Система логирования
+│       ├── providers.js      # LM Studio + облачные провайдеры
+│       ├── huggingface.js    # Интеграция Hugging Face
+│       ├── autosave.js       # Автосохранение и уведомления
+│       ├── ratings.js        # Система звёздного рейтинга
+│       ├── comparison.js     # Поблочное сравнение
+│       ├── theme.js          # Переключение темы
+│       ├── init.js           # Инициализация и горячие клавиши
+│       └── app.js            # Основная логика приложения
 ├── chrome-extension/         # Расширение для Chrome (MV3)
 │   ├── manifest.json
 │   ├── background.js
-│   ├── LLM_Compare.html
+│   ├── index.html
 │   ├── app.js
+│   ├── css/styles.css
 │   └── README.md
 ├── firefox-extension/        # Расширение для Firefox (MV2)
 │   ├── manifest.json
 │   ├── background.js
-│   ├── LLM_Compare.html
+│   ├── index.html
 │   ├── app.js
+│   ├── css/styles.css
 │   └── README.md
-└── standalone/               # Автономная версия (если есть)
+└── ru/                       # Русская локализация
+    ├── index.html
+    ├── README.md
+    ├── CHANGELOG.md
+    ├── css/
+    ├── js/
+    ├── chrome-extension/
+    └── firefox-extension/
 ```
 
 ## Технические детали
 
-- Один HTML-файл, не требует сборки
+- **Модульная архитектура** — CSS и JS разделены на 12 файлов
+- **Не требует сборки** — файлы загружаются напрямую в браузере
 - Для Anthropic API требуется `node proxy-server.js` (обход CORS)
 - Данные хранятся в `localStorage` браузера (API-ключи привязаны к провайдеру)
 - API запросы идут напрямую из браузера (CORS зависит от провайдера)
 - Интерфейс адаптирован под мобильные устройства и планшеты
 - Поддержка светлой и тёмной темы
 - Markdown рендеринг ответов через [marked.js](https://marked.js.org)
-- Стилизация через [Tailwind CSS](https://tailwindcss.com) (CDN)
+- Стилизация через [Tailwind CSS](https://tailwindcss.com) (CDN в основном приложении, локально в расширениях)
 
 ## Ограничения
 
