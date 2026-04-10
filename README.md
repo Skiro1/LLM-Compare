@@ -117,6 +117,26 @@ py -m http.server 8000
 
 Open: `http://localhost:8000/index.html`
 
+## Windows Desktop App
+
+The project includes a **standalone Windows application** built with Electron:
+
+- 📦 **Installer** — NSIS installer with auto-update support
+- 🔌 **Portable** — no installation needed, single `.exe`
+- 🌐 **External browser** — Google login and web chats open in your default browser
+
+### Building the Desktop App
+
+```powershell
+cd win
+npm install
+npm run build:win
+```
+
+See documentation:
+- 🇬🇧 [Windows App Guide (EN)](win/README_EN.md)
+- 🇷🇺 [Windows App Guide (RU)](win/README_RU.md)
+
 ## Browser Extensions
 
 The project includes extensions for **Chrome** and **Firefox** with additional features:
@@ -268,6 +288,14 @@ LLM_Compare/
 │   ├── app.js
 │   ├── css/styles.css
 │   └── README.md
+├── win/                      # Windows desktop app (Electron)
+│   ├── main.js               # Electron main process
+│   ├── preload.js            # Preload script
+│   ├── package.json          # Build config
+│   ├── build-en.bat          # English build script
+│   ├── build-ru.bat          # Russian build script
+│   ├── README_EN.md          # English documentation
+│   └── README_RU.md          # Russian documentation
 └── ru/                       # Russian localization
     ├── index.html
     ├── README.md

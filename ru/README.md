@@ -117,6 +117,26 @@ py -m http.server 8000
 
 Откройте: `http://localhost:8000/index.html`
 
+## Desktop-приложение для Windows
+
+Проект включает **автономное приложение для Windows** на базе Electron:
+
+- 📦 **Установщик** — NSIS с поддержкой автообновлений
+- 🔌 **Portable** — установка не нужна, один `.exe` файл
+- 🌐 **Внешний браузер** — вход в Google и веб-чаты открываются в вашем браузере по умолчанию
+
+### Сборка приложения
+
+```powershell
+cd win
+npm install
+npm run build:win
+```
+
+Документация:
+- 🇬🇧 [Руководство (EN)](win/README_EN.md)
+- 🇷🇺 [Руководство (RU)](win/README_RU.md)
+
 ## Расширения для браузера
 
 Проект включает расширения для **Chrome** и **Firefox** с дополнительными функциями:
@@ -268,6 +288,14 @@ LLM_Compare/
 │   ├── app.js
 │   ├── css/styles.css
 │   └── README.md
+├── win/                      # Desktop-приложение Windows (Electron)
+│   ├── main.js               # Основной процесс Electron
+│   ├── preload.js            # Preload-скрипт
+│   ├── package.json          # Конфигурация сборки
+│   ├── build-en.bat          # Скрипт сборки EN
+│   ├── build-ru.bat          # Скрипт сборки RU
+│   ├── README_EN.md          # Документация (EN)
+│   └── README_RU.md          # Документация (RU)
 └── ru/                       # Русская локализация
     ├── index.html
     ├── README.md
