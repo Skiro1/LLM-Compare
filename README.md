@@ -310,6 +310,7 @@ LLM_Compare/
 
 - **Modular architecture** — CSS and JS separated into 12 files
 - **No build required** — Files loaded directly in browser
+- **Retry with backoff** — API requests auto-retry on failure (1s → 2s → 4s)
 - Anthropic API requires `node proxy-server.js` (CORS bypass)
 - Data stored in browser `localStorage` (API keys tied to provider)
 - API requests sent directly from browser (CORS depends on provider)

@@ -7,6 +7,8 @@ Firefox Extension (Manifest V2) for the LLM Compare application.
 - Chat link input fields right at the "Models" stage
 - Automatic chat URL saving
 - Local auto-save of data to `localStorage`
+- **API retry with backoff** — requests auto-retry on failure (1s → 2s → 4s)
+- **Textarea auto-resize** — textareas expand to content height automatically
 
 ## Installation
 

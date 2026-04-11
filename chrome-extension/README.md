@@ -7,6 +7,8 @@ Chrome Extension (Manifest V3) for the LLM Compare application.
 - Enter chat URLs directly at the "Models" stage
 - Automatic saving of chat URLs
 - Local auto-save of data in `localStorage`
+- **API retry with backoff** — requests auto-retry on failure (1s → 2s → 4s)
+- **Textarea auto-resize** — textareas expand to content height automatically
 
 ## Installation
 

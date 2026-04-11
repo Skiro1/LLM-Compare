@@ -786,24 +786,69 @@ const LMS_PROVIDERS = {
             });
         }
 
+        // ── Retry with exponential backoff ──────────────────────────────
+        async function retryWithBackoff(fn, maxRetries = 2) {
+            let lastError;
+            for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                    return await fn();
+                } catch (e) {
+                    lastError = e;
+                    if (attempt < maxRetries) {
+                        const delay = 1000 * Math.pow(2, attempt); // 1s, 2s, 4s...
+                        appLog('warn', `Request failed, retry ${attempt + 1}/${maxRetries} in ${delay}ms: ${e.message}`);
+                        await new Promise(r => setTimeout(r, delay));
+                    }
+                }
+            }
+            throw lastError;
+        }
+
         // ── Build request and parse response for each chat API format ──
         async function doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt) {
             const info = getProviderInfo(provider);
 
-            if (info.chatApi === 'anthropic') {
-                // Anthropic Messages API
-                const resp = await fetchWithTimeout(`${url}/v1/messages`, {
-                    method:  'POST',
-                    headers: {
-                        'Content-Type':      'application/json',
-                        'x-api-key':         apiKey,
-                        'anthropic-version': '2023-06-01',
-                    },
+            const makeRequest = async () => {
+                if (info.chatApi === 'anthropic') {
+                    // Anthropic Messages API
+                    const resp = await fetchWithTimeout(`${url}/v1/messages`, {
+                        method:  'POST',
+                        headers: {
+                            'Content-Type':      'application/json',
+                            'x-api-key':         apiKey,
+                            'anthropic-version': '2023-06-01',
+                        },
+                        body: JSON.stringify({
+                            model,
+                            max_tokens: 4096,
+                            system:   systemPrompt,
+                            messages: [{ role: 'user', content: userPrompt }],
+                        })
+                    }, 120000);
+                    if (!resp.ok) {
+                        const txt = await resp.text().catch(() => '');
+                        throw new Error(`HTTP ${resp.status}: ${txt.slice(0, 200)}`);
+                    }
+                    const data = await resp.json();
+                    return data?.content?.[0]?.text || '';
+                }
+
+                // OpenAI-compat (works for OpenAI, Google, local servers)
+                const headers = { 'Content-Type': 'application/json' };
+                if (apiKey) headers['Authorization'] = `Bearer ${apiKey}`;
+
+                const resp = await fetchWithTimeout(`${url}/v1/chat/completions`, {
+                    method: 'POST',
+                    headers,
                     body: JSON.stringify({
                         model,
-                        max_tokens: 4096,
-                        system:   systemPrompt,
-                        messages: [{ role: 'user', content: userPrompt }],
+                        messages: [
+                            { role: 'system', content: systemPrompt },
+                            { role: 'user',   content: userPrompt   },
+                        ],
+                        temperature: 0.7,
+                        max_tokens:  4096,
+                        stream:      false,
                     })
                 }, 120000);
                 if (!resp.ok) {
@@ -811,33 +856,10 @@ const LMS_PROVIDERS = {
                     throw new Error(`HTTP ${resp.status}: ${txt.slice(0, 200)}`);
                 }
                 const data = await resp.json();
-                return data?.content?.[0]?.text || '';
-            }
+                return data?.choices?.[0]?.message?.content || '';
+            };
 
-            // OpenAI-compat (works for OpenAI, Google, local servers)
-            const headers = { 'Content-Type': 'application/json' };
-            if (apiKey) headers['Authorization'] = `Bearer ${apiKey}`;
-
-            const resp = await fetchWithTimeout(`${url}/v1/chat/completions`, {
-                method: 'POST',
-                headers,
-                body: JSON.stringify({
-                    model,
-                    messages: [
-                        { role: 'system', content: systemPrompt },
-                        { role: 'user',   content: userPrompt   },
-                    ],
-                    temperature: 0.7,
-                    max_tokens:  4096,
-                    stream:      false,
-                })
-            }, 120000);
-            if (!resp.ok) {
-                const txt = await resp.text().catch(() => '');
-                throw new Error(`HTTP ${resp.status}: ${txt.slice(0, 200)}`);
-            }
-            const data = await resp.json();
-            return data?.choices?.[0]?.message?.content || '';
+            return retryWithBackoff(makeRequest);
         }
 
         // ── Main call function ─────────────────────────────────────────

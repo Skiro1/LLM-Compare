@@ -47,27 +47,9 @@
 
 ## Planned Improvements 🚧
 
-### Priority 1 — Critical (Next Release v1.2.0)
-
-#### Code Architecture
-- [x] **Split monolithic HTML file** — `LLM_Compare.html` separated into modules via Cheerio:
-  - `css/styles.css` — All styles extracted from `<style>`
-  - `js/constants.js` — Default prompts, models, templates
-  - `js/state.js` — Application state variables
-  - `js/modules/logging.js` — Logging system
-  - `js/modules/providers.js` — LM Studio + cloud providers
-  - `js/modules/huggingface.js` — Hugging Face integration
-  - `js/modules/autosave.js` — Auto-save and notifications
-  - `js/modules/ratings.js` — Star rating system
-  - `js/modules/comparison.js` — Side-by-side comparison
-  - `js/modules/theme.js` — Theme toggle
-  - `js/modules/init.js` — Initialization and keyboard shortcuts
-  - `js/modules/app.js` — Main application logic
-  - Applied to all 6 locations: root, `ru/`, `chrome-extension/`, `firefox-extension/`, `ru/chrome-extension/`, `ru/firefox-extension/`
+### Priority 1 — Critical (Next Release v1.3.0)
 
 #### Error Handling & Reliability
-- [ ] **Add comprehensive error handling** — try/catch for all API calls
-- [ ] **Implement retry logic** — Exponential backoff for failed requests
 - [ ] **Add connection status indicators** — Real-time provider status
 - [ ] **Graceful degradation** — Fallback when provider is unavailable
 
@@ -148,8 +130,12 @@
 - ✅ **Fixed textarea resize bug** — replaced `resize: vertical` with auto-resize JS (no more glitchy drag handle)
 - ✅ **Removed API Documentation** — deleted `api-docs.html` from all 6 locations, removed buttons and links from all index.html and popup files
 - ✅ **Fixed popup.js** — restored broken extension popup files (were corrupted during cleanup)
-- ✅ Removed temporary files and cleanup scripts
+- ✅ **Added retry with exponential backoff** — API requests auto-retry on failure (1s → 2s → 4s, max 3 attempts)
+- ✅ **Added try/catch for saveToHistory** — error handling for history saving
+- ✅ **Windows Desktop App** — Electron-based standalone app (`win/`) with NSIS installer and portable versions
+- ✅ **RU updates folder** — `ru-updates/` for tracking files that need translation
 - ✅ `.gitignore` updated
+- ✅ Removed temporary files and cleanup scripts
 
 ### v1.1.0 (Current) — Translation & Bug Fixes
 - ✅ Full English translation of all project files

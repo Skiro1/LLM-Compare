@@ -146,6 +146,14 @@ The `build` section in `package.json`:
 
 Google and other services block Electron. All links (Google login, web chats, OAuth) automatically open in the user's default browser — Chrome, Firefox, Edge, etc.
 
+### API Reliability
+
+All API requests use **exponential backoff retry**:
+- On failure → retry after 1s → 2s → 4s
+- Max 3 attempts total
+- Each retry is logged in the app log
+- User sees a "Waiting for response..." status during retries
+
 ---
 
 ## Troubleshooting

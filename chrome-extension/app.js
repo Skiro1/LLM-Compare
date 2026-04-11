@@ -1470,8 +1470,26 @@ If data is insufficient, say so directly and do not fabricate.`
             });
         }
 
+        // ── Retry with exponential backoff ──────────────────────────────
+        async function retryWithBackoff(fn, maxRetries = 2) {
+            let lastError;
+            for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                    return await fn();
+                } catch (e) {
+                    lastError = e;
+                    if (attempt < maxRetries) {
+                        const delay = 1000 * Math.pow(2, attempt);
+                        appLog('warn', `Request failed, retry ${attempt + 1}/${maxRetries} in ${delay}ms: ${e.message}`);
+                        await new Promise(r => setTimeout(r, delay));
+                    }
+                }
+            }
+            throw lastError;
+        }
+
         // ── Build request and parse response for each chat API format ──
-        async function doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt) {
+        async function doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt) {return retryWithBackoff(async () => {
             const info = getProviderInfo(provider);
 
             if (info.chatApi === 'anthropic') {
@@ -1523,7 +1541,7 @@ If data is insufficient, say so directly and do not fabricate.`
             }
             const data = await resp.json();
             return data?.choices?.[0]?.message?.content || '';
-        }
+        });}
 
         // ── Main call function ─────────────────────────────────────────
         async function callLmsApi(systemPrompt, userPrompt, targetFieldId, statusElId, btnId, badgeId) {
@@ -3580,40 +3598,42 @@ ${answersText}`;
         }
 
         async function saveToHistory() {
-            const rawPrompt = document.getElementById('rawPrompt').value.trim();
-            const finalAnswer = document.getElementById('finalAnswer').value.trim();
-            if (!rawPrompt || !finalAnswer) return;
+            try {
+                const rawPrompt = document.getElementById('rawPrompt').value.trim();
+                const finalAnswer = document.getElementById('finalAnswer').value.trim();
+                if (!rawPrompt || !finalAnswer) return;
 
-            const turn = {
-                rawPrompt,
-                improvedPrompt: document.getElementById('improvedPrompt').value.trim(),
-                finalAnswer,
-                timestamp: new Date().toISOString(),
-                chatUrls: { ...continuationUrls }
-            };
-
-            if (!currentThread) {
-                // Start a new thread
-                currentThread = {
-                    id: Date.now(),
-                    title: rawPrompt.length > 80 ? rawPrompt.slice(0, 80) + '…' : rawPrompt,
-                    createdAt: new Date().toISOString(),
-                    turns: []
+                const turn = {
+                    rawPrompt,
+                    improvedPrompt: document.getElementById('improvedPrompt').value.trim(),
+                    finalAnswer,
+                    timestamp: new Date().toISOString(),
+                    chatUrls: { ...continuationUrls }
                 };
-                allThreads.unshift(currentThread);
-                if (allThreads.length > 30) allThreads = allThreads.slice(0, 30);
+
+                if (!currentThread) {
+                    currentThread = {
+                        id: Date.now(),
+                        title: rawPrompt.length > 80 ? rawPrompt.slice(0, 80) + '…' : rawPrompt,
+                        createdAt: new Date().toISOString(),
+                        turns: []
+                    };
+                    allThreads.unshift(currentThread);
+                    if (allThreads.length > 30) allThreads = allThreads.slice(0, 30);
+                }
+
+                const last = currentThread.turns[currentThread.turns.length - 1];
+                if (last && last.rawPrompt === turn.rawPrompt && last.finalAnswer === turn.finalAnswer) return;
+
+                currentThread.turns.push(turn);
+                const idx = allThreads.findIndex(t => t.id === currentThread.id);
+                if (idx !== -1) allThreads[idx] = currentThread;
+
+                await saveThreads();
+            } catch(e) {
+                appLog('error', 'Error saving to history', e.message);
+                showSystemNotification('Error saving to history: ' + e.message.slice(0, 60), 'error', 3000);
             }
-
-            // Avoid duplicate turn
-            const last = currentThread.turns[currentThread.turns.length - 1];
-            if (last && last.rawPrompt === turn.rawPrompt && last.finalAnswer === turn.finalAnswer) return;
-
-            currentThread.turns.push(turn);
-            // Sync reference in allThreads
-            const idx = allThreads.findIndex(t => t.id === currentThread.id);
-            if (idx !== -1) allThreads[idx] = currentThread;
-
-            await saveThreads();
         }
 
         // Render the in-page chat history bubbles above step-1 input

@@ -786,8 +786,26 @@ const LMS_PROVIDERS = {
             });
         }
 
+        // ── Retry with exponential backoff ──────────────────────────────
+        async function retryWithBackoff(fn, maxRetries = 2) {
+            let lastError;
+            for (let attempt = 0; attempt <= maxRetries; attempt++) {
+                try {
+                    return await fn();
+                } catch (e) {
+                    lastError = e;
+                    if (attempt < maxRetries) {
+                        const delay = 1000 * Math.pow(2, attempt);
+                        appLog('warn', `Request failed, retry ${attempt + 1}/${maxRetries} in ${delay}ms: ${e.message}`);
+                        await new Promise(r => setTimeout(r, delay));
+                    }
+                }
+            }
+            throw lastError;
+        }
+
         // ── Build request and parse response for each chat API format ──
-        async function doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt) {
+        async function doCloudChatRequest(url, provider, apiKey, model, systemPrompt, userPrompt) {return retryWithBackoff(async () => {
             const info = getProviderInfo(provider);
 
             if (info.chatApi === 'anthropic') {
@@ -838,7 +856,7 @@ const LMS_PROVIDERS = {
             }
             const data = await resp.json();
             return data?.choices?.[0]?.message?.content || '';
-        }
+        });}
 
         // ── Main call function ─────────────────────────────────────────
         async function callLmsApi(systemPrompt, userPrompt, targetFieldId, statusElId, btnId, badgeId) {
